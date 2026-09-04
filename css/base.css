@@ -1,0 +1,76 @@
+/* ═══ tokens ═══ */
+:root{
+  --yellow:#FFE600; --pink:#FF3D8B; --cyan:#22D3EE; --lime:#B8FF29;
+  --orange:#FF7A2F; --purple:#A66BFF;
+  --cat:#FF8A3D; --cat-ear:#FF9EC4;
+
+  --paper:#FFFDF5; --panel:#FFFFFF; --ink:#000000; --sub:#4A4A4A;
+  --grid:rgba(0,0,0,.06);
+
+  --bw:3px;                       /* border width  */
+  --sh:6px;                       /* shadow offset */
+  --shadow:var(--sh) var(--sh) 0 var(--ink);
+  --shadow-sm:4px 4px 0 var(--ink);
+  --shadow-lg:10px 10px 0 var(--ink);
+
+  --f-display:'Archivo Black','Arial Black',Impact,sans-serif;
+  --f-body:'Space Grotesk',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --f-mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+
+  --wrap:1180px;
+  --snap:cubic-bezier(.2,.9,.25,1);
+}
+[data-theme=dark]{
+  --paper:#0E0E10; --panel:#17171B; --ink:#FFFFFF; --sub:#B4B4BD;
+  --grid:rgba(255,255,255,.07);
+}
+
+/* ═══ reset ═══ */
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:104px;overflow-x:hidden}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font:400 17px/1.6 var(--f-body);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),
+                   linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:28px 28px;
+  overflow-x:hidden;
+}
+img{max-width:100%;display:block}
+a{color:inherit}
+button{font:inherit;color:inherit}
+h1,h2,h3{margin:0;font-family:var(--f-display);font-weight:400;line-height:1;letter-spacing:-.01em}
+p{margin:0 0 1em}
+ul,ol{margin:0;padding:0;list-style:none}
+code{font-family:var(--f-mono);font-size:.92em}
+::selection{background:var(--pink);color:#000}
+
+.wrap{max-width:var(--wrap);margin-inline:auto;padding-inline:20px}
+.skip{position:absolute;left:-999px;top:0;z-index:200;background:var(--yellow);color:#000;
+  padding:12px 18px;border:var(--bw) solid #000;font-weight:700}
+.skip:focus{left:8px;top:8px}
+:focus-visible{outline:4px solid var(--pink);outline-offset:3px}
+
+/* ═══ scroll progress, with a cat on it ═══ */
+.scrollbar{position:fixed;inset:auto 0 0 0;height:14px;z-index:120;
+  background:var(--panel);border-top:var(--bw) solid var(--ink)}
+.scrollbar__fill{height:100%;width:0;background:var(--pink);
+  border-right:var(--bw) solid var(--ink)}
+.scrollbar__cat{position:absolute;bottom:11px;left:0;width:56px;height:34px;pointer-events:none}
+
+/* ═══ scroll reveal ═══ */
+.reveal{opacity:0;transform:translateY(26px) rotate(-.6deg);
+  transition:opacity .45s var(--snap),transform .45s var(--snap)}
+.reveal.is-in{opacity:1;transform:none}
+.reveal[data-d="1"]{transition-delay:.07s}
+.reveal[data-d="2"]{transition-delay:.14s}
+.reveal[data-d="3"]{transition-delay:.21s}
+.reveal[data-d="4"]{transition-delay:.28s}
+.reveal[data-d="5"]{transition-delay:.35s}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .reveal{opacity:1;transform:none;transition:none}
+  *,*::before,*::after{animation-duration:.001s!important;animation-iteration-count:1!important;
+    transition-duration:.001s!important}
+}

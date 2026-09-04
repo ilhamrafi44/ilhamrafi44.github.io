@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bonsky — Senior Full Stack Engineer</title>
+<meta name="description" content="Muhammad Ilham Rafiannandha (Bonsky) — Senior Full Stack Engineer in Jakarta. ISP platforms, fintech, mobile. Java/Spring Modulith, Next.js, React Native.">
+<meta name="theme-color" content="#FFE600">
+<meta property="og:title" content="Bonsky — Senior Full Stack Engineer">
+<meta property="og:description" content="I build the systems where being wrong costs real money.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ilhamrafi44.github.io/">
+<meta property="og:image" content="https://ilhamrafi44.github.io/assets/bonsky.jpg">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/sections.css">
+</head>
+<body>
+
+<!-- ══ cat + icon sprite ══ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+ <defs>
+  <symbol id="cat-sit" viewBox="0 0 150 156">
+   <g class="c-tail"><path d="M92 140c36 0 46-36 30-64" fill="none" stroke="var(--ink)" stroke-width="17" stroke-linecap="round"/><path d="M92 140c36 0 46-36 30-64" fill="none" stroke="var(--cat)" stroke-width="10" stroke-linecap="round"/></g>
+   <path d="M32 44 26 4l34 24z" fill="var(--cat)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round"/>
+   <path d="M88 44 94 4 60 28z" fill="var(--cat)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round"/>
+   <path d="M36 38 33 15l19 13z" fill="var(--cat-ear)"/><path d="M84 38 87 15 68 28z" fill="var(--cat-ear)"/>
+   <path d="M24 150c0-48 14-64 36-64s36 16 36 64z" fill="var(--cat)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round"/>
+   <rect x="30" y="136" width="24" height="15" rx="7" fill="var(--cat)" stroke="var(--ink)" stroke-width="3"/>
+   <rect x="66" y="136" width="24" height="15" rx="7" fill="var(--cat)" stroke="var(--ink)" stroke-width="3"/>
+   <circle cx="60" cy="62" r="34" fill="var(--cat)" stroke="var(--ink)" stroke-width="3"/>
+   <path d="M52 32v9M60 30v10M68 32v9" stroke="var(--ink)" stroke-width="3" stroke-linecap="round"/>
+   <ellipse class="c-eye" cx="48" cy="62" rx="5" ry="7" fill="var(--ink)"/>
+   <ellipse class="c-eye" cx="72" cy="62" rx="5" ry="7" fill="var(--ink)"/>
+   <path d="M56 72h8l-4 6z" fill="var(--ink)"/>
+   <path d="M46 74 32 78M46 80 33 86M74 74 88 78M74 80 87 86" stroke="var(--ink)" stroke-width="2.4" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="cat-sleep" viewBox="0 0 230 116">
+   <path d="M214 84c-6 32-64 36-98 20" fill="none" stroke="var(--ink)" stroke-width="15" stroke-linecap="round"/>
+   <path d="M214 84c-6 32-64 36-98 20" fill="none" stroke="var(--cat)" stroke-width="9" stroke-linecap="round"/>
+   <ellipse cx="126" cy="68" rx="94" ry="37" fill="var(--cat)" stroke="var(--ink)" stroke-width="3"/>
+   <path d="M28 60 20 26l32 14z" fill="var(--cat)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round"/>
+   <path d="M76 48 88 20l6 32z" fill="var(--cat)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round"/>
+   <circle cx="56" cy="72" r="35" fill="var(--cat)" stroke="var(--ink)" stroke-width="3"/>
+   <path d="M38 68q9 9 18 0M64 68q9 9 18 0" fill="none" stroke="var(--ink)" stroke-width="3.2" stroke-linecap="round"/>
+   <path d="M50 84h12l-6 8z" fill="var(--ink)"/>
+   <path d="M132 42v9M150 40v10M168 43v9" stroke="var(--ink)" stroke-width="3" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="cat-walk" viewBox="0 0 160 92">
+   <g class="c-swish"><path d="M20 44C-2 38-6 14 8 2" fill="none" stroke="var(--ink)" stroke-width="16" stroke-linecap="round"/><path d="M20 44C-2 38-6 14 8 2" fill="none" stroke="var(--cat)" stroke-width="9" stroke-linecap="round"/></g>
+   <rect class="c-legb" x="34" y="40" width="11" height="38" rx="5" fill="var(--cat)" stroke="var(--ink)" stroke-width="3"/>
+   <rect class="c-legf" x="86" y="40" width="11" height="38" rx="5" fill="var(--cat)" stroke="var(--ink)" stroke-width="3"/>
+   <ellipse cx="66" cy="32" rx="46" ry="25" fill="var(--cat)" stroke="var(--ink)" stroke-width="3"/>
+   <rect class="c-legf" x="50" y="40" width="11" height="38" rx="5" fill="var(--cat)" stroke="var(--ink)" stroke-width="3"/>
+   <rect class="c-legb" x="100" y="40" width="11" height="38" rx="5" fill="var(--cat)" stroke="var(--ink)" stroke-width="3"/>
+   <path d="M100 16 96-8l22 14z" fill="var(--cat)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round"/>
+   <path d="M134 16 140-6l-22 14z" fill="var(--cat)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round"/>
+   <circle cx="118" cy="28" r="25" fill="var(--cat)" stroke="var(--ink)" stroke-width="3"/>
+   <ellipse class="c-eye" cx="110" cy="26" rx="3.8" ry="5" fill="var(--ink)"/>
+   <ellipse class="c-eye" cx="126" cy="26" rx="3.8" ry="5" fill="var(--ink)"/>
+   <path d="M114 34h8l-4 5z" fill="var(--ink)"/>
+  </symbol>
+  <symbol id="cat-face" viewBox="0 0 76 72">
+   <path d="M14 26 9 2l24 15z" fill="var(--cat)" stroke="var(--ink)" stroke-width="2.6" stroke-linejoin="round"/>
+   <path d="M62 26 67 2 43 17z" fill="var(--cat)" stroke="var(--ink)" stroke-width="2.6" stroke-linejoin="round"/>
+   <path d="M17 22 15 9l13 8z" fill="var(--cat-ear)"/><path d="M59 22 61 9l-13 8z" fill="var(--cat-ear)"/>
+   <circle cx="38" cy="42" r="27" fill="var(--cat)" stroke="var(--ink)" stroke-width="2.6"/>
+   <path d="M31 18v7M38 16v8M45 18v7" stroke="var(--ink)" stroke-width="2.6" stroke-linecap="round"/>
+   <ellipse class="c-eye" cx="29" cy="42" rx="4" ry="5.4" fill="var(--ink)"/>
+   <ellipse class="c-eye" cx="47" cy="42" rx="4" ry="5.4" fill="var(--ink)"/>
+   <path d="M34 50h8l-4 5z" fill="var(--ink)"/>
+   <path d="M26 52 15 55M26 57 16 62M50 52 61 55M50 57 60 62" stroke="var(--ink)" stroke-width="2.2" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="paw" viewBox="-16 -12 32 24">
+   <ellipse cx="0" cy="4" rx="7" ry="5.6"/><circle cx="-6.4" cy="-4.2" r="2.5"/><circle cx="-2.2" cy="-6.6" r="2.5"/><circle cx="2.2" cy="-6.6" r="2.5"/><circle cx="6.4" cy="-4.2" r="2.5"/>
+  </symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="2" y="4.5" width="20" height="15" rx="1.5"/><path d="m2.8 5.6 9.2 7.6 9.2-7.6"/></symbol>
+  <symbol id="i-github" viewBox="0 0 24 24"><path d="M9 19.4c-4.5 1.3-4.5-2.4-6.3-2.9m12.6 5.3v-3.6c0-1 .1-1.5-.5-2 2.8-.3 5.4-1.4 5.4-6a4.7 4.7 0 0 0-1.3-3.2 4.3 4.3 0 0 0-.1-3.3s-1.1-.3-3.5 1.3a12 12 0 0 0-6.2 0C6.7 3.4 5.6 3.7 5.6 3.7a4.3 4.3 0 0 0-.1 3.3 4.7 4.7 0 0 0-1.3 3.3c0 4.5 2.6 5.6 5.4 5.9-.4.4-.5.9-.5 1.5v3.5"/></symbol>
+  <symbol id="i-linkedin" viewBox="0 0 24 24"><rect x="2.5" y="2.5" width="19" height="19" rx="2"/><path d="M7 10.5v7M7 7v.01M11.5 17.5v-4a2.5 2.5 0 0 1 5 0v4"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12m0 0 4.5-4.5M12 15l-4.5-4.5M3.5 17v2.5a1.5 1.5 0 0 0 1.5 1.5h14a1.5 1.5 0 0 0 1.5-1.5V17"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h15m0 0-6-6m6 6-6 6"/></symbol>
+  <symbol id="i-external" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4 11 13M17 14v5a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 3 19V8a1.5 1.5 0 0 1 1.5-1.5H10"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s7-6.3 7-11a7 7 0 1 0-14 0c0 4.7 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></symbol>
+  <symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="2.5" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M8.5 21h7"/></symbol>
+  <symbol id="i-cap" viewBox="0 0 24 24"><path d="M12 3 2 8l10 5 10-5-10-5z"/><path d="M6 10.5V16c0 1.7 2.7 3 6 3s6-1.3 6-3v-5.5"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c2.6 2.6 4 6 4 9.5s-1.4 6.9-4 9.5c-2.6-2.6-4-6-4-9.5s1.4-6.9 4-9.5z"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.5"/><path d="M12 1.5v3M12 19.5v3M22.5 12h-3M4.5 12h-3M19.4 4.6l-2.1 2.1M6.7 17.3l-2.1 2.1M19.4 19.4l-2.1-2.1M6.7 6.7 4.6 4.6"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="M5 5l14 14M19 5 5 19"/></symbol>
+ </defs>
+</svg>
+
+<div class="scrollbar" aria-hidden="true"><div class="scrollbar__fill"></div><svg class="scrollbar__cat"><use href="#cat-walk"/></svg></div>
+
+<a class="skip" href="#main" data-i18n="skip">Skip to content</a>
+
+<!-- ══ nav ══ -->
+<header class="nav" id="nav">
+  <a class="nav__brand" href="#top">
+    <svg class="nav__logo" viewBox="0 0 76 72"><use href="#cat-face"/></svg>
+    <span>BONSKY</span>
+  </a>
+  <nav class="nav__links" id="navlinks" aria-label="Sections">
+    <a href="#about"    data-i18n="nav.about">About</a>
+    <a href="#arsenal"  data-i18n="nav.stack">Stack</a>
+    <a href="#work"     data-i18n="nav.work">Work</a>
+    <a href="#live"     data-i18n="nav.live">Live</a>
+    <a href="#career"   data-i18n="nav.career">Career</a>
+    <a href="#contact"  data-i18n="nav.contact">Contact</a>
+  </nav>
+  <div class="nav__tools">
+    <button class="lang" id="lang" type="button" aria-label="Switch language">
+      <span class="lang__opt is-on" data-lang="en">EN</span><span class="lang__opt" data-lang="id">ID</span>
+    </button>
+    <button class="iconbtn" id="theme" type="button" aria-label="Toggle theme">
+      <svg class="ic ic--sun"><use href="#i-sun"/></svg><svg class="ic ic--moon"><use href="#i-moon"/></svg>
+    </button>
+    <button class="iconbtn nav__burger" id="burger" type="button" aria-label="Menu" aria-expanded="false">
+      <svg class="ic ic--open"><use href="#i-menu"/></svg><svg class="ic ic--shut"><use href="#i-close"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+<span id="top"></span>
+
+<!-- ══ hero ══ -->
+<section class="hero">
+  <div class="hero__grid">
+    <div class="hero__copy">
+      <p class="tag tag--pop reveal" data-i18n="hero.eyebrow">SENIOR FULL STACK ENGINEER @ SBLNET</p>
+      <h1 class="hero__name reveal" data-d="1">BONSKY</h1>
+      <p class="hero__real reveal" data-d="2">Muhammad Ilham Rafiannandha<span class="hero__slash">/</span><span data-i18n="hero.aka">yes, that is the whole name</span></p>
+      <p class="hero__lede reveal" data-d="3" data-i18n="hero.lede">I build the systems where being wrong costs real money — billing engines, double-entry ledgers, payment gateways, and the routers that decide whether your stream buffers tonight.</p>
+      <div class="hero__cta reveal" data-d="4">
+        <a class="btn btn--pink" href="mailto:ilhamrafi44@gmail.com"><svg class="ic"><use href="#i-mail"/></svg><span data-i18n="cta.hire">Hire me</span></a>
+        <a class="btn btn--cyan" href="assets/Muhammad-Ilham-Rafiannandha-CV.pdf" download><svg class="ic"><use href="#i-download"/></svg><span data-i18n="cta.cv">Download CV</span></a>
+        <a class="btn btn--paper" href="https://github.com/ilhamrafi44"><svg class="ic"><use href="#i-github"/></svg><span>GitHub</span></a>
+      </div>
+      <p class="hero__meta reveal" data-d="5"><svg class="ic"><use href="#i-pin"/></svg><span data-i18n="hero.meta">Jakarta, Indonesia · UTC+7 · 6+ years shipping</span></p>
+    </div>
+
+    <div class="hero__portrait reveal" data-d="2">
+      <div class="frame">
+        <img src="assets/bonsky.jpg" srcset="assets/bonsky-sm.jpg 412w, assets/bonsky.jpg 737w" sizes="(max-width:700px) 70vw, 380px" width="737" height="1000" alt="Ilham Rafiannandha" fetchpriority="high">
+      </div>
+      <span class="sticker sticker--a" data-i18n="hero.sticker1">SHIP IT</span>
+      <span class="sticker sticker--b" data-i18n="hero.sticker2">WORKS ON MY MACHINE</span>
+      <svg class="hero__cat cat"><use href="#cat-sit"/></svg>
+    </div>
+  </div>
+</section>
+
+<!-- ══ marquee ══ -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee__track">
+    <span class="marquee__set">
+      <b>JAVA</b><svg class="pw"><use href="#paw"/></svg><b>SPRING MODULITH</b><svg class="pw"><use href="#paw"/></svg><b>NEXT.JS</b><svg class="pw"><use href="#paw"/></svg><b>REACT NATIVE</b><svg class="pw"><use href="#paw"/></svg><b>POSTGRESQL</b><svg class="pw"><use href="#paw"/></svg><b>MIKROTIK</b><svg class="pw"><use href="#paw"/></svg><b>FREERADIUS</b><svg class="pw"><use href="#paw"/></svg><b>KOTLIN MULTIPLATFORM</b><svg class="pw"><use href="#paw"/></svg>
+    </span>
+    <span class="marquee__set">
+      <b>JAVA</b><svg class="pw"><use href="#paw"/></svg><b>SPRING MODULITH</b><svg class="pw"><use href="#paw"/></svg><b>NEXT.JS</b><svg class="pw"><use href="#paw"/></svg><b>REACT NATIVE</b><svg class="pw"><use href="#paw"/></svg><b>POSTGRESQL</b><svg class="pw"><use href="#paw"/></svg><b>MIKROTIK</b><svg class="pw"><use href="#paw"/></svg><b>FREERADIUS</b><svg class="pw"><use href="#paw"/></svg><b>KOTLIN MULTIPLATFORM</b><svg class="pw"><use href="#paw"/></svg>
+    </span>
+  </div>
+</div>
+
+<!-- ══ stats ══ -->
+<section class="wrap stats-wrap">
+  <ul class="stats">
+    <li class="stat stat--yellow reveal"><span class="stat__n" data-count="6" data-suffix="+">6+</span><span class="stat__l" data-i18n="stat.years">YEARS SHIPPING</span></li>
+    <li class="stat stat--cyan reveal" data-d="1"><span class="stat__n" data-count="11">11</span><span class="stat__l" data-i18n="stat.clients">COMPANIES &amp; CLIENTS</span></li>
+    <li class="stat stat--lime reveal" data-d="2"><span class="stat__n" data-count="25" data-suffix="+">25+</span><span class="stat__l" data-i18n="stat.products">PRODUCTS SHIPPED</span></li>
+    <li class="stat stat--pink reveal" data-d="3"><span class="stat__n">NaN</span><span class="stat__l" data-i18n="stat.bugs">KNOWN BUGS</span></li>
+    <li class="stat stat--orange reveal" data-d="4"><svg class="stat__cat cat"><use href="#cat-face"/></svg><span class="stat__l" data-i18n="stat.cat">CAT NAMED CIMOL</span></li>
+  </ul>
+  <p class="footnote" data-i18n-html="stat.note">That last tile used to say <code>0</code>. That claim was, itself, the bug.</p>
+</section>
+
+<!-- ══ about ══ -->
+<section class="wrap sec" id="about">
+  <h2 class="sech sech--yellow reveal"><span data-i18n="sec.about">WHOAMI</span></h2>
+  <div class="about">
+    <div class="term reveal">
+      <div class="term__bar"><i></i><i></i><i></i><span>bonsky@sblnet: ~/who-dis</span></div>
+      <pre class="term__body"><code><span class="p">$</span> whoami
+<span class="o" data-i18n="term.name">Muhammad Ilham Rafiannandha</span>
+
+<span class="p">$</span> whoami --what-people-actually-call-me
+<span class="o">Bonsky</span>
+
+<span class="p">$</span> cat ~/.plot_twist
+<span class="o" data-i18n="term.twist">My degree is in English Literature. GPA 3.60.
+Four years of Shakespeare, and now I argue with a
+compiler for a living. Same energy, honestly —
+neither one ever tells you what it actually wants.</span>
+
+<span class="p">$</span> cat ~/.cat
+<span class="o" data-i18n="term.cat">Cimol. Orange. Sits on the keyboard exclusively
+during deploys. Has never once been wrong about
+anything, and knows it.</span>
+
+<span class="p">$</span> sudo make me a sandwich
+<span class="o">Okay.</span><span class="cur"></span></code></pre>
+    </div>
+    <div class="flags reveal" data-d="1">
+      <h3 class="flags__h" data-i18n="flags.h">RED FLAGS, DECLARED UP FRONT</h3>
+      <ol class="flags__list">
+        <li data-i18n="flags.1">I have strong opinions about storing money as integer cents. Nobody has ever asked me. I tell them anyway.</li>
+        <li data-i18n="flags.2">I wrote an entire CLI from scratch to avoid booting one Windows VM. "Ten minutes," I said. Reader, it was not ten minutes.</li>
+        <li data-i18n="flags.3">"It's a small refactor" is a sentence I have said out loud, in public, to people who trusted me.</li>
+      </ol>
+      <svg class="flags__cat cat"><use href="#cat-sleep"/></svg>
+    </div>
+  </div>
+</section>
+
+<!-- ══ arsenal ══ -->
+<section class="wrap sec" id="arsenal">
+  <h2 class="sech sech--lime reveal"><span data-i18n="sec.stack">THE ARSENAL</span></h2>
+  <div class="arsenal">
+    <div class="ars reveal"><span class="ars__k ars__k--yellow">BACKEND</span><div class="ars__v"><i>Java 17+</i><i>Spring Boot</i><i>Spring Modulith</i><i>Spring Security</i><i>Laravel</i><i>NestJS</i><i>Node.js</i><i>Go / Fiber</i><i>PHP</i></div></div>
+    <div class="ars reveal"><span class="ars__k ars__k--cyan">FRONTEND</span><div class="ars__v"><i>Next.js</i><i>React</i><i>Vue 3 + Pinia</i><i>TypeScript</i><i>JavaScript</i><i>Tailwind</i><i>SvelteKit</i></div></div>
+    <div class="ars reveal"><span class="ars__k ars__k--lime">MOBILE</span><div class="ars__v"><i>React Native</i><i>Flutter</i><i>Dart</i><i>Kotlin Multiplatform</i><i>Android</i></div></div>
+    <div class="ars reveal"><span class="ars__k ars__k--pink">DATA</span><div class="ars__v"><i>PostgreSQL</i><i>MySQL</i><i>Redis</i><i>TimescaleDB</i><i>Firebase</i><i>Multi-datasource ACID</i></div></div>
+    <div class="ars reveal"><span class="ars__k ars__k--orange">INFRA</span><div class="ars__v"><i>Docker</i><i>Jenkins</i><i>Nginx</i><i>GitHub Actions</i><i>Git</i><i>Grafana</i><i>Linux / VPS</i></div></div>
+    <div class="ars reveal"><span class="ars__k ars__k--purple">NETWORK</span><div class="ars__v"><i>MikroTik RouterOS</i><i>FreeRADIUS / AAA</i><i>PPPoE</i><i>RADIUS Accounting</i><i>CoA Disconnect</i><i>OLT &amp; NOC</i></div></div>
+    <div class="ars reveal"><span class="ars__k ars__k--yellow">PAYMENTS</span><div class="ars__v"><i>Duitku</i><i>BRI Fixed VA</i><i>Midtrans</i><i>QRIS</i><i>Double-Entry GL</i><i>Reconciliation</i></div></div>
+    <div class="ars reveal"><span class="ars__k ars__k--cyan">SYSTEMS</span><div class="ars__v"><i>C++</i><i>Rust</i><i>Python</i><i>WebSocket</i><i>Express</i></div></div>
+  </div>
+</section>
+
+<div class="strip" aria-hidden="true"><svg class="strip__cat"><use href="#cat-walk"/></svg></div>
+
+<!-- ══ work ══ -->
+<section class="wrap sec" id="work">
+  <h2 class="sech sech--pink reveal"><span data-i18n="sec.work">WAR STORIES</span></h2>
+  <p class="note reveal" data-i18n="work.note">Most of what I have shipped lives in employer and client repositories — private, and in several cases repositories my access ended with the contract. Eight public repos is not the size of the work; it is the size of what I am allowed to hand you.</p>
+  <div class="cards">
+    <article class="card card--wide reveal">
+      <span class="card__no">01</span>
+      <h3 class="card__h" data-i18n="w1.h">ISP Subscriber Platform</h3>
+      <p class="card__org">PT Surya Bestari Lestari · SBLNET</p>
+      <p class="card__p" data-i18n="w1.p">An entire ISP's subscriber lifecycle in one platform: onboarding, automated network provisioning, recurring billing, double-entry accounting, and payment collection across multiple gateways plus a direct host-to-host bank integration.</p>
+      <ul class="card__ul">
+        <li data-i18n="w1.a">27-module modular monolith on Spring Modulith — hexagonal / DDD, event-driven boundaries</li>
+        <li data-i18n="w1.b">8 PostgreSQL databases, per-context ACID via multi-datasource transaction management</li>
+        <li data-i18n="w1.c">Double-entry General Ledger; money as integer cents, because floats and money are a horror film</li>
+        <li data-i18n="w1.d">Pluggable gateway port: Duitku (VA / QRIS / e-wallet) plus host-to-host BRI Fixed VA</li>
+        <li data-i18n="w1.e">FreeRADIUS + MikroTik RouterOS — PPPoE, live sessions, CoA disconnect, dunning auto-isolation</li>
+      </ul>
+      <div class="card__tags"><i>Java</i><i>Spring Modulith</i><i>PostgreSQL</i><i>Redis</i><i>Next.js</i><i>React Native</i><i>Jenkins</i></div>
+      <div class="card__links"><a href="https://sblnet.id"><svg class="ic"><use href="#i-external"/></svg>sblnet.id</a><a href="https://github.com/ilhamrafi44/isp-platform-architecture"><svg class="ic"><use href="#i-arrow"/></svg><span data-i18n="w1.cs">Read the case study</span></a></div>
+      <svg class="card__cat cat"><use href="#cat-sit"/></svg>
+    </article>
+
+    <article class="card reveal">
+      <span class="card__no">02</span>
+      <h3 class="card__h" data-i18n="w2.h">Itoya — studio platform + remote agent</h3>
+      <p class="card__org">Itoya Self Photo Studio</p>
+      <p class="card__p" data-i18n="w2.p">Customers book a booth online. The booth is a PC. PCs freeze. That second problem is why this project has two halves — and why I wrote a C++ agent instead of driving to a studio at midnight.</p>
+      <div class="card__tags"><i>Laravel</i><i>Vue</i><i>Flutter</i><i>C++ / DXGI</i><i>Rust</i><i>uWebSockets</i></div>
+      <div class="card__links"><a href="https://itoya.my.id"><svg class="ic"><use href="#i-external"/></svg>itoya.my.id</a></div>
+    </article>
+
+    <article class="card reveal" data-d="1">
+      <span class="card__no">03</span>
+      <h3 class="card__h" data-i18n="w3.h">Finance &amp; Reconciliation Portal</h3>
+      <p class="card__org">PT Cashlez Worldwide Indonesia</p>
+      <p class="card__p" data-i18n="w3.p">A payment company's back office has exactly one job: prove that every rupiah that moved actually moved. Two-stage reconciliation, dispute and missing-record detection, disbursement and deduction.</p>
+      <div class="card__tags"><i>Java</i><i>Spring Boot</i><i>Next.js</i><i>Docker</i></div>
+    </article>
+
+    <article class="card reveal">
+      <span class="card__no">04</span>
+      <h3 class="card__h" data-i18n="w4.h">CoffeeLabs — HRIS, POS &amp; face recognition</h3>
+      <p class="card__org">PT Cyber Lab Indonesia</p>
+      <p class="card__p" data-i18n="w4.p">Attendance with GPS geofencing, a separate face-recognition service so people stop clocking in for each other, a WhatsApp gateway, POS and inventory. I led the team and ran the internship programme.</p>
+      <div class="card__tags"><i>Laravel</i><i>Spring Boot</i><i>Python</i><i>NestJS</i><i>Vue</i></div>
+      <div class="card__links"><a href="https://app.coffeelabs.co.id/"><svg class="ic"><use href="#i-external"/></svg>HRIS</a><a href="https://admin.coffeelabs.co.id/"><svg class="ic"><use href="#i-external"/></svg><span data-i18n="w4.bo">Back office</span></a></div>
+    </article>
+
+    <article class="card reveal" data-d="1">
+      <span class="card__no">05</span>
+      <h3 class="card__h" data-i18n="w5.h">Spectro &amp; ArkaLearn — hired in Japan</h3>
+      <p class="card__org">PT Arka Spektrum Solutindo</p>
+      <p class="card__p" data-i18n="w5.p">ArkaLearn teaches Japanese for work — JLPT N5 to N3, SSW prep. Spectro is the job portal those learners graduate into: two-sided marketplace, six-axis faceted search, in-app messaging, and SSW visa document handling.</p>
+      <div class="card__tags"><i>Laravel</i><i>MySQL</i><i>Google OAuth</i><i>i18n</i></div>
+      <div class="card__links"><a href="https://www.arkalearn.com/en"><svg class="ic"><use href="#i-external"/></svg>arkalearn.com</a></div>
+    </article>
+
+    <article class="card reveal">
+      <span class="card__no">06</span>
+      <h3 class="card__h" data-i18n="w6.h">Taman Safari Bogor — gate to back office</h3>
+      <p class="card__org">GlobalTix Teknologi Indonesia</p>
+      <p class="card__p" data-i18n="w6.p">Ticketing site, back office, and the React Native gate app: QR and barcode scanning built for a queue rather than a demo, with fraud detection that rejects reused tickets at the turnstile instead of in a report afterwards.</p>
+      <div class="card__tags"><i>React Native</i><i>Expo</i><i>Thermal printing</i></div>
+      <div class="card__links"><a href="https://domestic.tamansafaribogor.com/"><svg class="ic"><use href="#i-external"/></svg>domestic.tamansafaribogor.com</a></div>
+    </article>
+
+    <article class="card reveal" data-d="1">
+      <span class="card__no">07</span>
+      <h3 class="card__h" data-i18n="w7.h">DPUPR — a government CMS I actually wrote</h3>
+      <p class="card__org">Musi Banyuasin Regency · "INFRALOK"</p>
+      <p class="card__p" data-i18n="w7.p">The easy version is a theme and a plugin directory. The problem is that the people updating it are civil servants, and every plugin is a future CVE. So: pages, posts, a nested menu builder, media library and a composable home page — no plugin ecosystem to audit.</p>
+      <div class="card__tags"><i>Laravel</i><i>Blade</i><i>Tailwind</i><i>MySQL</i></div>
+      <div class="card__links"><a href="https://dpupr.mubakab.go.id/"><svg class="ic"><use href="#i-external"/></svg>dpupr.mubakab.go.id</a></div>
+    </article>
+
+    <article class="card reveal">
+      <span class="card__no">08</span>
+      <h3 class="card__h" data-i18n="w8.h">Umrah &amp; Hajj platforms</h3>
+      <p class="card__org">Elteyba Tours · SmartHajj</p>
+      <p class="card__p" data-i18n="w8.p">Pilgrimage travel is a logistics problem wearing a religious hat: passports, visas, seat quotas, flight manifests, hotel room-sharing, instalments, and a deadline that does not negotiate.</p>
+      <div class="card__tags"><i>Laravel</i><i>Livewire</i><i>Vue 3</i><i>Flutter</i><i>Midtrans</i></div>
+      <div class="card__links"><a href="https://www.elteybatours.com"><svg class="ic"><use href="#i-external"/></svg>elteybatours.com</a></div>
+      <svg class="card__cat card__cat--sleep cat"><use href="#cat-sleep"/></svg>
+    </article>
+  </div>
+</section>
+
+<!-- ══ live ══ -->
+<section class="wrap sec" id="live">
+  <h2 class="sech sech--purple reveal"><span data-i18n="sec.live">SHIPPED IT</span></h2>
+  <p class="note reveal" data-i18n="live.note">Everything below is running right now. I checked every link before publishing this page, which is more than most portfolios can say.</p>
+  <ul class="live">
+    <li class="reveal"><a href="https://sblnet.id"><b>SBL Net</b><em data-i18n="l.sbl">Fiber ISP — subscriber platform, billing, provisioning</em><svg class="ic"><use href="#i-external"/></svg></a></li>
+    <li class="reveal"><a href="https://bigproperty.online"><b>Big Property</b><em data-i18n="l.bp">Apartment and room booking platform</em><svg class="ic"><use href="#i-external"/></svg></a></li>
+    <li class="reveal"><a href="https://propertywhitebox.com"><b>White Box Property</b><em data-i18n="l.wb">Daily and transit apartment rental</em><svg class="ic"><use href="#i-external"/></svg></a></li>
+    <li class="reveal"><a href="https://itoya.my.id"><b>Itoya</b><em data-i18n="l.ito">Self-photo studio booking + remote management</em><svg class="ic"><use href="#i-external"/></svg></a></li>
+    <li class="reveal"><a href="https://dpupr.mubakab.go.id/"><b>DPUPR Muba</b><em data-i18n="l.dpupr">Government agency portal on a custom CMS</em><svg class="ic"><use href="#i-external"/></svg></a></li>
+    <li class="reveal"><a href="https://www.coffeelabs.co.id/"><b>CoffeeLabs</b><em data-i18n="l.cl">Company site</em><svg class="ic"><use href="#i-external"/></svg></a></li>
+    <li class="reveal"><a href="https://app.coffeelabs.co.id/"><b>CoffeeLabs HRIS</b><em data-i18n="l.clh">Attendance, GPS geofence, face recognition</em><svg class="ic"><use href="#i-external"/></svg></a></li>
+    <li class="reveal"><a href="https://admin.coffeelabs.co.id/"><b>CoffeeLabs Back Office</b><em data-i18n="l.clb">Admin and operations console</em><svg class="ic"><use href="#i-external"/></svg></a></li>
+    <li class="reveal"><a href="https://www.elteybatours.com"><b>Elteyba Tours</b><em data-i18n="l.elt">Umrah &amp; Hajj agency platform</em><svg class="ic"><use href="#i-external"/></svg></a></li>
+    <li class="reveal"><a href="https://elteybago.eilhamzah.com/login"><b>Elteyba GO</b><em data-i18n="l.eg">Jamaah portal</em><svg class="ic"><use href="#i-external"/></svg></a></li>
+    <li class="reveal"><a href="https://domestic.tamansafaribogor.com/"><b>Taman Safari Bogor</b><em data-i18n="l.ts">Domestic ticketing + back office</em><svg class="ic"><use href="#i-external"/></svg></a></li>
+    <li class="reveal"><a href="https://www.arkalearn.com/en"><b>ArkaLearn</b><em data-i18n="l.ark">Japanese-language EdTech feeding a job portal</em><svg class="ic"><use href="#i-external"/></svg></a></li>
+    <li class="reveal"><a href="https://gudangdusbandung.com/"><b>Gudang Dus Bandung</b><em data-i18n="l.gd">B2B custom packaging catalogue</em><svg class="ic"><use href="#i-external"/></svg></a></li>
+    <li class="reveal"><a href="https://taibacoco.co.id"><b>Taiba Cococha</b><em data-i18n="l.tb">Trilingual site (EN/ID/AR) + sales CRM</em><svg class="ic"><use href="#i-external"/></svg></a></li>
+    <li class="reveal"><a href="https://www.aerocam.co.id/"><b>Aerocam</b><em data-i18n="l.aero">Drone training centre — 2021 build was mine</em><svg class="ic"><use href="#i-external"/></svg></a></li>
+    <li class="reveal"><a href="https://www.instagram.com/hasanain.center/"><b>Hasanain Center</b><em data-i18n="l.has">Company profile + registration system</em><svg class="ic"><use href="#i-external"/></svg></a></li>
+  </ul>
+</section>
+
+<div class="strip strip--rev" aria-hidden="true"><svg class="strip__cat"><use href="#cat-walk"/></svg></div>
+
+<!-- ══ career ══ -->
+<section class="wrap sec" id="career">
+  <h2 class="sech sech--orange reveal"><span data-i18n="sec.career">CAREER</span></h2>
+  <ol class="time">
+    <li class="reveal"><span class="time__d">Dec 2025 — <b data-i18n="t.now">NOW</b></span><div class="time__c"><h3>Senior Full Stack Engineer</h3><p>PT Surya Bestari Lestari · SBLNET</p></div></li>
+    <li class="reveal"><span class="time__d">Mar 2025 — Dec 2025</span><div class="time__c"><h3 data-i18n="t.fsd">Full Stack Developer</h3><p>PT Cashlez Worldwide Indonesia</p></div></li>
+    <li class="reveal"><span class="time__d">Jun 2023 — Feb 2025</span><div class="time__c"><h3 data-i18n="t.lead">Full Stack Developer · Team Lead</h3><p>PT Cyber Lab Indonesia · CoffeeLabs</p></div></li>
+    <li class="reveal"><span class="time__d">Jul 2024 — Aug 2024</span><div class="time__c"><h3 data-i18n="t.fsd">Full Stack Developer</h3><p>ProSpark Pte Ltd · Singapore</p></div></li>
+    <li class="reveal"><span class="time__d">Nov 2023 — Jan 2024</span><div class="time__c"><h3 data-i18n="t.fsd">Full Stack Developer</h3><p>Taman Safari Indonesia · Bogor</p></div></li>
+    <li class="reveal"><span class="time__d">Sep 2023 — Dec 2023</span><div class="time__c"><h3 data-i18n="t.fsd">Full Stack Developer</h3><p>PT Arka Spektrum Solutindo</p></div></li>
+    <li class="reveal"><span class="time__d">Jun 2023 — Aug 2023</span><div class="time__c"><h3 data-i18n="t.mob">Mobile Developer</h3><p>Nghbr INC · New York City</p></div></li>
+    <li class="reveal"><span class="time__d">Nov 2022 — May 2023</span><div class="time__c"><h3 data-i18n="t.fse">Full Stack Engineer</h3><p>Remedi Indonesia</p></div></li>
+    <li class="reveal"><span class="time__d">Apr 2021 — Nov 2022</span><div class="time__c"><h3 data-i18n="t.fsd">Full Stack Developer</h3><p>PT Elteyba Medina Fauzana</p></div></li>
+    <li class="reveal"><span class="time__d">Feb 2020 — Apr 2021</span><div class="time__c"><h3 data-i18n="t.web">Full Stack Web Developer</h3><p>PT Taiba Cococha Indonesia</p></div></li>
+    <li class="reveal"><span class="time__d">Mar 2017 — Sep 2017</span><div class="time__c"><h3 data-i18n="t.intern">Full Stack Web Developer · Internship</h3><p>TVRI</p></div></li>
+  </ol>
+
+  <div class="duo">
+    <div class="panel panel--cyan reveal">
+      <h3 class="panel__h"><svg class="ic"><use href="#i-mic"/></svg><span data-i18n="sec.talks">TALKED AT PEOPLE</span></h3>
+      <p><b>2022</b> — <span data-i18n="talk.1">Speaker, "Web Application in the World of Work" — HMIK Talk, Pertamina University</span></p>
+      <p><b>2022</b> — <span data-i18n="talk.2">Main speaker, "Ngoding Bareng" — Permikomnas Jakarta</span></p>
+      <p class="panel__sub" data-i18n="talk.note">Two universities handed me a microphone in 2022 and nobody has asked for it back. I choose to read that as a good sign.</p>
+    </div>
+    <div class="panel panel--lime reveal" data-d="1">
+      <h3 class="panel__h"><svg class="ic"><use href="#i-cap"/></svg><span data-i18n="sec.edu">EDUCATION</span></h3>
+      <p><b>Universitas Darma Persada</b> · Jakarta</p>
+      <p data-i18n="edu.deg">Bachelor of English Literature — GPA 3.60 / 4.00 · 2018—2023</p>
+      <p class="panel__sub" data-i18n="edu.note">Not a computer science degree. You will have noticed the code works anyway.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ cv ══ -->
+<section class="wrap sec" id="cv">
+  <div class="cv reveal">
+    <div class="cv__l">
+      <h2 class="cv__h" data-i18n="cv.h">THE ACTUAL CV</h2>
+      <p class="cv__p" data-i18n="cv.p">Everything on this page, compressed into the format recruiters keep asking for. One page of PDF, no design crimes, no "references available upon request".</p>
+      <a class="btn btn--yellow btn--lg" href="assets/Muhammad-Ilham-Rafiannandha-CV.pdf" download><svg class="ic"><use href="#i-download"/></svg><span data-i18n="cv.btn">Download CV (PDF)</span></a>
+    </div>
+    <svg class="cv__cat cat"><use href="#cat-sit"/></svg>
+  </div>
+</section>
+
+<!-- ══ contact ══ -->
+<section class="wrap sec" id="contact">
+  <h2 class="sech sech--cyan reveal"><span data-i18n="sec.contact">SAY HI</span></h2>
+  <p class="lede reveal" data-i18n="contact.p">Got a system that has to balance to the cent, stay online at 3 AM, or ship to both app stores? That is my favourite kind of conversation.</p>
+  <div class="contact reveal">
+    <a class="ctile ctile--pink" href="mailto:ilhamrafi44@gmail.com"><svg class="ic"><use href="#i-mail"/></svg><b>Email</b><em>ilhamrafi44@gmail.com</em></a>
+    <a class="ctile ctile--cyan" href="https://www.linkedin.com/in/ilhamrafi44/"><svg class="ic"><use href="#i-linkedin"/></svg><b>LinkedIn</b><em>in/ilhamrafi44</em></a>
+    <a class="ctile ctile--lime" href="https://github.com/ilhamrafi44"><svg class="ic"><use href="#i-github"/></svg><b>GitHub</b><em>@ilhamrafi44</em></a>
+    <div class="ctile ctile--yellow ctile--static"><svg class="ic"><use href="#i-pin"/></svg><b data-i18n="contact.loc">Jakarta</b><em>Indonesia · UTC+7</em></div>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot__in">
+    <svg class="foot__cat cat"><use href="#cat-sleep"/></svg>
+    <p class="foot__q" data-i18n="foot.q">Interested in new things. Addicted to code. That's all.</p>
+    <p class="foot__c">© <span id="yr">2026</span> Muhammad Ilham Rafiannandha · <span data-i18n="foot.built">Built by hand. No template.</span></p>
+    <p class="foot__cat-note" data-i18n="foot.cat">There are cats on this page. The count is deliberate. Her name is Cimol.</p>
+  </div>
+</footer>
+
+<script src="js/i18n.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
