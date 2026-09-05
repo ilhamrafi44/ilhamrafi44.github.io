@@ -16,6 +16,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Serif+Display:ital@0;1&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/cover.css">
 <link rel="stylesheet" href="css/paper.css">
 <link rel="stylesheet" href="css/sections.css">
 </head>
@@ -98,30 +99,62 @@
 
 <div class="edge" aria-hidden="true"><div class="edge__fill"></div><svg class="edge__cat"><use href="#cat-walk"/></svg></div>
 
+
+<!-- ═══ THE COVER ═══ -->
+<section class="cover">
+  <div class="cover__top">
+    <span class="cover__issue" data-i18n="folio.vol">VOL. VI · No. 44</span>
+    <span class="cover__tools">
+      <button class="lang" id="lang" type="button" aria-label="Switch language / Ganti bahasa">
+        <span class="lang__opt is-on" data-lang="en">ENG</span><span class="lang__opt" data-lang="id">IND</span>
+      </button>
+      <button class="iconbtn" id="theme" type="button" aria-label="Toggle theme">
+        <svg class="ic ic--sun"><use href="#i-sun"/></svg><svg class="ic ic--moon"><use href="#i-moon"/></svg>
+      </button>
+    </span>
+  </div>
+
+  <h1 class="cover__logo" data-i18n="mast">THE BONSKY TIMES</h1>
+
+  <img class="cover__photo" src="assets/bonsky-cover.jpg" width="855" height="1100"
+       alt="Muhammad Ilham Rafiannandha" fetchpriority="high">
+  <span class="cover__dots" aria-hidden="true"></span>
+
+  <div class="cover__type">
+    <h2 class="cover__head" data-i18n="cov.head">The Quiet Half Of The Internet</h2>
+    <p class="cover__sub" data-i18n="cov.sub">Billing engines, double-entry ledgers, and the routers that decide whether you buffer tonight.</p>
+    <p class="cover__who"><b data-i18n="cov.name">MUHAMMAD ILHAM RAFIANNANDHA</b><span data-i18n="cov.role">SENIOR FULL STACK ENGINEER · JAKARTA</span></p>
+  </div>
+
+  <span class="cline cline--1" data-i18n="cov.l1">27 MODULES · 8 DATABASES · ONE DEPLOYABLE</span>
+  <span class="cline cline--2" data-i18n="cov.l2">WORKS ON MY MACHINE</span>
+  <span class="cline cline--3" data-i18n="cov.l3">KNOWN BUGS: NaN — see Corrections, p.1</span>
+  <span class="cline cline--4" data-i18n="cov.l4">PLUS: A CAT NAMED CIMOL</span>
+  <svg class="cover__cat cat"><use href="#cat-sit"/></svg>
+
+  <div class="cover__foot">
+    <span class="barcode" aria-hidden="true"></span>
+    <span class="cover__price" data-i18n="cov.price">Rp 0</span>
+    <a class="cover__scroll" href="#front"><span data-i18n="cov.scroll">OPEN THE PAPER</span> <svg class="ic"><use href="#i-arrow"/></svg></a>
+  </div>
+</section>
+
 <div class="paper">
 
 <!-- ═══ folio ═══ -->
 <div class="folio">
   <span class="folio__l" data-i18n="folio.vol">VOL. VI · No. 44</span>
   <span class="folio__c"><span id="dateline">JAKARTA</span></span>
-  <span class="folio__r">
-    <button class="lang" id="lang" type="button" aria-label="Switch language / Ganti bahasa">
-      <span class="lang__opt is-on" data-lang="en">ENG</span><span class="lang__opt" data-lang="id">IND</span>
-    </button>
-    <button class="iconbtn" id="theme" type="button" aria-label="Toggle theme">
-      <svg class="ic ic--sun"><use href="#i-sun"/></svg><svg class="ic ic--moon"><use href="#i-moon"/></svg>
-    </button>
-  </span>
+  <span class="folio__r" data-i18n="folio.price">FREE · ALWAYS WAS</span>
 </div>
 
 <!-- ═══ masthead ═══ -->
-<header class="mast">
+<header class="mast mast--run">
   <div class="rule rule--fat"></div>
-  <h1 class="mast__name" data-i18n="mast">THE BONSKY TIMES</h1>
   <div class="mast__sub">
     <span class="mast__wing" data-i18n="folio.city">JAKARTA EDITION</span>
+    <h2 class="mast__name" data-i18n="mast">THE BONSKY TIMES</h2>
     <em data-i18n="mast.tag">All the code that's fit to ship</em>
-    <span class="mast__wing" data-i18n="folio.price">FREE · ALWAYS WAS</span>
   </div>
   <div class="rule rule--fat"></div>
 </header>

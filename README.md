@@ -8,13 +8,17 @@ Static. No build step, no framework, no dependencies — GitHub Pages serves the
 ```
 index.html        markup + the inline cat/icon <symbol> sprite
 css/base.css      tokens, newsprint ground, cats, reveal
-css/paper.css     newspaper furniture: folio, masthead, ticker, columns, boxes, classifieds
+css/cover.css     page 0 — the magazine cover
+css/paper.css     newspaper furniture: folio, running head, ticker, columns, boxes, classifieds
 css/sections.css  per-section layout + responsive
 js/i18n.js        two editions, 114 keys each
 js/app.js         language, theme, dateline, reveal, counters, scroll cat
 ```
 
-**Layout.** A newspaper, not a website with a navigation bar. Folio line, masthead with
+**Layout.** A magazine cover, then a newspaper — not a website with a navigation bar.
+The cover stacks logotype behind subject behind headline, so his head crops the nameplate the
+way it does on any newsstand. It keeps its yellow in both themes on purpose: it is a printed
+object, and printed objects do not have a dark mode. Below the fold: Folio line, masthead with
 offset-litho misregistration, ticker, a front page with a floated cut and justified serif
 columns, a drop cap, an "Inside Today" index box in place of navigation, Weather, By The
 Numbers, and a Corrections box. Sections run B through F with running page numbers.

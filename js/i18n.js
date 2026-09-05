@@ -5,6 +5,16 @@
    counterpart in the other language at all, which is the point. */
 window.I18N = {
   en: {
+    "cov.head":"The Quiet Half Of The Internet",
+    "cov.sub":"Billing engines, double-entry ledgers, and the routers that decide whether you buffer tonight.",
+    "cov.l1":"27 MODULES · 8 DATABASES · ONE DEPLOYABLE",
+    "cov.l2":"WORKS ON MY MACHINE",
+    "cov.l3":"KNOWN BUGS: NaN — see Corrections, p.1",
+    "cov.l4":"PLUS: A CAT NAMED CIMOL",
+    "cov.name":"MUHAMMAD ILHAM RAFIANNANDHA",
+    "cov.role":"SENIOR FULL STACK ENGINEER · JAKARTA",
+    "cov.scroll":"OPEN THE PAPER",
+    "cov.price":"Rp 0",
     "mast":"THE BONSKY TIMES",
     "mast.tag":"All the code that's fit to ship",
     "folio.vol":"VOL. VI · No. 44",
@@ -113,6 +123,16 @@ window.I18N = {
   },
 
   id: {
+    "cov.head":"\u201cKerja Di Komputer\u201d",
+    "cov.sub":"Enam tahun bikin sistem yang kalau salah, duitnya beneran ilang. Nyokap belum nyambung juga.",
+    "cov.l1":"27 MODUL · 8 DATABASE · SATU DEPLOY",
+    "cov.l2":"DI LAPTOP GUE JALAN KOK",
+    "cov.l3":"BUG KETAUAN: NaN — lihat Ralat, hlm.1",
+    "cov.l4":"BONUS: KUCING OREN NAMANYA CIMOL",
+    "cov.name":"MUHAMMAD ILHAM RAFIANNANDHA",
+    "cov.role":"SENIOR FULL STACK ENGINEER · JAKARTA",
+    "cov.scroll":"BUKA KORANNYA",
+    "cov.price":"Rp 0",
     "mast":"HARIAN BONSKY",
     "mast.tag":"Enak Dibaca, Kadang Perlu",
     "folio.vol":"TAHUN VI · No. 44",
