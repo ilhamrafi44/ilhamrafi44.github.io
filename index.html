@@ -18,6 +18,7 @@
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/cover.css">
 <link rel="stylesheet" href="css/paper.css">
+<link rel="stylesheet" href="css/contents.css">
 <link rel="stylesheet" href="css/sections.css">
 </head>
 <body>
@@ -130,6 +131,7 @@
   <span class="cline cline--2" data-i18n="cov.l2">WORKS ON MY MACHINE</span>
   <span class="cline cline--3" data-i18n="cov.l3">KNOWN BUGS: NaN — see Corrections, p.1</span>
   <span class="cline cline--4" data-i18n="cov.l4">PLUS: A CAT NAMED CIMOL</span>
+  <span class="burst"><i data-i18n="cov.badge">15 SITES LIVE</i></span>
   <svg class="cover__cat cat"><use href="#cat-sit"/></svg>
 
   <div class="cover__foot">
@@ -230,6 +232,45 @@
   </aside>
 </main>
 
+
+<!-- ═══ section A — contents ═══ -->
+<section class="sect" id="secA" data-rv="1">
+  <div class="sect__bar"><span data-i18n="secA.label">SECTION A</span><b data-i18n="secA.h">CONTENTS</b><span>2</span></div>
+  <p class="deck deck--wide" data-i18n="secA.deck">Fifteen things that are running right now, and the pages they are on.</p>
+  <div class="toc">
+    <ol class="rubrics">
+      <li class="rubrics__h" data-i18n="cont.rub">SECTIONS</li>
+      <li><a href="#front"><b>1</b><span data-i18n="idx.1">Who He Is</span></a></li>
+      <li><a href="#secB"><b>3</b><span data-i18n="idx.2">The Arsenal</span></a></li>
+      <li><a href="#secC"><b>4</b><span data-i18n="idx.3">War Stories</span></a></li>
+      <li><a href="#secD"><b>6</b><span data-i18n="idx.4">Shipped &amp; Live</span></a></li>
+      <li><a href="#secE"><b>7</b><span data-i18n="idx.5">Chronology</span></a></li>
+      <li><a href="#secF"><b>8</b><span data-i18n="idx.6">Write To Us</span></a></li>
+      <li class="rubrics__note" data-i18n="idx.note">No navigation bar. This is a newspaper.</li>
+    </ol>
+
+    <a class="tfeat tfeat--lead" href="#secC">
+      <figure><img src="assets/shots/sblnet.jpg" width="680" height="425" loading="lazy" alt=""><figcaption data-i18n="cap.sbl">SBLNET — the subscriber platform, live</figcaption></figure>
+      <p class="tfeat__k"><span data-i18n="cont.lead">THE LEAD</span><b>4</b></p>
+      <h3 data-i18n="w1.h">Twenty-Seven Modules, Eight Databases, One Deployable</h3>
+      <p class="tfeat__d" data-i18n="w1.d">An ISP's entire subscriber lifecycle.</p>
+    </a>
+
+    <div class="tpair">
+      <a class="tfeat" href="#secC"><figure><img src="assets/shots/tamansafari.jpg" width="680" height="425" loading="lazy" alt=""></figure><p class="tfeat__k"><span data-i18n="w6.k">TOURISM</span><b>5</b></p><h4 data-i18n="w6.h">Built For A Queue, Not For A Demo</h4></a>
+      <a class="tfeat" href="#secC"><figure><img src="assets/shots/elteyba.jpg" width="680" height="425" loading="lazy" alt=""></figure><p class="tfeat__k"><span data-i18n="w8.k">TRAVEL</span><b>5</b></p><h4 data-i18n="w8.h">Logistics, Wearing A Religious Hat</h4></a>
+    </div>
+
+    <div class="tcol">
+      <p class="tcol__h" data-i18n="cont.also">ALSO INSIDE</p>
+      <a class="tfeat" href="#secC"><figure><img src="assets/shots/itoya.jpg" width="680" height="425" loading="lazy" alt=""></figure><p class="tfeat__k"><span data-i18n="w2.k">OPERATIONS</span><b>4</b></p><h4 data-i18n="w2.h">The Booth Freezes At Midnight</h4></a>
+      <a class="tfeat" href="#secC"><figure><img src="assets/shots/arkalearn.jpg" width="680" height="425" loading="lazy" alt=""></figure><p class="tfeat__k"><span data-i18n="w5.k">EDUCATION &amp; LABOUR</span><b>5</b></p><h4 data-i18n="w5.h">Teaching Japanese, Then Finding The Job</h4></a>
+      <a class="tfeat" href="#secC"><figure><img src="assets/shots/dpupr.jpg" width="680" height="425" loading="lazy" alt=""></figure><p class="tfeat__k"><span data-i18n="w7.k">GOVERNMENT</span><b>5</b></p><h4 data-i18n="w7.h">A Portal With No Plugins To Audit</h4></a>
+      <svg class="tcol__cat cat"><use href="#cat-sleep"/></svg>
+    </div>
+  </div>
+</section>
+
 <!-- ═══ section B — technology ═══ -->
 <section class="sect" id="secB">
   <div class="sect__bar"><span data-i18n="secB.label">SECTION B</span><b data-i18n="secB.h">TECHNOLOGY</b><span>3</span></div>
@@ -257,6 +298,7 @@
     <h3 class="story__h" data-i18n="w1.h">Twenty-Seven Modules, Eight Databases, One Deployable</h3>
     <p class="deck" data-i18n="w1.d">An ISP's entire subscriber lifecycle.</p>
     <div class="rule rule--thin"></div>
+    <figure class="story__fig story__fig--lead"><img src="assets/shots/sblnet.jpg" width="680" height="425" loading="lazy" alt=""><figcaption data-i18n="cap.sbl">—</figcaption></figure>
     <div class="cols cols--3">
       <p data-i18n="w1.b">A modular monolith on Spring Modulith.</p>
     </div>
@@ -269,13 +311,13 @@
   </div>
 
   <div class="stories" data-rv="1">
-    <article class="story"><p class="kicker" data-i18n="w2.k">OPERATIONS</p><h3 class="story__h" data-i18n="w2.h">The Booth Freezes At Midnight</h3><p class="deck" data-i18n="w2.d">Itoya Self Photo Studio.</p><p data-i18n="w2.b">Customers book a booth online.</p><p class="story__src">Itoya · <a href="https://itoya.my.id">itoya.my.id</a></p></article>
+    <article class="story"><p class="kicker" data-i18n="w2.k">OPERATIONS</p><h3 class="story__h" data-i18n="w2.h">The Booth Freezes At Midnight</h3><p class="deck" data-i18n="w2.d">Itoya Self Photo Studio.</p><figure class="story__fig"><img src="assets/shots/itoya.jpg" width="680" height="425" loading="lazy" alt=""><figcaption data-i18n="cap.itoya">—</figcaption></figure><p data-i18n="w2.b">Customers book a booth online.</p><p class="story__src">Itoya · <a href="https://itoya.my.id">itoya.my.id</a></p></article>
     <article class="story"><p class="kicker" data-i18n="w3.k">FINANCE</p><h3 class="story__h" data-i18n="w3.h">Proving Every Rupiah Moved</h3><p class="deck" data-i18n="w3.d">One job, and this is it.</p><p data-i18n="w3.b">Two-stage reconciliation.</p><p class="story__src">PT Cashlez Worldwide Indonesia</p></article>
-    <article class="story"><p class="kicker" data-i18n="w4.k">HUMAN RESOURCES</p><h3 class="story__h" data-i18n="w4.h">So People Stop Clocking In For Each Other</h3><p class="deck" data-i18n="w4.d">CoffeeLabs.</p><p data-i18n="w4.b">Attendance with GPS geofencing.</p><p class="story__src">PT Cyber Lab Indonesia · <a href="https://app.coffeelabs.co.id/">HRIS</a> · <a href="https://admin.coffeelabs.co.id/">back office</a></p></article>
-    <article class="story"><p class="kicker" data-i18n="w5.k">EDUCATION &amp; LABOUR</p><h3 class="story__h" data-i18n="w5.h">Teaching Japanese, Then Finding The Job</h3><p class="deck" data-i18n="w5.d">ArkaLearn and Spectro.</p><p data-i18n="w5.b">A two-sided marketplace.</p><p class="story__src">PT Arka Spektrum Solutindo · <a href="https://www.arkalearn.com/en">arkalearn.com</a></p></article>
-    <article class="story"><p class="kicker" data-i18n="w6.k">TOURISM</p><h3 class="story__h" data-i18n="w6.h">Built For A Queue, Not For A Demo</h3><p class="deck" data-i18n="w6.d">Taman Safari Bogor.</p><p data-i18n="w6.b">QR and barcode scanning.</p><p class="story__src">GlobalTix Teknologi Indonesia · <a href="https://domestic.tamansafaribogor.com/">domestic.tamansafaribogor.com</a></p></article>
-    <article class="story"><p class="kicker" data-i18n="w7.k">GOVERNMENT</p><h3 class="story__h" data-i18n="w7.h">A Portal With No Plugins To Audit</h3><p class="deck" data-i18n="w7.d">DPUPR Musi Banyuasin.</p><p data-i18n="w7.b">The easy version is a theme.</p><p class="story__src">INFRALOK · <a href="https://dpupr.mubakab.go.id/">dpupr.mubakab.go.id</a></p></article>
-    <article class="story"><p class="kicker" data-i18n="w8.k">TRAVEL</p><h3 class="story__h" data-i18n="w8.h">Logistics, Wearing A Religious Hat</h3><p class="deck" data-i18n="w8.d">Elteyba Tours and SmartHajj.</p><p data-i18n="w8.b">Passports, visas, seat quotas.</p><p class="story__src">Elteyba · <a href="https://www.elteybatours.com">elteybatours.com</a></p></article>
+    <article class="story"><p class="kicker" data-i18n="w4.k">HUMAN RESOURCES</p><h3 class="story__h" data-i18n="w4.h">So People Stop Clocking In For Each Other</h3><p class="deck" data-i18n="w4.d">CoffeeLabs.</p><figure class="story__fig"><img src="assets/shots/colabshris.jpg" width="680" height="425" loading="lazy" alt=""><figcaption data-i18n="cap.hris">—</figcaption></figure><p data-i18n="w4.b">Attendance with GPS geofencing.</p><p class="story__src">PT Cyber Lab Indonesia · <a href="https://app.coffeelabs.co.id/">HRIS</a> · <a href="https://admin.coffeelabs.co.id/">back office</a></p></article>
+    <article class="story"><p class="kicker" data-i18n="w5.k">EDUCATION &amp; LABOUR</p><h3 class="story__h" data-i18n="w5.h">Teaching Japanese, Then Finding The Job</h3><p class="deck" data-i18n="w5.d">ArkaLearn and Spectro.</p><figure class="story__fig"><img src="assets/shots/arkalearn.jpg" width="680" height="425" loading="lazy" alt=""><figcaption data-i18n="cap.arka">—</figcaption></figure><p data-i18n="w5.b">A two-sided marketplace.</p><p class="story__src">PT Arka Spektrum Solutindo · <a href="https://www.arkalearn.com/en">arkalearn.com</a></p></article>
+    <article class="story"><p class="kicker" data-i18n="w6.k">TOURISM</p><h3 class="story__h" data-i18n="w6.h">Built For A Queue, Not For A Demo</h3><p class="deck" data-i18n="w6.d">Taman Safari Bogor.</p><figure class="story__fig"><img src="assets/shots/tamansafari.jpg" width="680" height="425" loading="lazy" alt=""><figcaption data-i18n="cap.ts">—</figcaption></figure><p data-i18n="w6.b">QR and barcode scanning.</p><p class="story__src">GlobalTix Teknologi Indonesia · <a href="https://domestic.tamansafaribogor.com/">domestic.tamansafaribogor.com</a></p></article>
+    <article class="story"><p class="kicker" data-i18n="w7.k">GOVERNMENT</p><h3 class="story__h" data-i18n="w7.h">A Portal With No Plugins To Audit</h3><p class="deck" data-i18n="w7.d">DPUPR Musi Banyuasin.</p><figure class="story__fig"><img src="assets/shots/dpupr.jpg" width="680" height="425" loading="lazy" alt=""><figcaption data-i18n="cap.dpupr">—</figcaption></figure><p data-i18n="w7.b">The easy version is a theme.</p><p class="story__src">INFRALOK · <a href="https://dpupr.mubakab.go.id/">dpupr.mubakab.go.id</a></p></article>
+    <article class="story"><p class="kicker" data-i18n="w8.k">TRAVEL</p><h3 class="story__h" data-i18n="w8.h">Logistics, Wearing A Religious Hat</h3><p class="deck" data-i18n="w8.d">Elteyba Tours and SmartHajj.</p><figure class="story__fig"><img src="assets/shots/elteyba.jpg" width="680" height="425" loading="lazy" alt=""><figcaption data-i18n="cap.elt">—</figcaption></figure><p data-i18n="w8.b">Passports, visas, seat quotas.</p><p class="story__src">Elteyba · <a href="https://www.elteybatours.com">elteybatours.com</a></p></article>
   </div>
 </section>
 

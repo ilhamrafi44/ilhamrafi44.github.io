@@ -9,10 +9,13 @@ Static. No build step, no framework, no dependencies — GitHub Pages serves the
 index.html        markup + the inline cat/icon <symbol> sprite
 css/base.css      tokens, newsprint ground, cats, reveal
 css/cover.css     page 0 — the magazine cover
+css/contents.css  section A — the contents page, story pictures, starburst
 css/paper.css     newspaper furniture: folio, running head, ticker, columns, boxes, classifieds
 css/sections.css  per-section layout + responsive
 js/i18n.js        two editions, 114 keys each
 js/app.js         language, theme, dateline, reveal, counters, scroll cat
+tools/shoot.mjs   re-captures assets/shots/ by driving the system Chrome
+assets/shots/     screenshots of the live sites — the magazine's photography
 ```
 
 **Layout.** A magazine cover, then a newspaper — not a website with a navigation bar.
