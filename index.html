@@ -3,24 +3,23 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Bonsky — Senior Full Stack Engineer</title>
-<meta name="description" content="Muhammad Ilham Rafiannandha (Bonsky) — Senior Full Stack Engineer in Jakarta. ISP platforms, fintech, mobile. Java/Spring Modulith, Next.js, React Native.">
+<title>The Bonsky Times — Muhammad Ilham Rafiannandha</title>
+<meta name="description" content="Muhammad Ilham Rafiannandha (Bonsky) — Senior Full Stack Engineer in Jakarta. ISP platforms, fintech, mobile. Published as a newspaper, because a navigation bar is not a design.">
 <meta name="theme-color" content="#FFE600">
-<meta property="og:title" content="Bonsky — Senior Full Stack Engineer">
-<meta property="og:description" content="I build the systems where being wrong costs real money.">
+<meta property="og:title" content="The Bonsky Times">
+<meta property="og:description" content="All the code that's fit to ship.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://ilhamrafi44.github.io/">
 <meta property="og:image" content="https://ilhamrafi44.github.io/assets/bonsky.jpg">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Serif+Display:ital@0;1&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/base.css">
-<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/paper.css">
 <link rel="stylesheet" href="css/sections.css">
 </head>
 <body>
-
 <!-- ══ cat + icon sprite ══ -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
  <defs>
@@ -95,325 +94,260 @@
  </defs>
 </svg>
 
-<div class="scrollbar" aria-hidden="true"><div class="scrollbar__fill"></div><svg class="scrollbar__cat"><use href="#cat-walk"/></svg></div>
+<a class="skip" href="#front" data-i18n="skip">Skip to the front page</a>
 
-<a class="skip" href="#main" data-i18n="skip">Skip to content</a>
+<div class="edge" aria-hidden="true"><div class="edge__fill"></div><svg class="edge__cat"><use href="#cat-walk"/></svg></div>
 
-<!-- ══ nav ══ -->
-<header class="nav" id="nav">
-  <a class="nav__brand" href="#top">
-    <svg class="nav__logo" viewBox="0 0 76 72"><use href="#cat-face"/></svg>
-    <span>BONSKY</span>
-  </a>
-  <nav class="nav__links" id="navlinks" aria-label="Sections">
-    <a href="#about"    data-i18n="nav.about">About</a>
-    <a href="#arsenal"  data-i18n="nav.stack">Stack</a>
-    <a href="#work"     data-i18n="nav.work">Work</a>
-    <a href="#live"     data-i18n="nav.live">Live</a>
-    <a href="#career"   data-i18n="nav.career">Career</a>
-    <a href="#contact"  data-i18n="nav.contact">Contact</a>
-  </nav>
-  <div class="nav__tools">
-    <button class="lang" id="lang" type="button" aria-label="Switch language">
-      <span class="lang__opt is-on" data-lang="en">EN</span><span class="lang__opt" data-lang="id">ID</span>
+<div class="paper">
+
+<!-- ═══ folio ═══ -->
+<div class="folio">
+  <span class="folio__l" data-i18n="folio.vol">VOL. VI · No. 44</span>
+  <span class="folio__c"><span id="dateline">JAKARTA</span></span>
+  <span class="folio__r">
+    <button class="lang" id="lang" type="button" aria-label="Switch language / Ganti bahasa">
+      <span class="lang__opt is-on" data-lang="en">ENG</span><span class="lang__opt" data-lang="id">IND</span>
     </button>
     <button class="iconbtn" id="theme" type="button" aria-label="Toggle theme">
       <svg class="ic ic--sun"><use href="#i-sun"/></svg><svg class="ic ic--moon"><use href="#i-moon"/></svg>
     </button>
-    <button class="iconbtn nav__burger" id="burger" type="button" aria-label="Menu" aria-expanded="false">
-      <svg class="ic ic--open"><use href="#i-menu"/></svg><svg class="ic ic--shut"><use href="#i-close"/></svg>
-    </button>
+  </span>
+</div>
+
+<!-- ═══ masthead ═══ -->
+<header class="mast">
+  <div class="rule rule--fat"></div>
+  <h1 class="mast__name" data-i18n="mast">THE BONSKY TIMES</h1>
+  <div class="mast__sub">
+    <span class="mast__wing" data-i18n="folio.city">JAKARTA EDITION</span>
+    <em data-i18n="mast.tag">All the code that's fit to ship</em>
+    <span class="mast__wing" data-i18n="folio.price">FREE · ALWAYS WAS</span>
   </div>
+  <div class="rule rule--fat"></div>
 </header>
 
-<main id="main">
-<span id="top"></span>
-
-<!-- ══ hero ══ -->
-<section class="hero">
-  <div class="hero__grid">
-    <div class="hero__copy">
-      <p class="tag tag--pop reveal" data-i18n="hero.eyebrow">SENIOR FULL STACK ENGINEER @ SBLNET</p>
-      <h1 class="hero__name reveal" data-d="1">BONSKY</h1>
-      <p class="hero__real reveal" data-d="2">Muhammad Ilham Rafiannandha<span class="hero__slash">/</span><span data-i18n="hero.aka">yes, that is the whole name</span></p>
-      <p class="hero__lede reveal" data-d="3" data-i18n="hero.lede">I build the systems where being wrong costs real money — billing engines, double-entry ledgers, payment gateways, and the routers that decide whether your stream buffers tonight.</p>
-      <div class="hero__cta reveal" data-d="4">
-        <a class="btn btn--pink" href="mailto:ilhamrafi44@gmail.com"><svg class="ic"><use href="#i-mail"/></svg><span data-i18n="cta.hire">Hire me</span></a>
-        <a class="btn btn--cyan" href="assets/Muhammad-Ilham-Rafiannandha-CV.pdf" download><svg class="ic"><use href="#i-download"/></svg><span data-i18n="cta.cv">Download CV</span></a>
-        <a class="btn btn--paper" href="https://github.com/ilhamrafi44"><svg class="ic"><use href="#i-github"/></svg><span>GitHub</span></a>
-      </div>
-      <p class="hero__meta reveal" data-d="5"><svg class="ic"><use href="#i-pin"/></svg><span data-i18n="hero.meta">Jakarta, Indonesia · UTC+7 · 6+ years shipping</span></p>
-    </div>
-
-    <div class="hero__portrait reveal" data-d="2">
-      <div class="frame">
-        <img src="assets/bonsky.jpg" srcset="assets/bonsky-sm.jpg 412w, assets/bonsky.jpg 737w" sizes="(max-width:700px) 70vw, 380px" width="737" height="1000" alt="Ilham Rafiannandha" fetchpriority="high">
-      </div>
-      <span class="sticker sticker--a" data-i18n="hero.sticker1">SHIP IT</span>
-      <span class="sticker sticker--b" data-i18n="hero.sticker2">WORKS ON MY MACHINE</span>
-      <svg class="hero__cat cat"><use href="#cat-sit"/></svg>
-    </div>
-  </div>
-</section>
-
-<!-- ══ marquee ══ -->
-<div class="marquee" aria-hidden="true">
-  <div class="marquee__track">
-    <span class="marquee__set">
-      <b>JAVA</b><svg class="pw"><use href="#paw"/></svg><b>SPRING MODULITH</b><svg class="pw"><use href="#paw"/></svg><b>NEXT.JS</b><svg class="pw"><use href="#paw"/></svg><b>REACT NATIVE</b><svg class="pw"><use href="#paw"/></svg><b>POSTGRESQL</b><svg class="pw"><use href="#paw"/></svg><b>MIKROTIK</b><svg class="pw"><use href="#paw"/></svg><b>FREERADIUS</b><svg class="pw"><use href="#paw"/></svg><b>KOTLIN MULTIPLATFORM</b><svg class="pw"><use href="#paw"/></svg>
-    </span>
-    <span class="marquee__set">
-      <b>JAVA</b><svg class="pw"><use href="#paw"/></svg><b>SPRING MODULITH</b><svg class="pw"><use href="#paw"/></svg><b>NEXT.JS</b><svg class="pw"><use href="#paw"/></svg><b>REACT NATIVE</b><svg class="pw"><use href="#paw"/></svg><b>POSTGRESQL</b><svg class="pw"><use href="#paw"/></svg><b>MIKROTIK</b><svg class="pw"><use href="#paw"/></svg><b>FREERADIUS</b><svg class="pw"><use href="#paw"/></svg><b>KOTLIN MULTIPLATFORM</b><svg class="pw"><use href="#paw"/></svg>
-    </span>
+<!-- ═══ ticker ═══ -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker__track">
+    <span class="ticker__set" data-i18n="ticker">SENIOR FULL STACK ENGINEER ★ JAKARTA · UTC+7 ★ 6+ YEARS IN PRODUCTION ★</span>
+    <span class="ticker__set" data-i18n="ticker">SENIOR FULL STACK ENGINEER ★ JAKARTA · UTC+7 ★ 6+ YEARS IN PRODUCTION ★</span>
   </div>
 </div>
 
-<!-- ══ stats ══ -->
-<section class="wrap stats-wrap">
-  <ul class="stats">
-    <li class="stat stat--yellow reveal"><span class="stat__n" data-count="6" data-suffix="+">6+</span><span class="stat__l" data-i18n="stat.years">YEARS SHIPPING</span></li>
-    <li class="stat stat--cyan reveal" data-d="1"><span class="stat__n" data-count="11">11</span><span class="stat__l" data-i18n="stat.clients">COMPANIES &amp; CLIENTS</span></li>
-    <li class="stat stat--lime reveal" data-d="2"><span class="stat__n" data-count="25" data-suffix="+">25+</span><span class="stat__l" data-i18n="stat.products">PRODUCTS SHIPPED</span></li>
-    <li class="stat stat--pink reveal" data-d="3"><span class="stat__n">NaN</span><span class="stat__l" data-i18n="stat.bugs">KNOWN BUGS</span></li>
-    <li class="stat stat--orange reveal" data-d="4"><svg class="stat__cat cat"><use href="#cat-face"/></svg><span class="stat__l" data-i18n="stat.cat">CAT NAMED CIMOL</span></li>
-  </ul>
-  <p class="footnote" data-i18n-html="stat.note">That last tile used to say <code>0</code>. That claim was, itself, the bug.</p>
-</section>
+<!-- ═══ front page ═══ -->
+<main id="front" class="front">
+  <article class="lead" data-rv="1">
+    <p class="kicker" data-i18n="fp.kicker">PROFILE · PAGE ONE</p>
+    <h2 class="lead__head" data-i18n="fp.head">The Man Who Puts Money In Integers</h2>
+    <p class="deck" data-i18n="fp.deck">Six years building systems where being wrong is expensive.</p>
+    <p class="byline" data-i18n="fp.byline">BY THE DESK OF ILHAM RAFIANNANDHA</p>
+    <div class="rule"></div>
 
-<!-- ══ about ══ -->
-<section class="wrap sec" id="about">
-  <h2 class="sech sech--yellow reveal"><span data-i18n="sec.about">WHOAMI</span></h2>
-  <div class="about">
-    <div class="term reveal">
-      <div class="term__bar"><i></i><i></i><i></i><span>bonsky@sblnet: ~/who-dis</span></div>
-      <pre class="term__body"><code><span class="p">$</span> whoami
-<span class="o" data-i18n="term.name">Muhammad Ilham Rafiannandha</span>
+    <figure class="cut">
+      <div class="cut__frame">
+        <img src="assets/bonsky.jpg" srcset="assets/bonsky-sm.jpg 412w, assets/bonsky.jpg 737w" sizes="(max-width:760px) 86vw, 330px" width="737" height="1000" alt="Muhammad Ilham Rafiannandha" fetchpriority="high">
+        <span class="cut__halftone" aria-hidden="true"></span>
+      </div>
+      <figcaption data-i18n="fp.caption">THE SUBJECT, photographed mid-gesture.</figcaption>
+      <svg class="cut__cat cat"><use href="#cat-sit"/></svg>
+    </figure>
 
-<span class="p">$</span> whoami --what-people-actually-call-me
-<span class="o">Bonsky</span>
-
-<span class="p">$</span> cat ~/.plot_twist
-<span class="o" data-i18n="term.twist">My degree is in English Literature. GPA 3.60.
-Four years of Shakespeare, and now I argue with a
-compiler for a living. Same energy, honestly —
-neither one ever tells you what it actually wants.</span>
-
-<span class="p">$</span> cat ~/.cat
-<span class="o" data-i18n="term.cat">Cimol. Orange. Sits on the keyboard exclusively
-during deploys. Has never once been wrong about
-anything, and knows it.</span>
-
-<span class="p">$</span> sudo make me a sandwich
-<span class="o">Okay.</span><span class="cur"></span></code></pre>
+    <div class="cols">
+      <p class="drop" data-i18n="fp.p1">Muhammad Ilham Rafiannandha — known to everyone who has ever worked with him as Bonsky — builds the unglamorous half of the internet.</p>
+      <p data-i18n="fp.p2">It is not work that photographs well.</p>
+      <p data-i18n="fp.p3">He is, at time of printing, Senior Full Stack Engineer at an Indonesian fibre ISP.</p>
+      <p class="kick-end" data-i18n="fp.p4">His degree is in English Literature.</p>
     </div>
-    <div class="flags reveal" data-d="1">
-      <h3 class="flags__h" data-i18n="flags.h">RED FLAGS, DECLARED UP FRONT</h3>
-      <ol class="flags__list">
-        <li data-i18n="flags.1">I have strong opinions about storing money as integer cents. Nobody has ever asked me. I tell them anyway.</li>
-        <li data-i18n="flags.2">I wrote an entire CLI from scratch to avoid booting one Windows VM. "Ten minutes," I said. Reader, it was not ten minutes.</li>
-        <li data-i18n="flags.3">"It's a small refactor" is a sentence I have said out loud, in public, to people who trusted me.</li>
+  </article>
+
+  <aside class="rail" data-rv="1">
+    <div class="box box--index">
+      <h3 class="box__h" data-i18n="idx.h">INSIDE TODAY</h3>
+      <ol class="index">
+        <li><a href="#front"><span data-i18n="idx.1">Who He Is</span><i>1</i></a></li>
+        <li><a href="#secB"><span data-i18n="idx.2">The Arsenal</span><i>3</i></a></li>
+        <li><a href="#secC"><span data-i18n="idx.3">War Stories</span><i>4</i></a></li>
+        <li><a href="#secD"><span data-i18n="idx.4">Shipped &amp; Live</span><i>6</i></a></li>
+        <li><a href="#secE"><span data-i18n="idx.5">Chronology</span><i>7</i></a></li>
+        <li><a href="#secF"><span data-i18n="idx.6">Write To Us</span><i>8</i></a></li>
       </ol>
-      <svg class="flags__cat cat"><use href="#cat-sleep"/></svg>
+      <p class="box__note" data-i18n="idx.note">No navigation bar. This is a newspaper.</p>
     </div>
-  </div>
-</section>
 
-<!-- ══ arsenal ══ -->
-<section class="wrap sec" id="arsenal">
-  <h2 class="sech sech--lime reveal"><span data-i18n="sec.stack">THE ARSENAL</span></h2>
-  <div class="arsenal">
-    <div class="ars reveal"><span class="ars__k ars__k--yellow">BACKEND</span><div class="ars__v"><i>Java 17+</i><i>Spring Boot</i><i>Spring Modulith</i><i>Spring Security</i><i>Laravel</i><i>NestJS</i><i>Node.js</i><i>Go / Fiber</i><i>PHP</i></div></div>
-    <div class="ars reveal"><span class="ars__k ars__k--cyan">FRONTEND</span><div class="ars__v"><i>Next.js</i><i>React</i><i>Vue 3 + Pinia</i><i>TypeScript</i><i>JavaScript</i><i>Tailwind</i><i>SvelteKit</i></div></div>
-    <div class="ars reveal"><span class="ars__k ars__k--lime">MOBILE</span><div class="ars__v"><i>React Native</i><i>Flutter</i><i>Dart</i><i>Kotlin Multiplatform</i><i>Android</i></div></div>
-    <div class="ars reveal"><span class="ars__k ars__k--pink">DATA</span><div class="ars__v"><i>PostgreSQL</i><i>MySQL</i><i>Redis</i><i>TimescaleDB</i><i>Firebase</i><i>Multi-datasource ACID</i></div></div>
-    <div class="ars reveal"><span class="ars__k ars__k--orange">INFRA</span><div class="ars__v"><i>Docker</i><i>Jenkins</i><i>Nginx</i><i>GitHub Actions</i><i>Git</i><i>Grafana</i><i>Linux / VPS</i></div></div>
-    <div class="ars reveal"><span class="ars__k ars__k--purple">NETWORK</span><div class="ars__v"><i>MikroTik RouterOS</i><i>FreeRADIUS / AAA</i><i>PPPoE</i><i>RADIUS Accounting</i><i>CoA Disconnect</i><i>OLT &amp; NOC</i></div></div>
-    <div class="ars reveal"><span class="ars__k ars__k--yellow">PAYMENTS</span><div class="ars__v"><i>Duitku</i><i>BRI Fixed VA</i><i>Midtrans</i><i>QRIS</i><i>Double-Entry GL</i><i>Reconciliation</i></div></div>
-    <div class="ars reveal"><span class="ars__k ars__k--cyan">SYSTEMS</span><div class="ars__v"><i>C++</i><i>Rust</i><i>Python</i><i>WebSocket</i><i>Express</i></div></div>
-  </div>
-</section>
-
-<div class="strip" aria-hidden="true"><svg class="strip__cat"><use href="#cat-walk"/></svg></div>
-
-<!-- ══ work ══ -->
-<section class="wrap sec" id="work">
-  <h2 class="sech sech--pink reveal"><span data-i18n="sec.work">WAR STORIES</span></h2>
-  <p class="note reveal" data-i18n="work.note">Most of what I have shipped lives in employer and client repositories — private, and in several cases repositories my access ended with the contract. Eight public repos is not the size of the work; it is the size of what I am allowed to hand you.</p>
-  <div class="cards">
-    <article class="card card--wide reveal">
-      <span class="card__no">01</span>
-      <h3 class="card__h" data-i18n="w1.h">ISP Subscriber Platform</h3>
-      <p class="card__org">PT Surya Bestari Lestari · SBLNET</p>
-      <p class="card__p" data-i18n="w1.p">An entire ISP's subscriber lifecycle in one platform: onboarding, automated network provisioning, recurring billing, double-entry accounting, and payment collection across multiple gateways plus a direct host-to-host bank integration.</p>
-      <ul class="card__ul">
-        <li data-i18n="w1.a">27-module modular monolith on Spring Modulith — hexagonal / DDD, event-driven boundaries</li>
-        <li data-i18n="w1.b">8 PostgreSQL databases, per-context ACID via multi-datasource transaction management</li>
-        <li data-i18n="w1.c">Double-entry General Ledger; money as integer cents, because floats and money are a horror film</li>
-        <li data-i18n="w1.d">Pluggable gateway port: Duitku (VA / QRIS / e-wallet) plus host-to-host BRI Fixed VA</li>
-        <li data-i18n="w1.e">FreeRADIUS + MikroTik RouterOS — PPPoE, live sessions, CoA disconnect, dunning auto-isolation</li>
-      </ul>
-      <div class="card__tags"><i>Java</i><i>Spring Modulith</i><i>PostgreSQL</i><i>Redis</i><i>Next.js</i><i>React Native</i><i>Jenkins</i></div>
-      <div class="card__links"><a href="https://sblnet.id"><svg class="ic"><use href="#i-external"/></svg>sblnet.id</a><a href="https://github.com/ilhamrafi44/isp-platform-architecture"><svg class="ic"><use href="#i-arrow"/></svg><span data-i18n="w1.cs">Read the case study</span></a></div>
-      <svg class="card__cat cat"><use href="#cat-sit"/></svg>
-    </article>
-
-    <article class="card reveal">
-      <span class="card__no">02</span>
-      <h3 class="card__h" data-i18n="w2.h">Itoya — studio platform + remote agent</h3>
-      <p class="card__org">Itoya Self Photo Studio</p>
-      <p class="card__p" data-i18n="w2.p">Customers book a booth online. The booth is a PC. PCs freeze. That second problem is why this project has two halves — and why I wrote a C++ agent instead of driving to a studio at midnight.</p>
-      <div class="card__tags"><i>Laravel</i><i>Vue</i><i>Flutter</i><i>C++ / DXGI</i><i>Rust</i><i>uWebSockets</i></div>
-      <div class="card__links"><a href="https://itoya.my.id"><svg class="ic"><use href="#i-external"/></svg>itoya.my.id</a></div>
-    </article>
-
-    <article class="card reveal" data-d="1">
-      <span class="card__no">03</span>
-      <h3 class="card__h" data-i18n="w3.h">Finance &amp; Reconciliation Portal</h3>
-      <p class="card__org">PT Cashlez Worldwide Indonesia</p>
-      <p class="card__p" data-i18n="w3.p">A payment company's back office has exactly one job: prove that every rupiah that moved actually moved. Two-stage reconciliation, dispute and missing-record detection, disbursement and deduction.</p>
-      <div class="card__tags"><i>Java</i><i>Spring Boot</i><i>Next.js</i><i>Docker</i></div>
-    </article>
-
-    <article class="card reveal">
-      <span class="card__no">04</span>
-      <h3 class="card__h" data-i18n="w4.h">CoffeeLabs — HRIS, POS &amp; face recognition</h3>
-      <p class="card__org">PT Cyber Lab Indonesia</p>
-      <p class="card__p" data-i18n="w4.p">Attendance with GPS geofencing, a separate face-recognition service so people stop clocking in for each other, a WhatsApp gateway, POS and inventory. I led the team and ran the internship programme.</p>
-      <div class="card__tags"><i>Laravel</i><i>Spring Boot</i><i>Python</i><i>NestJS</i><i>Vue</i></div>
-      <div class="card__links"><a href="https://app.coffeelabs.co.id/"><svg class="ic"><use href="#i-external"/></svg>HRIS</a><a href="https://admin.coffeelabs.co.id/"><svg class="ic"><use href="#i-external"/></svg><span data-i18n="w4.bo">Back office</span></a></div>
-    </article>
-
-    <article class="card reveal" data-d="1">
-      <span class="card__no">05</span>
-      <h3 class="card__h" data-i18n="w5.h">Spectro &amp; ArkaLearn — hired in Japan</h3>
-      <p class="card__org">PT Arka Spektrum Solutindo</p>
-      <p class="card__p" data-i18n="w5.p">ArkaLearn teaches Japanese for work — JLPT N5 to N3, SSW prep. Spectro is the job portal those learners graduate into: two-sided marketplace, six-axis faceted search, in-app messaging, and SSW visa document handling.</p>
-      <div class="card__tags"><i>Laravel</i><i>MySQL</i><i>Google OAuth</i><i>i18n</i></div>
-      <div class="card__links"><a href="https://www.arkalearn.com/en"><svg class="ic"><use href="#i-external"/></svg>arkalearn.com</a></div>
-    </article>
-
-    <article class="card reveal">
-      <span class="card__no">06</span>
-      <h3 class="card__h" data-i18n="w6.h">Taman Safari Bogor — gate to back office</h3>
-      <p class="card__org">GlobalTix Teknologi Indonesia</p>
-      <p class="card__p" data-i18n="w6.p">Ticketing site, back office, and the React Native gate app: QR and barcode scanning built for a queue rather than a demo, with fraud detection that rejects reused tickets at the turnstile instead of in a report afterwards.</p>
-      <div class="card__tags"><i>React Native</i><i>Expo</i><i>Thermal printing</i></div>
-      <div class="card__links"><a href="https://domestic.tamansafaribogor.com/"><svg class="ic"><use href="#i-external"/></svg>domestic.tamansafaribogor.com</a></div>
-    </article>
-
-    <article class="card reveal" data-d="1">
-      <span class="card__no">07</span>
-      <h3 class="card__h" data-i18n="w7.h">DPUPR — a government CMS I actually wrote</h3>
-      <p class="card__org">Musi Banyuasin Regency · "INFRALOK"</p>
-      <p class="card__p" data-i18n="w7.p">The easy version is a theme and a plugin directory. The problem is that the people updating it are civil servants, and every plugin is a future CVE. So: pages, posts, a nested menu builder, media library and a composable home page — no plugin ecosystem to audit.</p>
-      <div class="card__tags"><i>Laravel</i><i>Blade</i><i>Tailwind</i><i>MySQL</i></div>
-      <div class="card__links"><a href="https://dpupr.mubakab.go.id/"><svg class="ic"><use href="#i-external"/></svg>dpupr.mubakab.go.id</a></div>
-    </article>
-
-    <article class="card reveal">
-      <span class="card__no">08</span>
-      <h3 class="card__h" data-i18n="w8.h">Umrah &amp; Hajj platforms</h3>
-      <p class="card__org">Elteyba Tours · SmartHajj</p>
-      <p class="card__p" data-i18n="w8.p">Pilgrimage travel is a logistics problem wearing a religious hat: passports, visas, seat quotas, flight manifests, hotel room-sharing, instalments, and a deadline that does not negotiate.</p>
-      <div class="card__tags"><i>Laravel</i><i>Livewire</i><i>Vue 3</i><i>Flutter</i><i>Midtrans</i></div>
-      <div class="card__links"><a href="https://www.elteybatours.com"><svg class="ic"><use href="#i-external"/></svg>elteybatours.com</a></div>
-      <svg class="card__cat card__cat--sleep cat"><use href="#cat-sleep"/></svg>
-    </article>
-  </div>
-</section>
-
-<!-- ══ live ══ -->
-<section class="wrap sec" id="live">
-  <h2 class="sech sech--purple reveal"><span data-i18n="sec.live">SHIPPED IT</span></h2>
-  <p class="note reveal" data-i18n="live.note">Everything below is running right now. I checked every link before publishing this page, which is more than most portfolios can say.</p>
-  <ul class="live">
-    <li class="reveal"><a href="https://sblnet.id"><b>SBL Net</b><em data-i18n="l.sbl">Fiber ISP — subscriber platform, billing, provisioning</em><svg class="ic"><use href="#i-external"/></svg></a></li>
-    <li class="reveal"><a href="https://bigproperty.online"><b>Big Property</b><em data-i18n="l.bp">Apartment and room booking platform</em><svg class="ic"><use href="#i-external"/></svg></a></li>
-    <li class="reveal"><a href="https://propertywhitebox.com"><b>White Box Property</b><em data-i18n="l.wb">Daily and transit apartment rental</em><svg class="ic"><use href="#i-external"/></svg></a></li>
-    <li class="reveal"><a href="https://itoya.my.id"><b>Itoya</b><em data-i18n="l.ito">Self-photo studio booking + remote management</em><svg class="ic"><use href="#i-external"/></svg></a></li>
-    <li class="reveal"><a href="https://dpupr.mubakab.go.id/"><b>DPUPR Muba</b><em data-i18n="l.dpupr">Government agency portal on a custom CMS</em><svg class="ic"><use href="#i-external"/></svg></a></li>
-    <li class="reveal"><a href="https://www.coffeelabs.co.id/"><b>CoffeeLabs</b><em data-i18n="l.cl">Company site</em><svg class="ic"><use href="#i-external"/></svg></a></li>
-    <li class="reveal"><a href="https://app.coffeelabs.co.id/"><b>CoffeeLabs HRIS</b><em data-i18n="l.clh">Attendance, GPS geofence, face recognition</em><svg class="ic"><use href="#i-external"/></svg></a></li>
-    <li class="reveal"><a href="https://admin.coffeelabs.co.id/"><b>CoffeeLabs Back Office</b><em data-i18n="l.clb">Admin and operations console</em><svg class="ic"><use href="#i-external"/></svg></a></li>
-    <li class="reveal"><a href="https://www.elteybatours.com"><b>Elteyba Tours</b><em data-i18n="l.elt">Umrah &amp; Hajj agency platform</em><svg class="ic"><use href="#i-external"/></svg></a></li>
-    <li class="reveal"><a href="https://elteybago.eilhamzah.com/login"><b>Elteyba GO</b><em data-i18n="l.eg">Jamaah portal</em><svg class="ic"><use href="#i-external"/></svg></a></li>
-    <li class="reveal"><a href="https://domestic.tamansafaribogor.com/"><b>Taman Safari Bogor</b><em data-i18n="l.ts">Domestic ticketing + back office</em><svg class="ic"><use href="#i-external"/></svg></a></li>
-    <li class="reveal"><a href="https://www.arkalearn.com/en"><b>ArkaLearn</b><em data-i18n="l.ark">Japanese-language EdTech feeding a job portal</em><svg class="ic"><use href="#i-external"/></svg></a></li>
-    <li class="reveal"><a href="https://gudangdusbandung.com/"><b>Gudang Dus Bandung</b><em data-i18n="l.gd">B2B custom packaging catalogue</em><svg class="ic"><use href="#i-external"/></svg></a></li>
-    <li class="reveal"><a href="https://taibacoco.co.id"><b>Taiba Cococha</b><em data-i18n="l.tb">Trilingual site (EN/ID/AR) + sales CRM</em><svg class="ic"><use href="#i-external"/></svg></a></li>
-    <li class="reveal"><a href="https://www.aerocam.co.id/"><b>Aerocam</b><em data-i18n="l.aero">Drone training centre — 2021 build was mine</em><svg class="ic"><use href="#i-external"/></svg></a></li>
-    <li class="reveal"><a href="https://www.instagram.com/hasanain.center/"><b>Hasanain Center</b><em data-i18n="l.has">Company profile + registration system</em><svg class="ic"><use href="#i-external"/></svg></a></li>
-  </ul>
-</section>
-
-<div class="strip strip--rev" aria-hidden="true"><svg class="strip__cat"><use href="#cat-walk"/></svg></div>
-
-<!-- ══ career ══ -->
-<section class="wrap sec" id="career">
-  <h2 class="sech sech--orange reveal"><span data-i18n="sec.career">CAREER</span></h2>
-  <ol class="time">
-    <li class="reveal"><span class="time__d">Dec 2025 — <b data-i18n="t.now">NOW</b></span><div class="time__c"><h3>Senior Full Stack Engineer</h3><p>PT Surya Bestari Lestari · SBLNET</p></div></li>
-    <li class="reveal"><span class="time__d">Mar 2025 — Dec 2025</span><div class="time__c"><h3 data-i18n="t.fsd">Full Stack Developer</h3><p>PT Cashlez Worldwide Indonesia</p></div></li>
-    <li class="reveal"><span class="time__d">Jun 2023 — Feb 2025</span><div class="time__c"><h3 data-i18n="t.lead">Full Stack Developer · Team Lead</h3><p>PT Cyber Lab Indonesia · CoffeeLabs</p></div></li>
-    <li class="reveal"><span class="time__d">Jul 2024 — Aug 2024</span><div class="time__c"><h3 data-i18n="t.fsd">Full Stack Developer</h3><p>ProSpark Pte Ltd · Singapore</p></div></li>
-    <li class="reveal"><span class="time__d">Nov 2023 — Jan 2024</span><div class="time__c"><h3 data-i18n="t.fsd">Full Stack Developer</h3><p>Taman Safari Indonesia · Bogor</p></div></li>
-    <li class="reveal"><span class="time__d">Sep 2023 — Dec 2023</span><div class="time__c"><h3 data-i18n="t.fsd">Full Stack Developer</h3><p>PT Arka Spektrum Solutindo</p></div></li>
-    <li class="reveal"><span class="time__d">Jun 2023 — Aug 2023</span><div class="time__c"><h3 data-i18n="t.mob">Mobile Developer</h3><p>Nghbr INC · New York City</p></div></li>
-    <li class="reveal"><span class="time__d">Nov 2022 — May 2023</span><div class="time__c"><h3 data-i18n="t.fse">Full Stack Engineer</h3><p>Remedi Indonesia</p></div></li>
-    <li class="reveal"><span class="time__d">Apr 2021 — Nov 2022</span><div class="time__c"><h3 data-i18n="t.fsd">Full Stack Developer</h3><p>PT Elteyba Medina Fauzana</p></div></li>
-    <li class="reveal"><span class="time__d">Feb 2020 — Apr 2021</span><div class="time__c"><h3 data-i18n="t.web">Full Stack Web Developer</h3><p>PT Taiba Cococha Indonesia</p></div></li>
-    <li class="reveal"><span class="time__d">Mar 2017 — Sep 2017</span><div class="time__c"><h3 data-i18n="t.intern">Full Stack Web Developer · Internship</h3><p>TVRI</p></div></li>
-  </ol>
-
-  <div class="duo">
-    <div class="panel panel--cyan reveal">
-      <h3 class="panel__h"><svg class="ic"><use href="#i-mic"/></svg><span data-i18n="sec.talks">TALKED AT PEOPLE</span></h3>
-      <p><b>2022</b> — <span data-i18n="talk.1">Speaker, "Web Application in the World of Work" — HMIK Talk, Pertamina University</span></p>
-      <p><b>2022</b> — <span data-i18n="talk.2">Main speaker, "Ngoding Bareng" — Permikomnas Jakarta</span></p>
-      <p class="panel__sub" data-i18n="talk.note">Two universities handed me a microphone in 2022 and nobody has asked for it back. I choose to read that as a good sign.</p>
+    <div class="box box--num">
+      <h3 class="box__h" data-i18n="num.h">BY THE NUMBERS</h3>
+      <dl class="num">
+        <div><dt data-count="6" data-suffix="+">6+</dt><dd data-i18n="num.years">years in production</dd></div>
+        <div><dt data-count="11">11</dt><dd data-i18n="num.clients">companies &amp; clients</dd></div>
+        <div><dt data-count="25" data-suffix="+">25+</dt><dd data-i18n="num.products">products shipped</dd></div>
+        <div><dt class="num--nan">NaN</dt><dd data-i18n="num.bugs">known bugs</dd></div>
+        <div class="num__cat"><dt><svg class="cat"><use href="#cat-face"/></svg></dt><dd data-i18n="num.cat">cat, orange, Cimol</dd></div>
+      </dl>
     </div>
-    <div class="panel panel--lime reveal" data-d="1">
-      <h3 class="panel__h"><svg class="ic"><use href="#i-cap"/></svg><span data-i18n="sec.edu">EDUCATION</span></h3>
-      <p><b>Universitas Darma Persada</b> · Jakarta</p>
-      <p data-i18n="edu.deg">Bachelor of English Literature — GPA 3.60 / 4.00 · 2018—2023</p>
-      <p class="panel__sub" data-i18n="edu.note">Not a computer science degree. You will have noticed the code works anyway.</p>
-    </div>
-  </div>
-</section>
 
-<!-- ══ cv ══ -->
-<section class="wrap sec" id="cv">
-  <div class="cv reveal">
-    <div class="cv__l">
-      <h2 class="cv__h" data-i18n="cv.h">THE ACTUAL CV</h2>
-      <p class="cv__p" data-i18n="cv.p">Everything on this page, compressed into the format recruiters keep asking for. One page of PDF, no design crimes, no "references available upon request".</p>
-      <a class="btn btn--yellow btn--lg" href="assets/Muhammad-Ilham-Rafiannandha-CV.pdf" download><svg class="ic"><use href="#i-download"/></svg><span data-i18n="cv.btn">Download CV (PDF)</span></a>
+    <div class="box box--wx">
+      <h3 class="box__h" data-i18n="wx.h">WEATHER</h3>
+      <p data-i18n="wx.body">JAKARTA — 31°C, humid.</p>
     </div>
-    <svg class="cv__cat cat"><use href="#cat-sit"/></svg>
-  </div>
-</section>
 
-<!-- ══ contact ══ -->
-<section class="wrap sec" id="contact">
-  <h2 class="sech sech--cyan reveal"><span data-i18n="sec.contact">SAY HI</span></h2>
-  <p class="lede reveal" data-i18n="contact.p">Got a system that has to balance to the cent, stay online at 3 AM, or ship to both app stores? That is my favourite kind of conversation.</p>
-  <div class="contact reveal">
-    <a class="ctile ctile--pink" href="mailto:ilhamrafi44@gmail.com"><svg class="ic"><use href="#i-mail"/></svg><b>Email</b><em>ilhamrafi44@gmail.com</em></a>
-    <a class="ctile ctile--cyan" href="https://www.linkedin.com/in/ilhamrafi44/"><svg class="ic"><use href="#i-linkedin"/></svg><b>LinkedIn</b><em>in/ilhamrafi44</em></a>
-    <a class="ctile ctile--lime" href="https://github.com/ilhamrafi44"><svg class="ic"><use href="#i-github"/></svg><b>GitHub</b><em>@ilhamrafi44</em></a>
-    <div class="ctile ctile--yellow ctile--static"><svg class="ic"><use href="#i-pin"/></svg><b data-i18n="contact.loc">Jakarta</b><em>Indonesia · UTC+7</em></div>
-  </div>
-</section>
+    <div class="box box--corr">
+      <h3 class="box__h" data-i18n="corr.h">CORRECTIONS</h3>
+      <p data-i18n-html="corr.body">An earlier edition reported <b>0</b> known bugs.</p>
+    </div>
+  </aside>
 </main>
 
-<footer class="foot">
-  <div class="wrap foot__in">
-    <svg class="foot__cat cat"><use href="#cat-sleep"/></svg>
-    <p class="foot__q" data-i18n="foot.q">Interested in new things. Addicted to code. That's all.</p>
-    <p class="foot__c">© <span id="yr">2026</span> Muhammad Ilham Rafiannandha · <span data-i18n="foot.built">Built by hand. No template.</span></p>
-    <p class="foot__cat-note" data-i18n="foot.cat">There are cats on this page. The count is deliberate. Her name is Cimol.</p>
+<!-- ═══ section B — technology ═══ -->
+<section class="sect" id="secB">
+  <div class="sect__bar"><span data-i18n="secB.label">SECTION B</span><b data-i18n="secB.h">TECHNOLOGY</b><span>3</span></div>
+  <p class="deck deck--wide" data-i18n="secB.deck">What he reaches for, arranged by the part of the stack that is currently on fire.</p>
+  <div class="kit" data-rv="1">
+    <div class="kit__row"><h4>BACKEND</h4><p>Java 17+ · Spring Boot · Spring Modulith · Spring Security · Laravel · NestJS · Node.js · Go / Fiber · PHP</p></div>
+    <div class="kit__row"><h4>FRONTEND</h4><p>Next.js · React · Vue 3 + Pinia · TypeScript · JavaScript · Tailwind · SvelteKit</p></div>
+    <div class="kit__row"><h4>MOBILE</h4><p>React Native · Flutter · Dart · Kotlin Multiplatform · Android</p></div>
+    <div class="kit__row"><h4>DATA</h4><p>PostgreSQL · MySQL · Redis · TimescaleDB · Firebase · Multi-datasource ACID</p></div>
+    <div class="kit__row"><h4>INFRA</h4><p>Docker · Jenkins · Nginx · GitHub Actions · Git · Grafana · Linux / VPS</p></div>
+    <div class="kit__row"><h4>NETWORK</h4><p>MikroTik RouterOS · FreeRADIUS / AAA · PPPoE · RADIUS Accounting · CoA Disconnect · OLT &amp; NOC</p></div>
+    <div class="kit__row"><h4>PAYMENTS</h4><p>Duitku · BRI Fixed VA · Midtrans · QRIS · Double-Entry GL · Reconciliation</p></div>
+    <div class="kit__row"><h4>SYSTEMS</h4><p>C++ · Rust · Python · WebSocket · Express</p></div>
+    <svg class="kit__cat cat"><use href="#cat-sleep"/></svg>
   </div>
+</section>
+
+<!-- ═══ section C — war stories ═══ -->
+<section class="sect" id="secC">
+  <div class="sect__bar"><span data-i18n="secC.label">SECTION C</span><b data-i18n="secC.h">WAR STORIES</b><span>4</span></div>
+  <p class="deck deck--wide" data-i18n="secC.deck">Most of this work lives in private client repositories.</p>
+
+  <article class="story story--lead" data-rv="1">
+    <p class="kicker" data-i18n="w1.k">LEAD FEATURE</p>
+    <h3 class="story__h" data-i18n="w1.h">Twenty-Seven Modules, Eight Databases, One Deployable</h3>
+    <p class="deck" data-i18n="w1.d">An ISP's entire subscriber lifecycle.</p>
+    <div class="rule rule--thin"></div>
+    <div class="cols cols--3">
+      <p data-i18n="w1.b">A modular monolith on Spring Modulith.</p>
+    </div>
+    <p class="story__more"><a href="https://github.com/ilhamrafi44/isp-platform-architecture"><span data-i18n="w1.cs">Read the full case study</span> <svg class="ic"><use href="#i-arrow"/></svg></a><em>PT Surya Bestari Lestari · SBLNET · <a href="https://sblnet.id">sblnet.id</a></em></p>
+  </article>
+
+  <div class="quote" data-rv="1">
+    <p>“Floats and money are a horror film.”</p>
+    <svg class="quote__cat cat"><use href="#cat-sit"/></svg>
+  </div>
+
+  <div class="stories" data-rv="1">
+    <article class="story"><p class="kicker" data-i18n="w2.k">OPERATIONS</p><h3 class="story__h" data-i18n="w2.h">The Booth Freezes At Midnight</h3><p class="deck" data-i18n="w2.d">Itoya Self Photo Studio.</p><p data-i18n="w2.b">Customers book a booth online.</p><p class="story__src">Itoya · <a href="https://itoya.my.id">itoya.my.id</a></p></article>
+    <article class="story"><p class="kicker" data-i18n="w3.k">FINANCE</p><h3 class="story__h" data-i18n="w3.h">Proving Every Rupiah Moved</h3><p class="deck" data-i18n="w3.d">One job, and this is it.</p><p data-i18n="w3.b">Two-stage reconciliation.</p><p class="story__src">PT Cashlez Worldwide Indonesia</p></article>
+    <article class="story"><p class="kicker" data-i18n="w4.k">HUMAN RESOURCES</p><h3 class="story__h" data-i18n="w4.h">So People Stop Clocking In For Each Other</h3><p class="deck" data-i18n="w4.d">CoffeeLabs.</p><p data-i18n="w4.b">Attendance with GPS geofencing.</p><p class="story__src">PT Cyber Lab Indonesia · <a href="https://app.coffeelabs.co.id/">HRIS</a> · <a href="https://admin.coffeelabs.co.id/">back office</a></p></article>
+    <article class="story"><p class="kicker" data-i18n="w5.k">EDUCATION &amp; LABOUR</p><h3 class="story__h" data-i18n="w5.h">Teaching Japanese, Then Finding The Job</h3><p class="deck" data-i18n="w5.d">ArkaLearn and Spectro.</p><p data-i18n="w5.b">A two-sided marketplace.</p><p class="story__src">PT Arka Spektrum Solutindo · <a href="https://www.arkalearn.com/en">arkalearn.com</a></p></article>
+    <article class="story"><p class="kicker" data-i18n="w6.k">TOURISM</p><h3 class="story__h" data-i18n="w6.h">Built For A Queue, Not For A Demo</h3><p class="deck" data-i18n="w6.d">Taman Safari Bogor.</p><p data-i18n="w6.b">QR and barcode scanning.</p><p class="story__src">GlobalTix Teknologi Indonesia · <a href="https://domestic.tamansafaribogor.com/">domestic.tamansafaribogor.com</a></p></article>
+    <article class="story"><p class="kicker" data-i18n="w7.k">GOVERNMENT</p><h3 class="story__h" data-i18n="w7.h">A Portal With No Plugins To Audit</h3><p class="deck" data-i18n="w7.d">DPUPR Musi Banyuasin.</p><p data-i18n="w7.b">The easy version is a theme.</p><p class="story__src">INFRALOK · <a href="https://dpupr.mubakab.go.id/">dpupr.mubakab.go.id</a></p></article>
+    <article class="story"><p class="kicker" data-i18n="w8.k">TRAVEL</p><h3 class="story__h" data-i18n="w8.h">Logistics, Wearing A Religious Hat</h3><p class="deck" data-i18n="w8.d">Elteyba Tours and SmartHajj.</p><p data-i18n="w8.b">Passports, visas, seat quotas.</p><p class="story__src">Elteyba · <a href="https://www.elteybatours.com">elteybatours.com</a></p></article>
+  </div>
+</section>
+
+<!-- ═══ section D — shipped & classifieds ═══ -->
+<section class="sect" id="secD">
+  <div class="sect__bar"><span data-i18n="secD.label">SECTION D</span><b data-i18n="secD.h">SHIPPED &amp; LIVE</b><span>6</span></div>
+  <p class="deck deck--wide" data-i18n="secD.deck">Every address below was checked before this edition went to press.</p>
+  <div class="listing" data-rv="1">
+    <a href="https://sblnet.id"><b>SBL NET</b><span>Fiber ISP — subscriber platform, billing, provisioning</span><i>sblnet.id</i></a>
+    <a href="https://bigproperty.online"><b>BIG PROPERTY</b><span>Apartment and room booking platform</span><i>bigproperty.online</i></a>
+    <a href="https://propertywhitebox.com"><b>WHITE BOX</b><span>Daily and transit apartment rental</span><i>propertywhitebox.com</i></a>
+    <a href="https://itoya.my.id"><b>ITOYA</b><span>Self-photo studio booking + remote management</span><i>itoya.my.id</i></a>
+    <a href="https://dpupr.mubakab.go.id/"><b>DPUPR MUBA</b><span>Government agency portal on a custom CMS</span><i>dpupr.mubakab.go.id</i></a>
+    <a href="https://www.coffeelabs.co.id/"><b>COFFEELABS</b><span>Company site</span><i>coffeelabs.co.id</i></a>
+    <a href="https://app.coffeelabs.co.id/"><b>COFFEELABS HRIS</b><span>Attendance, GPS geofence, face recognition</span><i>app.coffeelabs.co.id</i></a>
+    <a href="https://admin.coffeelabs.co.id/"><b>COFFEELABS ADMIN</b><span>Back office console</span><i>admin.coffeelabs.co.id</i></a>
+    <a href="https://www.elteybatours.com"><b>ELTEYBA TOURS</b><span>Umrah &amp; Hajj agency platform</span><i>elteybatours.com</i></a>
+    <a href="https://elteybago.eilhamzah.com/login"><b>ELTEYBA GO</b><span>Jamaah portal</span><i>elteybago</i></a>
+    <a href="https://domestic.tamansafaribogor.com/"><b>TAMAN SAFARI</b><span>Domestic ticketing + back office</span><i>domestic.tamansafaribogor.com</i></a>
+    <a href="https://www.arkalearn.com/en"><b>ARKALEARN</b><span>Japanese-language EdTech feeding a job portal</span><i>arkalearn.com</i></a>
+    <a href="https://gudangdusbandung.com/"><b>GUDANG DUS</b><span>B2B custom packaging catalogue</span><i>gudangdusbandung.com</i></a>
+    <a href="https://taibacoco.co.id"><b>TAIBA COCOCHA</b><span>Trilingual site (EN/ID/AR) + sales CRM</span><i>taibacoco.co.id</i></a>
+    <a href="https://www.aerocam.co.id/"><b>AEROCAM</b><span>Drone training centre — the 2021 build was his</span><i>aerocam.co.id</i></a>
+    <a href="https://www.instagram.com/hasanain.center/"><b>HASANAIN CENTER</b><span>Company profile + registration system</span><i>instagram</i></a>
+  </div>
+
+  <div class="classifieds" data-rv="1">
+    <h3 class="classifieds__h" data-i18n="ads.h">CLASSIFIED</h3>
+    <div class="ads">
+      <div class="ad"><h4 data-i18n="ad1.h">WANTED</h4><p data-i18n="ad1.b">Someone brave enough to tell me a refactor is too large.</p></div>
+      <div class="ad"><h4 data-i18n="ad2.h">FOR SALE</h4><p data-i18n="ad2.b">One Windows virtual machine, unopened.</p></div>
+      <div class="ad"><h4 data-i18n="ad3.h">LOST</h4><p data-i18n="ad3.b">Four hours. Last seen near a rounding error.</p><svg class="ad__cat cat"><use href="#cat-walk"/></svg></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ section E — chronology ═══ -->
+<section class="sect" id="secE">
+  <div class="sect__bar"><span data-i18n="secE.label">SECTION E</span><b data-i18n="secE.h">CHRONOLOGY</b><span>7</span></div>
+  <p class="deck deck--wide" data-i18n="secE.deck">Eleven employers and clients, in reverse order, as is traditional.</p>
+  <ol class="chron" data-rv="1">
+    <li><span class="chron__d">DEC 2025 — <b data-i18n="t.now">PRESENT</b></span><span class="chron__r">Senior Full Stack Engineer</span><span class="chron__o">PT Surya Bestari Lestari · SBLNET</span></li>
+    <li><span class="chron__d">MAR 2025 — DEC 2025</span><span class="chron__r" data-i18n="t.fsd">Full Stack Developer</span><span class="chron__o">PT Cashlez Worldwide Indonesia</span></li>
+    <li><span class="chron__d">JUN 2023 — FEB 2025</span><span class="chron__r" data-i18n="t.lead">Full Stack Developer · Team Lead</span><span class="chron__o">PT Cyber Lab Indonesia · CoffeeLabs</span></li>
+    <li><span class="chron__d">JUL 2024 — AUG 2024</span><span class="chron__r" data-i18n="t.fsd">Full Stack Developer</span><span class="chron__o">ProSpark Pte Ltd · Singapore</span></li>
+    <li><span class="chron__d">NOV 2023 — JAN 2024</span><span class="chron__r" data-i18n="t.fsd">Full Stack Developer</span><span class="chron__o">Taman Safari Indonesia · Bogor</span></li>
+    <li><span class="chron__d">SEP 2023 — DEC 2023</span><span class="chron__r" data-i18n="t.fsd">Full Stack Developer</span><span class="chron__o">PT Arka Spektrum Solutindo</span></li>
+    <li><span class="chron__d">JUN 2023 — AUG 2023</span><span class="chron__r" data-i18n="t.mob">Mobile Developer</span><span class="chron__o">Nghbr INC · New York City</span></li>
+    <li><span class="chron__d">NOV 2022 — MAY 2023</span><span class="chron__r" data-i18n="t.fse">Full Stack Engineer</span><span class="chron__o">Remedi Indonesia</span></li>
+    <li><span class="chron__d">APR 2021 — NOV 2022</span><span class="chron__r" data-i18n="t.fsd">Full Stack Developer</span><span class="chron__o">PT Elteyba Medina Fauzana</span></li>
+    <li><span class="chron__d">FEB 2020 — APR 2021</span><span class="chron__r" data-i18n="t.web">Full Stack Web Developer</span><span class="chron__o">PT Taiba Cococha Indonesia</span></li>
+    <li><span class="chron__d">MAR 2017 — SEP 2017</span><span class="chron__r" data-i18n="t.intern">Full Stack Web Developer · Internship</span><span class="chron__o">TVRI</span></li>
+  </ol>
+
+  <div class="twoup" data-rv="1">
+    <div class="box box--rec">
+      <h3 class="box__h"><svg class="ic"><use href="#i-mic"/></svg><span data-i18n="talk.h">ON THE RECORD</span></h3>
+      <p><b>2022</b> · <span data-i18n="talk.1">Speaker — HMIK Talk, Pertamina University</span></p>
+      <p><b>2022</b> · <span data-i18n="talk.2">Main speaker — Permikomnas Jakarta</span></p>
+      <p class="box__note" data-i18n="talk.note">Two universities handed him a microphone in 2022.</p>
+    </div>
+    <div class="box box--edu">
+      <h3 class="box__h"><svg class="ic"><use href="#i-cap"/></svg><span data-i18n="edu.h">EDUCATION</span></h3>
+      <p><b data-i18n="edu.1">Universitas Darma Persada, Jakarta</b></p>
+      <p data-i18n="edu.2">Bachelor of English Literature — GPA 3.60 / 4.00 · 2018–2023</p>
+      <p class="box__note" data-i18n="edu.note">Not a computer science degree.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CV house ad ═══ -->
+<section class="housead">
+  <div class="housead__in">
+    <p class="kicker kicker--inv">ADVERTISEMENT</p>
+    <h3 class="housead__h" data-i18n="cv.h">THE CV, IN PDF</h3>
+    <p class="housead__b" data-i18n="cv.b">Everything in this edition, compressed into the one format recruiters keep asking for.</p>
+    <a class="btn" href="assets/Muhammad-Ilham-Rafiannandha-CV.pdf" download><svg class="ic"><use href="#i-download"/></svg><span data-i18n="cv.btn">Download the CV</span></a>
+  </div>
+  <svg class="housead__cat cat"><use href="#cat-sit"/></svg>
+</section>
+
+<!-- ═══ section F — write to us ═══ -->
+<section class="sect" id="secF">
+  <div class="sect__bar"><span data-i18n="secF.label">SECTION F</span><b data-i18n="secF.h">WRITE TO US</b><span>8</span></div>
+  <p class="deck deck--wide" data-i18n="secF.deck">A system that has to balance to the cent, stay up at 3am, or ship to both stores.</p>
+  <div class="post" data-rv="1">
+    <a class="post__c post__c--a" href="mailto:ilhamrafi44@gmail.com"><svg class="ic"><use href="#i-mail"/></svg><b data-i18n="c.mail">Electronic mail</b><span>ilhamrafi44@gmail.com</span></a>
+    <a class="post__c post__c--b" href="https://www.linkedin.com/in/ilhamrafi44/"><svg class="ic"><use href="#i-linkedin"/></svg><b data-i18n="c.li">Professional network</b><span>in/ilhamrafi44</span></a>
+    <a class="post__c post__c--c" href="https://github.com/ilhamrafi44"><svg class="ic"><use href="#i-github"/></svg><b data-i18n="c.gh">Source, such as it is public</b><span>@ilhamrafi44</span></a>
+    <div class="post__c post__c--d"><svg class="ic"><use href="#i-pin"/></svg><b data-i18n="c.loc">Desk location</b><span>Jakarta, Indonesia · UTC+7</span></div>
+  </div>
+</section>
+
+<!-- ═══ colophon ═══ -->
+<footer class="colophon">
+  <div class="rule rule--fat"></div>
+  <svg class="colophon__cat cat"><use href="#cat-sleep"/></svg>
+  <p class="colophon__mast" data-i18n="mast">THE BONSKY TIMES</p>
+  <p data-i18n="colo.1">Set in Archivo Black, DM Serif Display, Newsreader and JetBrains Mono. Printed nowhere.</p>
+  <p data-i18n="colo.2">Written and typeset by hand. No template, no framework, no build step.</p>
+  <p data-i18n="colo.3">There are cats throughout this edition. Her name is Cimol.</p>
+  <p class="colophon__c">© <span id="yr">2026</span> Muhammad Ilham Rafiannandha</p>
 </footer>
+
+</div><!-- /.paper -->
 
 <script src="js/i18n.js"></script>
 <script src="js/app.js"></script>
