@@ -91,7 +91,7 @@
 <a class="skip" href="#world1" data-i18n="skip">Skip to the character sheet</a>
 
 <!-- ══ HUD ══ -->
-<div class="hud">
+<header class="hud">
   <div class="hud__l">
     <span class="hud__name">ILHAM</span>
     <span class="hud__hp" aria-hidden="true">&#9829;&#9829;&#9829;&#9829;&#9829;</span>
@@ -105,13 +105,13 @@
       <span><svg class="ic ic--day"><use href="#i-sun"/></svg><svg class="ic ic--night"><use href="#i-moon"/></svg></span>
     </button>
   </div>
-</div>
+</header>
 
 <div class="rider" aria-hidden="true"><svg class="cat cat--rider"><use href="#cat-walk"/></svg></div>
 
 <main class="page">
 
-  <section class="world world--surface world--first" id="world1">
+  <section class="world world--surface world--first" id="world1" tabindex="-1" aria-labelledby="sheet-name">
     <span class="terrain layer--sky" aria-hidden="true"><i class="sun"></i><i class="cloud cloud--a"></i><i class="cloud cloud--b"></i></span>
     <p class="world__label"><span data-i18n="w1.label">WORLD 1</span> &middot; <span data-i18n="w1.h">Surface</span></p>
 
@@ -132,7 +132,7 @@
         </div>
 
         <div class="sheet__body">
-          <h1 class="sheet__name" data-fact="name">Muhammad Ilham<br>Rafiannandha</h1>
+          <h1 class="sheet__name" id="sheet-name" data-fact="name">Muhammad Ilham<br>Rafiannandha</h1>
           <p class="sheet__role" data-fact="role" data-i18n="sheet.role">Senior Full Stack Engineer</p>
           <p class="sheet__open" data-fact="open"><span class="blip" aria-hidden="true"></span><span data-i18n="sheet.open">OPEN TO WORK</span></p>
 
@@ -175,133 +175,133 @@
     <p class="world__deck sheet__sub" data-i18n="w1.deck">Everything a recruiter needs in seven seconds, on one sheet.</p>
   </section>
 
-  <section class="world world--surface" id="world2">
+  <section class="world world--surface" id="world2" aria-labelledby="w2-h">
     <span class="terrain layer--grass" aria-hidden="true"><i class="cloud cloud--c"></i></span>
     <p class="world__label"><span data-i18n="w2.label">WORLD 2</span></p>
-    <h2 class="world__h" data-i18n="w2.h">Workshop</h2>
+    <h2 class="world__h" id="w2-h" data-i18n="w2.h">Workshop</h2>
     <p class="world__deck" data-i18n="w2.deck">The arsenal, arranged by the part of the stack currently on fire.</p>
 
     <div class="inv">
       <p class="inv__h" data-i18n="inv.h">EQUIPPED · tap a slot to see where it was used</p>
       <ul class="inv__grid">
         <li class="inv__item">
-          <button class="inv__slot" type="button" data-cat="be">
+          <button class="inv__slot" type="button" aria-describedby="used-1" data-cat="be">
             <span class="inv__ico" aria-hidden="true">JV</span>
             <span class="inv__nm">Java / Spring Boot</span>
           </button>
-          <p class="inv__used"><span class="sr" data-i18n="inv.usedon">Used on</span> SBLNET · Cashlez · CoffeeLabs</p>
+          <p class="inv__used" id="used-1"><span class="sr" data-i18n="inv.usedon">Used on</span> SBLNET · Cashlez · CoffeeLabs</p>
         </li>
         <li class="inv__item">
-          <button class="inv__slot" type="button" data-cat="be">
+          <button class="inv__slot" type="button" aria-describedby="used-2" data-cat="be">
             <span class="inv__ico" aria-hidden="true">SM</span>
             <span class="inv__nm">Spring Modulith</span>
           </button>
-          <p class="inv__used"><span class="sr" data-i18n="inv.usedon">Used on</span> SBLNET</p>
+          <p class="inv__used" id="used-2"><span class="sr" data-i18n="inv.usedon">Used on</span> SBLNET</p>
         </li>
         <li class="inv__item">
-          <button class="inv__slot" type="button" data-cat="be">
+          <button class="inv__slot" type="button" aria-describedby="used-3" data-cat="be">
             <span class="inv__ico" aria-hidden="true">LV</span>
             <span class="inv__nm">Laravel</span>
           </button>
-          <p class="inv__used"><span class="sr" data-i18n="inv.usedon">Used on</span> CoffeeLabs · Elteyba · Taiba · Remedi · Itoya · DPUPR</p>
+          <p class="inv__used" id="used-3"><span class="sr" data-i18n="inv.usedon">Used on</span> CoffeeLabs · Elteyba · Taiba · Remedi · Itoya · DPUPR</p>
         </li>
         <li class="inv__item">
-          <button class="inv__slot" type="button" data-cat="be">
+          <button class="inv__slot" type="button" aria-describedby="used-4" data-cat="be">
             <span class="inv__ico" aria-hidden="true">NS</span>
             <span class="inv__nm">NestJS</span>
           </button>
-          <p class="inv__used"><span class="sr" data-i18n="inv.usedon">Used on</span> CoffeeLabs</p>
+          <p class="inv__used" id="used-4"><span class="sr" data-i18n="inv.usedon">Used on</span> CoffeeLabs</p>
         </li>
         <li class="inv__item">
-          <button class="inv__slot" type="button" data-cat="fe">
+          <button class="inv__slot" type="button" aria-describedby="used-5" data-cat="fe">
             <span class="inv__ico" aria-hidden="true">NX</span>
             <span class="inv__nm">Next.js</span>
           </button>
-          <p class="inv__used"><span class="sr" data-i18n="inv.usedon">Used on</span> SBLNET · Cashlez · CoffeeLabs</p>
+          <p class="inv__used" id="used-5"><span class="sr" data-i18n="inv.usedon">Used on</span> SBLNET · Cashlez · CoffeeLabs</p>
         </li>
         <li class="inv__item">
-          <button class="inv__slot" type="button" data-cat="fe">
+          <button class="inv__slot" type="button" aria-describedby="used-6" data-cat="fe">
             <span class="inv__ico" aria-hidden="true">VU</span>
             <span class="inv__nm">Vue 3</span>
           </button>
-          <p class="inv__used"><span class="sr" data-i18n="inv.usedon">Used on</span> CoffeeLabs · Elteyba · Taiba · Itoya</p>
+          <p class="inv__used" id="used-6"><span class="sr" data-i18n="inv.usedon">Used on</span> CoffeeLabs · Elteyba · Taiba · Itoya</p>
         </li>
         <li class="inv__item">
-          <button class="inv__slot" type="button" data-cat="mo">
+          <button class="inv__slot" type="button" aria-describedby="used-7" data-cat="mo">
             <span class="inv__ico" aria-hidden="true">RN</span>
             <span class="inv__nm">React Native</span>
           </button>
-          <p class="inv__used"><span class="sr" data-i18n="inv.usedon">Used on</span> SBLNET · CoffeeLabs · Remedi · Elteyba · Nghbr · Taman Safari</p>
+          <p class="inv__used" id="used-7"><span class="sr" data-i18n="inv.usedon">Used on</span> SBLNET · CoffeeLabs · Remedi · Elteyba · Nghbr · Taman Safari</p>
         </li>
         <li class="inv__item">
-          <button class="inv__slot" type="button" data-cat="mo">
+          <button class="inv__slot" type="button" aria-describedby="used-8" data-cat="mo">
             <span class="inv__ico" aria-hidden="true">FL</span>
             <span class="inv__nm">Flutter</span>
           </button>
-          <p class="inv__used"><span class="sr" data-i18n="inv.usedon">Used on</span> Itoya</p>
+          <p class="inv__used" id="used-8"><span class="sr" data-i18n="inv.usedon">Used on</span> Itoya</p>
         </li>
         <li class="inv__item">
-          <button class="inv__slot" type="button" data-cat="db">
+          <button class="inv__slot" type="button" aria-describedby="used-9" data-cat="db">
             <span class="inv__ico" aria-hidden="true">PG</span>
             <span class="inv__nm">PostgreSQL</span>
           </button>
-          <p class="inv__used"><span class="sr" data-i18n="inv.usedon">Used on</span> SBLNET · Elteyba</p>
+          <p class="inv__used" id="used-9"><span class="sr" data-i18n="inv.usedon">Used on</span> SBLNET · Elteyba</p>
         </li>
         <li class="inv__item">
-          <button class="inv__slot" type="button" data-cat="db">
+          <button class="inv__slot" type="button" aria-describedby="used-10" data-cat="db">
             <span class="inv__ico" aria-hidden="true">MY</span>
             <span class="inv__nm">MySQL</span>
           </button>
-          <p class="inv__used"><span class="sr" data-i18n="inv.usedon">Used on</span> Remedi · Elteyba · Taiba</p>
+          <p class="inv__used" id="used-10"><span class="sr" data-i18n="inv.usedon">Used on</span> Remedi · Elteyba · Taiba</p>
         </li>
         <li class="inv__item">
-          <button class="inv__slot" type="button" data-cat="db">
+          <button class="inv__slot" type="button" aria-describedby="used-11" data-cat="db">
             <span class="inv__ico" aria-hidden="true">RD</span>
             <span class="inv__nm">Redis</span>
           </button>
-          <p class="inv__used"><span class="sr" data-i18n="inv.usedon">Used on</span> SBLNET · Elteyba · Taiba</p>
+          <p class="inv__used" id="used-11"><span class="sr" data-i18n="inv.usedon">Used on</span> SBLNET · Elteyba · Taiba</p>
         </li>
         <li class="inv__item">
-          <button class="inv__slot" type="button" data-cat="in">
+          <button class="inv__slot" type="button" aria-describedby="used-12" data-cat="in">
             <span class="inv__ico" aria-hidden="true">DK</span>
             <span class="inv__nm">Docker</span>
           </button>
-          <p class="inv__used"><span class="sr" data-i18n="inv.usedon">Used on</span> SBLNET · Cashlez · CoffeeLabs</p>
+          <p class="inv__used" id="used-12"><span class="sr" data-i18n="inv.usedon">Used on</span> SBLNET · Cashlez · CoffeeLabs</p>
         </li>
         <li class="inv__item">
-          <button class="inv__slot" type="button" data-cat="in">
+          <button class="inv__slot" type="button" aria-describedby="used-13" data-cat="in">
             <span class="inv__ico" aria-hidden="true">JK</span>
             <span class="inv__nm">Jenkins</span>
           </button>
-          <p class="inv__used"><span class="sr" data-i18n="inv.usedon">Used on</span> SBLNET · Cashlez · CoffeeLabs</p>
+          <p class="inv__used" id="used-13"><span class="sr" data-i18n="inv.usedon">Used on</span> SBLNET · Cashlez · CoffeeLabs</p>
         </li>
         <li class="inv__item">
-          <button class="inv__slot" type="button" data-cat="nw">
+          <button class="inv__slot" type="button" aria-describedby="used-14" data-cat="nw">
             <span class="inv__ico" aria-hidden="true">MT</span>
             <span class="inv__nm">MikroTik / FreeRADIUS</span>
           </button>
-          <p class="inv__used"><span class="sr" data-i18n="inv.usedon">Used on</span> SBLNET</p>
+          <p class="inv__used" id="used-14"><span class="sr" data-i18n="inv.usedon">Used on</span> SBLNET</p>
         </li>
         <li class="inv__item">
-          <button class="inv__slot" type="button" data-cat="pa">
+          <button class="inv__slot" type="button" aria-describedby="used-15" data-cat="pa">
             <span class="inv__ico" aria-hidden="true">PY</span>
             <span class="inv__nm">Payments &amp; Reconciliation</span>
           </button>
-          <p class="inv__used"><span class="sr" data-i18n="inv.usedon">Used on</span> SBLNET · Elteyba · Cashlez</p>
+          <p class="inv__used" id="used-15"><span class="sr" data-i18n="inv.usedon">Used on</span> SBLNET · Elteyba · Cashlez</p>
         </li>
         <li class="inv__item">
-          <button class="inv__slot" type="button" data-cat="la">
+          <button class="inv__slot" type="button" aria-describedby="used-16" data-cat="la">
             <span class="inv__ico" aria-hidden="true">PI</span>
             <span class="inv__nm">Python</span>
           </button>
-          <p class="inv__used"><span class="sr" data-i18n="inv.usedon">Used on</span> CoffeeLabs</p>
+          <p class="inv__used" id="used-16"><span class="sr" data-i18n="inv.usedon">Used on</span> CoffeeLabs</p>
         </li>
         <li class="inv__item">
-          <button class="inv__slot" type="button" data-cat="la">
+          <button class="inv__slot" type="button" aria-describedby="used-17" data-cat="la">
             <span class="inv__ico" aria-hidden="true">CP</span>
             <span class="inv__nm">C++</span>
           </button>
-          <p class="inv__used"><span class="sr" data-i18n="inv.usedon">Used on</span> Itoya</p>
+          <p class="inv__used" id="used-17"><span class="sr" data-i18n="inv.usedon">Used on</span> Itoya</p>
         </li>
       </ul>
     </div>
@@ -350,10 +350,10 @@
 
   </section>
 
-  <section class="world" id="world3">
+  <section class="world" id="world3" aria-labelledby="w3-h">
     <span class="terrain layer--dirt" aria-hidden="true"><i class="torch torch--a"></i><i class="ore ore--a"></i><i class="ore ore--b"></i></span>
     <p class="world__label"><span data-i18n="w3.label">WORLD 3</span></p>
-    <h2 class="world__h" data-i18n="w3.h">The Dirt</h2>
+    <h2 class="world__h" id="w3-h" data-i18n="w3.h">The Dirt</h2>
     <p class="world__deck" data-i18n="w3.deck">Three systems, dug out and cut open. The problem, the decision, the part that was hard.</p>
 
     <div class="chambers">
@@ -404,14 +404,15 @@
 
   </section>
 
-  <section class="world" id="world4">
+  <section class="world" id="world4" aria-labelledby="w4-h">
     <span class="terrain layer--stone" aria-hidden="true"><i class="torch torch--b"></i><i class="ore ore--c"></i><i class="ore ore--d"></i></span>
     <p class="world__label"><span data-i18n="w4.label">WORLD 4</span></p>
-    <h2 class="world__h" data-i18n="w4.h">The Mines</h2>
+    <h2 class="world__h" id="w4-h" data-i18n="w4.h">The Mines</h2>
     <p class="world__deck" data-i18n="w4.deck">Everything shipped. Some of it is behind a client's login, and says so.</p>
 
     <div class="mines">
-        <a class="ore-tile" data-status="live" href="https://sblnet.id">
+        <div class="ore-wrap">
+          <a class="ore-tile ore-tile--featured" data-status="live" href="https://sblnet.id">
           <img class="ore-tile__img" src="assets/shots/sblnet.jpg" width="1020" height="638" loading="lazy" alt="">
           <span class="ore-tile__b">
             <span class="ore-tile__n">SBL NET</span>
@@ -419,7 +420,10 @@
             <span class="ore-tile__s" data-i18n="st.live">LIVE</span>
           </span>
         </a>
-        <a class="ore-tile" data-status="live" href="https://domestic.tamansafaribogor.com/">
+          <a class="ore-tile__story" href="#world3"><span data-i18n="w4.story">Read the full story</span> ↑</a>
+        </div>
+        <div class="ore-wrap">
+          <a class="ore-tile ore-tile--featured" data-status="live" href="https://domestic.tamansafaribogor.com/">
           <img class="ore-tile__img" src="assets/shots/tamansafari.jpg" width="1020" height="638" loading="lazy" alt="">
           <span class="ore-tile__b">
             <span class="ore-tile__n">Taman Safari</span>
@@ -427,6 +431,8 @@
             <span class="ore-tile__s" data-i18n="st.live">LIVE</span>
           </span>
         </a>
+          <a class="ore-tile__story" href="#world3"><span data-i18n="w4.story">Read the full story</span> ↑</a>
+        </div>
         <a class="ore-tile" data-status="live" href="https://www.elteybatours.com">
           <img class="ore-tile__img" src="assets/shots/elteyba.jpg" width="1020" height="638" loading="lazy" alt="">
           <span class="ore-tile__b">
@@ -515,12 +521,12 @@
             <span class="ore-tile__s" data-i18n="st.live">LIVE</span>
           </span>
         </a>
-        <a class="ore-tile" data-status="live" href="https://www.instagram.com/hasanain.center/">
+        <a class="ore-tile" data-status="social" href="https://www.instagram.com/hasanain.center/">
           <span class="ore-block" aria-hidden="true"></span>
           <span class="ore-tile__b">
             <span class="ore-tile__n">Hasanain Center</span>
-            <span class="ore-tile__d">Company profile and registration system</span>
-            <span class="ore-tile__s" data-i18n="st.live">LIVE</span>
+            <span class="ore-tile__d">Company profile and registration system — only the Instagram presence is public</span>
+            <span class="ore-tile__s" data-i18n="st.social">SOCIAL ONLY</span>
           </span>
         </a>
         <a class="ore-tile" data-status="source" href="https://github.com/ilhamrafi44/isp-platform-architecture">
@@ -539,13 +545,16 @@
             <span class="ore-tile__s" data-i18n="st.source">SOURCE</span>
           </span>
         </a>
-        <div class="ore-tile" data-status="private">
+        <div class="ore-wrap">
+          <div class="ore-tile ore-tile--featured" data-status="private">
           <span class="ore-block" aria-hidden="true"></span>
           <span class="ore-tile__b">
             <span class="ore-tile__n">Cashlez Finance Portal</span>
             <span class="ore-tile__d">Two-stage settlement reconciliation, disbursement, deduction</span>
             <span class="ore-tile__s" data-i18n="st.private">CLIENT SYSTEM</span>
           </span>
+        </div>
+          <a class="ore-tile__story" href="#world3"><span data-i18n="w4.story">Read the full story</span> ↑</a>
         </div>
         <div class="ore-tile" data-status="private">
           <span class="ore-block" aria-hidden="true"></span>
@@ -628,15 +637,15 @@
           </span>
         </div>
     </div>
-    <p class="mines__note" data-i18n="w4.note">Six of these sit behind a client login and two are switched off. They are listed anyway, labelled for what they are, because leaving them out would make the record shorter than the work.</p>
+    <p class="mines__note" data-i18n="w4.note">Six sit behind a client login, two shipped to an app store, and three are switched off. They are listed anyway, labelled for what they are, because leaving them out would make the record shorter than the work.</p>
 
   </section>
 
-  <section class="world" id="world5">
+  <section class="world" id="world5" aria-labelledby="w5-h">
     <span class="terrain layer--deep" aria-hidden="true"><i class="ore ore--e"></i><i class="ore ore--f"></i></span>
     <p class="world__label"><span data-i18n="w5.label">WORLD 5</span></p>
-    <h2 class="world__h" data-i18n="w5.h">Strata</h2>
-    <p class="world__deck" data-i18n="w5.deck">Eleven years of layers. The deeper you dig, the older it gets.</p>
+    <h2 class="world__h" id="w5-h" data-i18n="w5.h">Strata</h2>
+    <p class="world__deck" data-i18n="w5.deck">Eleven roles as layers. The deeper you dig, the older it gets.</p>
 
     <ol class="strata">
       <li class="seam" data-from="2025-12" data-to="">
@@ -723,10 +732,10 @@
 
   </section>
 
-  <section class="world" id="world6">
+  <section class="world" id="world6" aria-labelledby="w6-h">
     <span class="terrain layer--core" aria-hidden="true"><i class="torch torch--c"></i></span>
     <p class="world__label"><span data-i18n="w6.label">WORLD 6</span></p>
-    <h2 class="world__h" data-i18n="w6.h">Core</h2>
+    <h2 class="world__h" id="w6-h" data-i18n="w6.h">Core</h2>
     <p class="world__deck" data-i18n="w6.deck">The bottom of the world. Write to him here.</p>
 
     <div class="post">
@@ -762,17 +771,19 @@
       <svg class="cat cat--taunt" aria-hidden="true"><use href="#cat-taunt"/></svg>
     </div>
 
-    <footer class="colophon">
-      <p data-i18n="colo.1">Set in Archivo Black, Press Start 2P and Space Grotesk.</p>
-      <p data-i18n="colo.2">Written and laid out by hand. No framework, no build step, no bundler.</p>
-      <p data-i18n="colo.3">There is a cat in this world. Her name is Cimol and she is orange.</p>
-      <svg class="cat cat--sleep" aria-hidden="true"><use href="#cat-sleep"/></svg>
-      <p class="colophon__c">&copy; <span id="yr">2026</span> Muhammad Ilham Rafiannandha</p>
-    </footer>
 
   </section>
 
 </main>
+
+<footer class="colophon">
+  <p data-i18n="colo.1">Set in Archivo Black, Press Start 2P and Space Grotesk.</p>
+  <p data-i18n="colo.2">Written and laid out by hand. No framework, no build step, no bundler.</p>
+  <p data-i18n="colo.3">There is a cat in this world. Her name is Cimol and she is orange.</p>
+  <svg class="cat cat--sleep" aria-hidden="true"><use href="#cat-sleep"/></svg>
+  <p class="colophon__c">&copy; <span id="yr">2026</span> Muhammad Ilham Rafiannandha</p>
+</footer>
+
 
 <script src="js/i18n.js"></script>
 <script src="js/app.js"></script>

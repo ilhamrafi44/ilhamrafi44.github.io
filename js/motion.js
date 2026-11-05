@@ -125,8 +125,14 @@
   reduced.addEventListener('change', (e) => {
     if (!e.matches) return;
     ScrollTrigger.getAll().forEach(t => t.kill());
+    // Only the elements this file animated. '[style]' also matched the inline
+    // sprite sheet, whose style="position:absolute" is the only thing keeping
+    // it out of the flow — clearing it jolted the page down 28px.
+    const touched = gsap.globalTimeline.getChildren()
+      .flatMap(t => (typeof t.targets === 'function' ? t.targets() : []))
+      .filter(x => x instanceof Element);
     gsap.globalTimeline.clear();
-    gsap.set('[style]', { clearProps: 'all' });
+    if (touched.length) gsap.set([...new Set(touched)], { clearProps: 'all' });
     document.documentElement.style.removeProperty('--walk');
   });
 })();

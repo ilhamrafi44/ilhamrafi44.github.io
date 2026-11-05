@@ -7,7 +7,7 @@
    contrast when the world turns to night.
    ═══════════════════════════════════════════════════════════ */
 
-.world--first { padding-top: clamp(62px, 9vw, 96px); }
+.world--first { padding-top: clamp(62px, 11vw, 128px); }
 
 .sheet {
   background: var(--cream);
@@ -205,10 +205,15 @@
   background: var(--ink); color: var(--cream);
   border: 2px solid var(--gold);
   font: 500 10.5px/1.45 var(--f-body);
-  opacity: 0; visibility: hidden;
+  /* Clipped, not hidden. visibility:hidden and display:none both drop the
+     text out of the accessibility tree, and a screen reader in browse mode
+     never fires :focus-within to bring it back. Clipping keeps it readable
+     to assistive tech at all times; aria-describedby on the button ties the
+     two together. */
+  clip-path: inset(50%); pointer-events: none;
 }
 .inv__item:hover .inv__used,
-.inv__item:focus-within .inv__used { opacity: 1; visibility: visible; }
+.inv__item:focus-within .inv__used { clip-path: none; }
 
 /* ── the full toolbox, as plain text ── */
 .kitfull { margin: clamp(22px, 4.5vw, 38px) 0 0; }
@@ -225,3 +230,26 @@
   color: var(--muted-on-cream);
 }
 .kitgrp__p { margin: 0; font-size: 12.5px; line-height: 1.5; }
+
+/* ── short viewports ─────────────────────────────────────
+   An iPhone SE in Safari is 320x460 of usable viewport, not 320x568: the
+   browser chrome takes the rest. All nine facts still have to clear the
+   fold there, so the sheet drops its own chrome before it drops content. */
+@media (max-height: 540px) {
+  .world--first { padding-top: 52px; }
+  .sheet__bar { display: none; }            /* "CHARACTER SHEET / SAVE 01" is decoration */
+  .sheet__in { padding: 8px; gap: 8px; }
+  .sheet__pic { width: 68px; }
+  .sheet__lv { margin-top: 3px; padding: 3px 2px; }
+  .sheet__name { font-size: 17px; margin-bottom: .18em; }
+  .sheet__role { margin-bottom: 4px; padding: 3px 5px; font-size: 8.5px; }
+  .sheet__open { margin-bottom: 4px; font-size: 8.5px; }
+  .stat { padding: 2px 0; }
+  .stat dd { font-size: 11px; line-height: 1.25; }
+  .stat dd i { font-size: 8.5px; }
+  .sheet__kit { padding: 0 8px 5px; }
+  .sheet__kith { margin-bottom: 4px; }
+  .kit { gap: 3px; }
+  .kit li { padding: 3px 4px; font-size: 9px; }
+  .sheet__cta { padding: 0 8px 8px; gap: 5px; }
+}

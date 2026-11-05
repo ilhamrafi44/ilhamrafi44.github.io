@@ -123,7 +123,17 @@ p { margin: 0 0 .8em; }
 ul, ol, dl { margin: 0; padding: 0; list-style: none; }
 
 ::selection { background: var(--gold); color: var(--ink); }
-:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+:focus-visible {
+  outline: 3px solid var(--ink);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 6px var(--gold);
+}
+/* on dark ground the ink ring disappears, so invert the pair */
+.world:not(.world--surface) :focus-visible,
+.hud :focus-visible {
+  outline-color: var(--cream);
+  box-shadow: 0 0 0 6px var(--ink);
+}
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

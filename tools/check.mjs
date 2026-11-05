@@ -89,29 +89,77 @@ const setTheme = async (page, theme) => page.evaluate(async (want) => {
   }
 }, theme);
 
-/** The contrast walk, unchanged from the sweep that found the dark-mode bug. */
+/** The contrast walk.
+ *
+ *  Three things the first version got wrong, all of which let a real failure
+ *  through: it took the first ancestor background at face value instead of
+ *  compositing alpha, it ignored background-image entirely, and it resolved a
+ *  position:fixed overlay against its DOM ancestors rather than against what
+ *  is painted behind it on screen. The HUD is fixed over the sky. */
 const CONTRAST_PROBE = `() => {
   const lum = (c) => { const [r,g,b] = c.map(v => { v/=255; return v <= 0.03928 ? v/12.92 : Math.pow((v+0.055)/1.055, 2.4); }); return 0.2126*r+0.7152*g+0.0722*b; };
   const nums = (s) => (s.match(/[\\d.]+/g) || []).map(Number);
-  const rgb = (s) => nums(s).slice(0,3);
+  const isUnit = (s) => /^color\\(/.test(s);   // color(srgb r g b / a): channels are 0-1
+  const rgb = (s) => { const n = nums(s).slice(0,3); return isUnit(s) ? n.map(v => Math.round(v * 255)) : n; };
   const alpha = (s) => { const n = nums(s); return n.length > 3 ? n[3] : 1; };
-  const bgOf = (el) => { let e = el; while (e) { const b = getComputedStyle(e).backgroundColor; if (alpha(b) > 0.1) return rgb(b); e = e.parentElement; } return [255,255,255]; };
+  const over = (fg, a, bg) => fg.map((c, i) => Math.round(c * a + bg[i] * (1 - a)));
   const ratio = (a,b) => { const l1 = lum(a), l2 = lum(b), hi = Math.max(l1,l2), lo = Math.min(l1,l2); return (hi+0.05)/(lo+0.05); };
+
+  // Composite every translucent layer on the way up instead of taking the
+  // first one whole. Report when the stack is not answerable.
+  const resolveBg = (el) => {
+    // Inside a fixed overlay the walk must STOP at the overlay. Escaping to
+    // body would measure against a colour that is not painted behind it once
+    // the page scrolls, which is how a transparent HUD over bright sky read
+    // as passing.
+    let fixedRoot = null;
+    for (let e = el; e && e.nodeType === 1; e = e.parentElement) {
+      if (getComputedStyle(e).position === 'fixed') { fixedRoot = e; break; }
+    }
+
+    const stack = [];
+    let e = el, imageOnly = false, opaqueFound = false;
+    while (e && e.nodeType === 1) {
+      const cs = getComputedStyle(e);
+      const a = alpha(cs.backgroundColor);
+      if (cs.backgroundImage !== 'none' && a < 0.99) imageOnly = true;
+      if (a > 0.004) { stack.push([rgb(cs.backgroundColor), a]); if (a >= 0.99) { opaqueFound = true; break; } }
+      if (e === fixedRoot) break;          // do not escape the overlay
+      e = e.parentElement;
+    }
+    let base = [255,255,255];
+    for (let i = stack.length - 1; i >= 0; i--) base = over(stack[i][0], stack[i][1], base);
+    return { bg: base, crossedFixed: !!fixedRoot, imageOnly, opaqueFound };
+  };
+
   const out = [];
   for (const el of document.querySelectorAll('body *')) {
     const cs = getComputedStyle(el);
-    if (cs.display === 'none' || cs.visibility === 'hidden' || +cs.opacity < 0.1) continue;\n    const r0 = el.getBoundingClientRect();\n    if (r0.width <= 2 || r0.height <= 2) continue; // sr-only / clipped: nothing is rendered
+    if (cs.display === 'none' || cs.visibility === 'hidden' || +cs.opacity < 0.1) continue;
+    const r0 = el.getBoundingClientRect();
+    if (r0.width <= 2 || r0.height <= 2) continue; // sr-only / clipped: nothing is rendered
     if (![...el.childNodes].some(n => n.nodeType === 3 && n.textContent.trim())) continue;
     const fg = rgb(cs.color); if (fg.length < 3) continue;
-    const bg = bgOf(el);
+
+    const res = resolveBg(el);
     const px = parseFloat(cs.fontSize), bold = +cs.fontWeight >= 700;
     const need = (px >= 24 || (bold && px >= 18.66)) ? 3 : 4.5;
-    const r = ratio(fg, bg);
-    if (r < need) out.push({
-      sel: el.tagName.toLowerCase() + (el.className && typeof el.className === 'string' ? '.' + el.className.trim().split(/\\s+/).slice(0,2).join('.') : ''),
-      fg: cs.color, bg: 'rgb(' + bg + ')', px: Math.round(px),
-      ratio: +r.toFixed(2), need, txt: el.textContent.trim().slice(0, 40),
-    });
+    const sel = el.tagName.toLowerCase() + (el.className && typeof el.className === 'string' ? '.' + el.className.trim().split(/\\s+/).slice(0,2).join('.') : '');
+    const txt = el.textContent.trim().slice(0, 40);
+
+    // A fixed overlay whose own stack never reaches an opaque colour is
+    // floating over unknown content. Unmeasurable is a failure, not a pass.
+    if (res.crossedFixed && !res.opaqueFound) {
+      out.push({ sel, fg: cs.color, bg: 'none (fixed overlay, transparent)', px: Math.round(px), ratio: 0, need, txt });
+      continue;
+    }
+    if (res.imageOnly && !res.opaqueFound) {
+      out.push({ sel, fg: cs.color, bg: 'background-image over transparent', px: Math.round(px), ratio: 0, need, txt });
+      continue;
+    }
+
+    const r = ratio(fg, res.bg);
+    if (r < need) out.push({ sel, fg: cs.color, bg: 'rgb(' + res.bg + ')', px: Math.round(px), ratio: +r.toFixed(2), need, txt });
   }
   return out;
 }`;
@@ -213,19 +261,39 @@ checks.overflow = async (ctx) => {
   const themeNames = await themes(page);
   for (const lang of ['en', 'id']) {
     for (const theme of themeNames) {
-      for (const w of [320, 390, 768, 1024, 1440]) {
+      for (const w of [280, 320, 390, 768, 1024, 1440]) {
         await page.setViewportSize({ width: w, height: 900 });
         await page.goto(ctx.url, { waitUntil: 'load' });
         await setLang(page, lang);
         await setTheme(page, theme);
-        const over = await page.evaluate(() =>
-          document.documentElement.scrollWidth - window.innerWidth);
-        if (over > 1) bad.push(`${lang}/${theme}/${w}px +${over}`);
+        // scrollWidth is useless here: html, body and every .world set
+        // overflow:hidden, so overflowing content is CLIPPED rather than
+        // reported — the page looks fine and the content is unreachable.
+        // Measure each element's own right edge instead.
+        const over = await page.evaluate(() => {
+          const vw = document.documentElement.clientWidth;
+          const out = [];
+          for (const el of document.querySelectorAll('body *')) {
+            const cs = getComputedStyle(el);
+            if (cs.display === 'none' || cs.visibility === 'hidden') continue;
+            if (cs.position === 'fixed') continue;                 // viewport-anchored by design
+            if (el.closest('[aria-hidden="true"]')) continue;      // decoration may bleed
+            if (el.classList.contains('sr')) continue;             // parked offscreen on purpose
+            if (el.classList.contains('skip')) continue;           // skip link parks at -9999px until focused
+            const r = el.getBoundingClientRect();
+            if (r.width === 0 || r.height === 0) continue;
+            const spill = Math.round(Math.max(r.right - vw, -r.left));
+            if (spill > 1) out.push(`${el.tagName.toLowerCase()}.${(typeof el.className === 'string' ? el.className.trim().split(/\s+/)[0] : '')} +${spill}px`);
+          }
+          return [...new Set(out)];
+        });
+        for (const o of over) bad.push(`${lang}/${theme}/${w}px ${o}`);
       }
     }
   }
   await page.close();
-  return { pass: !bad.length, detail: bad.length ? bad.join(', ') : `no overflow at 5 widths x ${themeNames.length} themes x 2 editions` };
+  const uniq = [...new Set(bad)];
+  return { pass: !uniq.length, detail: uniq.length ? uniq.slice(0, 6).join(' | ') + (uniq.length > 6 ? ` | +${uniq.length - 6}` : '') : `nothing spills at 6 widths x ${themeNames.length} themes x 2 editions` };
 };
 
 checks.contrast = async (ctx) => {
@@ -352,7 +420,8 @@ checks.nogsap = async (ctx) => {
   const r = await page.evaluate(() => {
     const hidden = [...document.querySelectorAll('body *')].filter(el => {
       const cs = getComputedStyle(el);
-      return (+cs.opacity < 0.05 || cs.visibility === 'hidden') && el.textContent.trim()
+      return (+cs.opacity < 0.05 || cs.visibility === 'hidden' || cs.display === 'none')
+             && el.textContent.trim()
              && !el.closest('.inv__used') && !el.classList.contains('inv__used') && !el.classList.contains('sr');
     }).map(el => el.tagName.toLowerCase() + '.' + (typeof el.className === 'string' ? el.className.trim().split(/\s+/)[0] : ''));
     const last = document.getElementById('world6');
@@ -369,6 +438,7 @@ checks.nogsap = async (ctx) => {
   if (errs.length) problems.push(`errors: ${errs.slice(0, 3).join(' | ')}`);
   if (r.hidden.length) problems.push(`hidden without gsap: ${r.hidden.slice(0, 6).join(', ')}`);
   if (!r.reachedBottom) problems.push('could not scroll to World 6');
+  if (r.textLen < 4000) problems.push(`only ${r.textLen} chars rendered without gsap`);
   return { pass: !problems.length, detail: problems.join(' | ') || `${r.textLen} chars readable, whole world scrollable, no errors` };
 };
 
@@ -408,7 +478,7 @@ checks.strata = async (ctx) => {
 // Every tile says what it is. A project with no public URL is labelled, not
 // hidden and not linked to a dead end; a project with no screenshot gets the
 // sealed block rather than a broken image or a collapsed card.
-const STATUSES = ['live', 'archived', 'private', 'app', 'source'];
+const STATUSES = ['live', 'archived', 'private', 'app', 'source', 'social'];
 
 checks.sealedtiles = async (ctx) => {
   const page = await ctx.browser.newPage();
@@ -435,17 +505,30 @@ checks.sealedtiles = async (ctx) => {
         bad.push(`"${name}": no screenshot and no sealed block`);
       }
 
-      const link = t.matches('a[href]') ? t : t.querySelector('a[href]');
+      const ext = (a) => a && !(a.getAttribute('href') || '').startsWith('#');
+      const link = ext(t.matches('a[href]') ? t : null) ? t : [...t.querySelectorAll('a[href]')].find(ext) || null;
       if (['archived', 'private'].includes(st) && link) bad.push(`"${name}": ${st} but still links to ${link.getAttribute('href')}`);
-      if (['live', 'source'].includes(st) && !link) bad.push(`"${name}": ${st} but has no link`);
+      if (['live', 'source', 'social'].includes(st) && !link) bad.push(`"${name}": ${st} but has no link`);
       if (t.getBoundingClientRect().height < 44) bad.push(`"${name}": under the 44px touch target`);
     }
     const counts = {};
     for (const t of tiles) counts[t.dataset.status] = (counts[t.dataset.status] || 0) + 1;
-    return { count: tiles.length, bad, counts };
+    const note = (document.querySelector('.mines__note')?.textContent || '').toLowerCase();
+    return { count: tiles.length, bad, counts, note };
   }, STATUSES);
   await page.close();
   if (!r.count) return { pass: false, detail: 'no .ore-tile found' };
+
+  // The note describes the unlinked tiles in prose. Prose drifts from reality
+  // silently, so assert the English number-word for each count is in it.
+  const WORDS = ['zero','one','two','three','four','five','six','seven','eight','nine','ten','eleven','twelve'];
+  for (const st of ['private', 'app', 'archived']) {
+    const n = r.counts[st] || 0;
+    const word = WORDS[n];
+    if (word && r.note && !r.note.includes(word)) {
+      r.bad.push(`note does not say "${word}" but there are ${n} ${st} tiles`);
+    }
+  }
   const summary = Object.entries(r.counts).map(([k, v]) => `${v} ${k}`).join(', ');
   return { pass: !r.bad.length, detail: r.bad.length ? r.bad.slice(0, 6).join(' | ') : `${r.count} tiles (${summary})` };
 };
@@ -461,21 +544,40 @@ checks.nofakenumbers = async () => {
   let cvText;
   try { cvText = execFileSync('pdftotext', ['-layout', cv, '-'], { encoding: 'utf8' }); }
   catch (e) { return { pass: false, detail: `pdftotext failed: ${e.message.split('\n')[0]}` }; }
-  const cvDigits = new Set(cvText.match(/\d+/g) || []);
+  const cvFlat = cvText.replace(/\s+/g, ' ').toLowerCase();
+
+  const stem = (w) => w.toLowerCase().replace(/[^a-z]/g, '').slice(0, 5);
+
+  // "27 modules" is traceable only if the CV says 27 near a word starting
+  // "modul". Bare digit membership would also accept the phone number.
+  const traceable = (num, nextWord) => {
+    const st = stem(nextWord);
+    if (!st) return cvFlat.includes(num);
+    const re = new RegExp(`${num}[^a-z0-9]{0,3}[a-z]*\\s*${st}`, 'i');
+    if (re.test(cvFlat)) return true;
+    // also allow the number and the word within a short span either way round
+    const near = new RegExp(`(${num}[\\s\\S]{0,30}${st}|${st}[\\s\\S]{0,30}${num})`, 'i');
+    return near.test(cvFlat);
+  };
 
   const I = dictionaries();
   const bad = [];
+  let scanned = 0;
   for (const lang of ['en', 'id']) {
     for (const [k, v] of Object.entries(I[lang] || {})) {
-      if (!/^w3\./.test(k)) continue;
+      // every prose key, not just the war stories — the counts in w4.note and
+      // the deck in w5 are claims too
+      if (/^(st\.|role\.|date\.|cat\.|sheet\.save)/.test(k)) continue;
       const cleaned = String(v).replace(/\{\{ANGKA:[^}]*\}\}/g, '');
-      for (const n of cleaned.match(/\d+/g) || []) {
-        if (!cvDigits.has(n)) bad.push(`${lang}.${k}: "${n}" is in no CV line`);
+      const hits = [...cleaned.matchAll(/(\d+)[^\w]*(\w+)?/g)];
+      if (hits.length) scanned++;
+      for (const h of hits) {
+        const [, num, next = ''] = h;
+        if (!traceable(num, next)) bad.push(`${lang}.${k}: "${num} ${next}".trim() is in no CV line`);
       }
     }
   }
-  const n = Object.keys(I.en || {}).filter(k => /^w3\./.test(k)).length;
-  return { pass: !bad.length, detail: bad.length ? bad.slice(0, 6).join(' | ') : `${n} story keys, every number traced to the CV` };
+  return { pass: !bad.length, detail: bad.length ? bad.slice(0, 6).join(' | ') : `${scanned} keys with numbers, each traced to the CV in context` };
 };
 
 // Hover-only content fails a keyboard and a touchscreen at the same time.
@@ -496,12 +598,45 @@ checks.tooltip = async (ctx) => {
       if (s.tagName !== 'BUTTON' && !s.hasAttribute('tabindex')) bad.push(`"${label}": not keyboard reachable`);
       const box = s.getBoundingClientRect();
       if (box.height < 44) bad.push(`"${label}": ${Math.round(box.height)}px tall, under the 44px touch target`);
+
+      // The payload the check is named after. It must exist, say something,
+      // be tied to its button for assistive tech, and stay IN the
+      // accessibility tree — display:none and visibility:hidden both remove
+      // it, and a screen reader in browse mode never fires :focus-within.
+      const describedBy = s.getAttribute('aria-describedby');
+      const tip = describedBy ? document.getElementById(describedBy) : s.parentElement?.querySelector('.inv__used');
+      if (!tip) { bad.push(`"${label}": no tooltip element`); continue; }
+      if (!describedBy) bad.push(`"${label}": tooltip not linked by aria-describedby`);
+      if (!(tip.textContent || '').trim()) bad.push(`"${label}": tooltip is empty`);
+      const tcs = getComputedStyle(tip);
+      if (tcs.display === 'none' || tcs.visibility === 'hidden') {
+        bad.push(`"${label}": tooltip removed from the accessibility tree (${tcs.display}/${tcs.visibility})`);
+      }
     }
     return { count: slots.length, bad };
   });
+
+  // and it must actually reveal on focus
+  if (!r.bad.length && r.count) {
+    const reveal = await page.evaluate(async () => {
+      const item = document.querySelector('.inv__item');
+      const tip = item.querySelector('.inv__used');
+      document.activeElement?.blur();
+      await new Promise(res => setTimeout(res, 80));
+      const before = getComputedStyle(tip).clipPath;
+      item.querySelector('.inv__slot').focus();
+      await new Promise(res => setTimeout(res, 120));
+      const after = getComputedStyle(tip).clipPath;
+      return { before, after };
+    });
+    if (reveal.before === reveal.after) {
+      r.bad.push(`tooltip does not reveal on focus (clip-path stays ${reveal.after})`);
+    }
+  }
+
   await page.close();
   if (!r.count) return { pass: false, detail: 'no .inv__slot found' };
-  return { pass: !r.bad.length, detail: r.bad.length ? r.bad.slice(0, 5).join(' | ') : `${r.count} slots, all named in the DOM and keyboard reachable` };
+  return { pass: !r.bad.length, detail: r.bad.length ? r.bad.slice(0, 5).join(' | ') : `${r.count} slots: named, keyboard reachable, described, and revealed on focus` };
 };
 
 // The seven-second test. A recruiter reads six things and leaves; if any of
@@ -514,7 +649,7 @@ checks.abovefold = async (ctx) => {
   const bad = [];
   await page.goto(ctx.url, { waitUntil: 'load' });
   const themeNames = await themes(page);
-  for (const [w, h] of [[320, 568], [390, 844], [1440, 900]]) {
+  for (const [w, h] of [[320, 460], [390, 664], [1440, 900]]) {
     for (const lang of ['en', 'id']) {
       for (const theme of themeNames) {
         await page.setViewportSize({ width: w, height: h });
@@ -526,7 +661,14 @@ checks.abovefold = async (ctx) => {
           for (const f of facts) {
             const el = document.querySelector(`[data-fact="${f}"]`);
             if (!el) { missing.push(f); continue; }
+            const cs = getComputedStyle(el);
+            // bottom===0 for a display:none element, which would sail under
+            // any "<= vh" test. Absent is not the same as above the fold.
+            if (cs.display === 'none' || cs.visibility === 'hidden' || !el.getClientRects().length) {
+              missing.push(f + ' (not rendered)'); continue;
+            }
             const b = el.getBoundingClientRect();
+            if (b.bottom <= 0) { missing.push(f + ' (above the viewport)'); continue; }
             found[f] = Math.round(b.bottom);
           }
           return { found, missing, vh: window.innerHeight };

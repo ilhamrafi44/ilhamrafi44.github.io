@@ -8,7 +8,15 @@
   position: fixed; inset: 0 0 auto 0; z-index: 200;
   display: flex; align-items: center; justify-content: space-between; gap: 10px;
   padding: 9px clamp(10px, 2.4vw, 18px);
-  background: color-mix(in srgb, var(--ink) 92%, transparent);
+  padding-left: max(clamp(10px, 2.4vw, 18px), env(safe-area-inset-left));
+  padding-right: max(clamp(10px, 2.4vw, 18px), env(safe-area-inset-right));
+  padding-top: max(9px, env(safe-area-inset-top));
+  /* solid first: color-mix() is 2023+ and older WebViews drop the whole
+     declaration, which left the HUD transparent over bright sky */
+  /* Solid, not 92%. A fixed overlay cannot be contrast-checked against what
+     is painted behind it, and "mostly opaque over an unknown backdrop" is not
+     an answer you can give about the one element that is always on screen. */
+  background: var(--ink);
   border-bottom: var(--bw) solid var(--ink);
   font: 400 var(--t-pixel-sm)/1 var(--f-pixel);
   color: var(--cream);
@@ -58,7 +66,8 @@
   padding: clamp(54px, 9vw, 104px) 0;
   scroll-margin-top: 70px;
 }
-.world:first-of-type { padding-top: clamp(76px, 11vw, 128px); }
+/* .world--first, not :first-of-type — a pseudo-class outranks the modifier
+   class and quietly beat every responsive override of this padding. */
 
 /* Section heading: pixel label over a display title. */
 .world__label {
@@ -232,7 +241,7 @@
 }
 .cat--rider {
   width: 54px; height: 32px;
-  position: absolute; bottom: 8px; left: 0;
+  position: absolute; bottom: max(8px, env(safe-area-inset-bottom)); left: 0;
   transform: translateX(calc(var(--walk, 0) * (100vw - 62px)));
 }
 
@@ -251,6 +260,7 @@
   position: relative; margin-top: clamp(20px, 3.6vw, 32px);
   padding: clamp(14px, 2.6vw, 20px);
   padding-right: clamp(86px, 15vw, 130px);
+  background: #141019;  /* fallback: color-mix is 2023+ */
   background: color-mix(in srgb, var(--ink) 88%, transparent);
   border: var(--bw) solid var(--torch); box-shadow: var(--shadow-sm);
 }

@@ -92,7 +92,9 @@ window.I18N = {
     "st.private":"CLIENT SYSTEM",
     "st.app":"APP",
     "st.source":"SOURCE",
-    "w4.note":"Six of these sit behind a client login and two are switched off. They are listed anyway, labelled for what they are, because leaving them out would make the record shorter than the work.",
+    "st.social":"SOCIAL ONLY",
+    "w4.story":"Read the full story",
+    "w4.note":"Six sit behind a client login, two shipped to an app store, and three are switched off. They are listed anyway, labelled for what they are, because leaving them out would make the record shorter than the work.",
 
     "w4.label":"WORLD 4",
     "w4.h":"The Mines",
@@ -127,7 +129,7 @@ window.I18N = {
 
     "w5.label":"WORLD 5",
     "w5.h":"Strata",
-    "w5.deck":"Eleven years of layers. The deeper you dig, the older it gets.",
+    "w5.deck":"Eleven roles as layers. The deeper you dig, the older it gets.",
 
     "c.mail":"Electronic mail",
     "c.li":"Professional network",
@@ -232,7 +234,9 @@ window.I18N = {
     "st.private":"SISTEM KLIEN",
     "st.app":"APLIKASI",
     "st.source":"SOURCE",
-    "w4.note":"Enam di antaranya ada di balik login klien dan dua sudah dimatikan. Tetap dicantumkan, dengan label apa adanya, soalnya menghapusnya bikin rekam jejaknya lebih pendek dari kerjaannya.",
+    "st.social":"SOSMED SAJA",
+    "w4.story":"Baca cerita lengkapnya",
+    "w4.note":"Enam ada di balik login klien, dua rilis di app store, dan tiga sudah dimatikan. Tetap dicantumkan, dengan label apa adanya, soalnya menghapusnya bikin rekam jejaknya lebih pendek dari kerjaannya.",
 
     "w4.label":"WORLD 4",
     "w4.h":"Tambang",
@@ -267,7 +271,7 @@ window.I18N = {
 
     "w5.label":"WORLD 5",
     "w5.h":"Strata",
-    "w5.deck":"Sebelas tahun lapisan. Makin dalam lu gali, makin lawas isinya.",
+    "w5.deck":"Sebelas peran jadi lapisan. Makin dalam lu gali, makin lawas isinya.",
 
     "c.mail":"Surat elektronik",
     "c.li":"Jaringan profesional",

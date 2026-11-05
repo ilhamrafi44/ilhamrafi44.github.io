@@ -12,7 +12,7 @@
   .hud { font-size: 6px; gap: 7px; padding: 8px 10px; }
   .hud__l { gap: 9px; }
   .hud__hp { font-size: 9px; }
-  .ctl { min-width: 40px; min-height: 40px; padding: 0 5px; }
+  .ctl { min-width: 44px; min-height: 44px; padding: 0 5px; }  /* the project's own floor */
   .lang__opt, .ctl > span { padding: 5px 6px; }
 
   .world { padding: clamp(40px, 11vw, 64px) var(--gut); }
@@ -73,11 +73,30 @@
   .inv__item:focus-within .inv__used { opacity: 1; visibility: visible; }
 }
 
-/* ── print: the page is not the artefact, the CV is ── */
+/* ── print: the page is not the artefact, the CV is ──
+   Forcing a white background is only half the job: every descendant keeps
+   its own light colour, and the whole Strata section printed cream on white
+   at 1.07:1. Force the text too, and reach the descendants. */
 @media print {
   .hud, .terrain, .rider, .cat, .bugbox { display: none !important; }
-  .world { padding: 12px 0; background: #fff !important; color: #000 !important; }
-  .sheet, .chamber, .ore-tile, .card, .kitgrp, .post__c, .lastcall {
-    box-shadow: none !important; break-inside: avoid;
+
+  html, body { background: #fff !important; }
+  .world, .world * {
+    background-color: transparent !important;
+    background-image: none !important;
+    color: #000 !important;
+    text-shadow: none !important;
   }
+  .world { padding: 12px 0; }
+  .sheet, .chamber, .ore-tile, .card, .kitgrp, .post__c, .lastcall, .vein {
+    box-shadow: none !important; break-inside: avoid;
+    border-color: #000 !important;
+  }
+  /* keep the labels distinguishable without colour */
+  .world__label, .sheet__role, .chamber__k, .ore-tile__s, .beat__l,
+  .seam__d, .card__h, .post__l, .inv__ico {
+    border: 1px solid #000 !important; font-weight: 700;
+  }
+  .ore-tile__img, .ore-block, .sealed { display: none !important; }
+  a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 9px; }
 }
