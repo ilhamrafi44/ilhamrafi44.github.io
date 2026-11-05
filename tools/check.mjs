@@ -261,6 +261,16 @@ checks.nojs = async (ctx) => {
   const regressed = hiddenNoJs.filter(sel => !hiddenWithJs.has(sel));
   const problems = [];
   if (regressed.length) problems.push(`visible only with JS: ${regressed.slice(0, 8).join(', ')}`);
+
+  // Being visible is not the same as saying anything. An element bound to
+  // i18n must carry its real default text in the markup, not a dash waiting
+  // for a script — otherwise the content still only exists once JS runs.
+  const stubs = [...html().matchAll(/<([a-z0-9]+)\b[^>]*\bdata-i18n(?:-html)?="([^"]+)"[^>]*>([\s\S]*?)<\/\1>/gi)]
+    .map(m => ({ key: m[2], text: m[3].replace(/<[^>]+>/g, '').replace(/&[a-z]+;/gi, 'x').trim() }))
+    .filter(e => e.text.length < 3);
+  if (stubs.length) {
+    problems.push(`placeholder instead of real text in the markup: ${[...new Set(stubs.map(s => s.key))].slice(0, 8).join(', ')}`);
+  }
   // A floor that catches a genuinely empty page. "All the content is here" is
   // asserted properly by the recruiter-facts check below, not by a word count.
   if (r.textLen < 100) problems.push(`only ${r.textLen} chars of text without JS`);
@@ -291,6 +301,34 @@ checks.reducedmotion = async (ctx) => {
   if (r.animated.length) problems.push(`still animating: ${r.animated.slice(0, 8).join(', ')}`);
   if (r.gsapTweens) problems.push(`${r.gsapTweens} gsap tweens running`);
   return { pass: !problems.length, detail: problems.join(' | ') || 'no animation under reduce' };
+};
+
+// A made-up number on a portfolio becomes a question in an interview that
+// cannot be answered. Every digit in a war story must trace to the CV.
+// {{ANGKA: ...}} is the escape hatch: a visible placeholder, not a claim.
+checks.nofakenumbers = async () => {
+  const cv = path.join(ROOT, 'assets/Muhammad-Ilham-Rafiannandha-CV.pdf');
+  if (!existsSync(cv)) return { pass: false, detail: 'CV not found; cannot verify story numbers' };
+
+  const { execFileSync } = await import('node:child_process');
+  let cvText;
+  try { cvText = execFileSync('pdftotext', ['-layout', cv, '-'], { encoding: 'utf8' }); }
+  catch (e) { return { pass: false, detail: `pdftotext failed: ${e.message.split('\n')[0]}` }; }
+  const cvDigits = new Set(cvText.match(/\d+/g) || []);
+
+  const I = dictionaries();
+  const bad = [];
+  for (const lang of ['en', 'id']) {
+    for (const [k, v] of Object.entries(I[lang] || {})) {
+      if (!/^w3\./.test(k)) continue;
+      const cleaned = String(v).replace(/\{\{ANGKA:[^}]*\}\}/g, '');
+      for (const n of cleaned.match(/\d+/g) || []) {
+        if (!cvDigits.has(n)) bad.push(`${lang}.${k}: "${n}" is in no CV line`);
+      }
+    }
+  }
+  const n = Object.keys(I.en || {}).filter(k => /^w3\./.test(k)).length;
+  return { pass: !bad.length, detail: bad.length ? bad.slice(0, 6).join(' | ') : `${n} story keys, every number traced to the CV` };
 };
 
 // Hover-only content fails a keyboard and a touchscreen at the same time.

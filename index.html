@@ -296,6 +296,53 @@
     <p class="world__label"><span data-i18n="w3.label">WORLD 3</span></p>
     <h2 class="world__h" data-i18n="w3.h">The Dirt</h2>
     <p class="world__deck" data-i18n="w3.deck">Three systems, dug out and cut open.</p>
+
+    <div class="chambers">
+      <article class="chamber">
+        <p class="chamber__k" data-i18n="w3.s1.k">ISP PLATFORM</p>
+        <h3 class="chamber__h" data-i18n="w3.s1.h">Twenty-seven modules, eight databases, one deployable</h3>
+        <figure class="chamber__fig">
+          <img src="assets/shots/sblnet.jpg" width="1020" height="638" loading="lazy" alt="">
+        </figure>
+        <div class="chamber__body">
+          <div class="beat"><p class="beat__l" data-i18n="w3.lab.p">THE PROBLEM</p><p data-i18n="w3.s1.p">An ISP's subscriber lifecycle touches billing, provisioning, payments and the network hardware itself. Split that into services and every ordinary action — activate a customer, take a payment, cut them off — becomes a distributed transaction you spend the rest of your life apologising for.</p></div>
+          <div class="beat"><p class="beat__l" data-i18n="w3.lab.d">THE DECISION</p><p data-i18n="w3.s1.d">One deployable, 27 modules, Spring Modulith. Hexagonal and domain-driven inside each module, events between them, and 8 PostgreSQL databases with transaction management scoped per context.</p></div>
+          <div class="beat beat--hard"><p class="beat__l" data-i18n="w3.lab.x">THE HARD PART</p><p data-i18n="w3.s1.x">Money. It is stored as integer cents and never as a float, because a rounding error in a billing engine is not a bug you find — it is one a customer finds. Invoicing, proration, discounts and VAT feed a double-entry ledger with its own journal and chart of accounts. Payment callbacks are HMAC-verified and idempotent, because a gateway will send the same callback twice and mean it.</p></div>
+          <div class="beat"><p class="beat__l" data-i18n="w3.lab.n">WHAT IT DOES NOW</p><p data-i18n="w3.s1.n">Overdue subscribers are suspended and brought back the moment payment lands. Provisioning speaks FreeRADIUS and MikroTik directly — PPPoE, live sessions, CoA disconnect, RADIUS accounting — so the billing decision and the router agree without a human in between.</p></div>
+        </div>
+        <p class="chamber__src"><span data-i18n="w3.s1.src">PT Surya Bestari Lestari · SBLNET</span> &middot; <a href="https://sblnet.id">sblnet.id</a></p>
+      </article>
+      <article class="chamber">
+        <p class="chamber__k" data-i18n="w3.s2.k">PAYMENTS</p>
+        <h3 class="chamber__h" data-i18n="w3.s2.h">Proving every rupiah actually moved</h3>
+        <figure class="chamber__fig chamber__fig--sealed">
+          <span class="sealed" aria-hidden="true"></span>
+          <figcaption data-i18n="w3.noshot">NO SCREENSHOT &middot; CLIENT SYSTEM</figcaption>
+        </figure>
+        <div class="chamber__body">
+          <div class="beat"><p class="beat__l" data-i18n="w3.lab.p">THE PROBLEM</p><p data-i18n="w3.s2.p">A payment gateway settles through banks. Somebody has to prove that what the gateway thinks happened, what the bank says happened, and what the back office recorded are the same three things.</p></div>
+          <div class="beat"><p class="beat__l" data-i18n="w3.lab.d">THE DECISION</p><p data-i18n="w3.s2.d">Two-stage reconciliation: third-party settlement against the bank mutation first, then that result against back-office records. One pass would hide which side was wrong.</p></div>
+          <div class="beat beat--hard"><p class="beat__l" data-i18n="w3.lab.x">THE HARD PART</p><p data-i18n="w3.s2.x">Discrepancies have shapes, and each shape needs a different answer. A disputed amount is not a transaction missing in the bank, and neither is a transaction missing in the back office. Detecting them is easy; telling them apart automatically is the work.</p></div>
+          <div class="beat"><p class="beat__l" data-i18n="w3.lab.n">WHAT IT DOES NOW</p><p data-i18n="w3.s2.n">Merchant disbursement and deduction — fees, chargebacks, adjustments — run on the same reconciled ledger, so payouts cannot drift from what was settled.</p></div>
+        </div>
+        <p class="chamber__src"><span data-i18n="w3.s2.src">PT Cashlez Worldwide Indonesia</span></p>
+      </article>
+      <article class="chamber">
+        <p class="chamber__k" data-i18n="w3.s3.k">TICKETING</p>
+        <h3 class="chamber__h" data-i18n="w3.s3.h">Built for a queue, not for a demo</h3>
+        <figure class="chamber__fig">
+          <img src="assets/shots/tamansafari.jpg" width="1020" height="638" loading="lazy" alt="">
+        </figure>
+        <div class="chamber__body">
+          <div class="beat"><p class="beat__l" data-i18n="w3.lab.p">THE PROBLEM</p><p data-i18n="w3.s3.p">A park gate is not a web form. The queue does not wait, the device is handheld, the signal is whatever the gate has that day, and a forged ticket has to be refused while the person holding it is standing there.</p></div>
+          <div class="beat"><p class="beat__l" data-i18n="w3.lab.d">THE DECISION</p><p data-i18n="w3.s3.d">Three pieces that had to agree: the public ticketing site, the back office, and a React Native gate-checker app built with Expo for the staff on the gate.</p></div>
+          <div class="beat beat--hard"><p class="beat__l" data-i18n="w3.lab.x">THE HARD PART</p><p data-i18n="w3.s3.x">Everything at the gate happens in front of an audience. QR and barcode scanning, thermal printing, and forged-ticket rejection all had to be fast enough that the queue keeps moving and certain enough that nobody is waved through on a guess.</p></div>
+          <div class="beat"><p class="beat__l" data-i18n="w3.lab.n">WHAT IT DOES NOW</p><p data-i18n="w3.s3.n">Domestic ticketing for the park runs on it.</p></div>
+        </div>
+        <p class="chamber__src"><span data-i18n="w3.s3.src">GlobalTix Teknologi Indonesia · Taman Safari Bogor</span> &middot; <a href="https://domestic.tamansafaribogor.com/">domestic.tamansafaribogor.com</a></p>
+      </article>
+    </div>
+
   </section>
 
   <section class="world" id="world4">

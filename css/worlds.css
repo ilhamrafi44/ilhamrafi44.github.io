@@ -1,1 +1,77 @@
-/* worlds.css — filled in a later task of the rebuild plan. */
+/* ═══════════════════════════════════════════════════════════
+   Per-world layout. Worlds 3-6 live underground, so every text
+   surface here is a dark panel: the dirt and stone behind them are
+   mid-tones and no muted colour reaches AA on a mid-tone.
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── WORLD 3 · the chambers ───────────────────────────── */
+.chambers { display: grid; gap: clamp(18px, 3.4vw, 30px); margin-top: clamp(18px, 3.4vw, 30px); }
+
+.chamber {
+  background: color-mix(in srgb, var(--ink) 86%, transparent);
+  border: var(--bw) solid var(--ink);
+  box-shadow: var(--shadow);
+  padding: clamp(13px, 2.6vw, 22px);
+  max-width: 880px;
+}
+.chamber__k {
+  display: inline-block; margin: 0 0 9px; padding: 6px 8px;
+  background: var(--torch); color: var(--ink);
+  font: 400 var(--t-pixel-xs)/1.4 var(--f-pixel); letter-spacing: .05em;
+}
+.chamber__h {
+  font: 400 var(--t-h3)/1.1 var(--f-display);
+  letter-spacing: -.015em; color: var(--cream);
+  margin-bottom: clamp(11px, 2vw, 16px);
+}
+
+.chamber__fig { margin: 0 0 clamp(12px, 2.2vw, 18px); }
+.chamber__fig img { width: 100%; border: var(--bw) solid var(--ink); }
+
+/* An unexcavated block. A project with no screenshot gets a sealed ore vein
+   rather than an empty frame — the gap becomes part of the world. Reused by
+   World 4, which is why it is defined here, at first use. */
+.chamber__fig--sealed { position: relative; }
+.sealed, .ore-block {
+  display: block; width: 100%; aspect-ratio: 16 / 7;
+  border: var(--bw) solid var(--ink);
+  background-color: var(--cave-stone);
+  background-image:
+    linear-gradient(135deg, rgba(255,246,229,.07) 25%, transparent 25% 50%,
+                    rgba(255,246,229,.07) 50% 75%, transparent 75%),
+    radial-gradient(rgba(91,200,216,.22) 2.5px, transparent 3px);
+  background-size: 22px 22px, 44px 44px;
+}
+.chamber__fig--sealed figcaption {
+  position: absolute; left: 11px; bottom: 11px;
+  background: var(--ink); color: var(--ore-cyan);
+  padding: 6px 8px; border: 2px solid var(--ore-cyan);
+  font: 400 var(--t-pixel-xs)/1.4 var(--f-pixel);
+}
+
+.chamber__body { display: grid; gap: clamp(11px, 2vw, 16px); }
+.beat { border-left: 4px solid rgba(255,246,229,.2); padding-left: clamp(10px, 1.8vw, 14px); }
+.beat--hard { border-left-color: var(--torch); }
+.beat__l {
+  margin: 0 0 5px;
+  font: 400 var(--t-pixel-xs)/1.4 var(--f-pixel); letter-spacing: .05em;
+  color: var(--gold);
+}
+.beat p:last-child { margin: 0; color: var(--cream); }
+
+.chamber__src {
+  margin: clamp(12px, 2.2vw, 18px) 0 0; padding-top: 11px;
+  border-top: 2px solid rgba(255,246,229,.16);
+  font: 700 11px/1.4 var(--f-body); letter-spacing: .04em;
+  color: var(--muted-on-ink);
+}
+.chamber__src a { color: var(--ore-cyan); }
+
+@media (min-width: 900px) {
+  .chamber { display: grid; grid-template-columns: 1fr 1fr; gap: 0 clamp(18px, 2.6vw, 28px); align-items: start; }
+  .chamber__k { grid-column: 1; justify-self: start; }
+  .chamber__h { grid-column: 1; }
+  .chamber__fig { grid-column: 1; margin-bottom: 0; }
+  .chamber__body { grid-column: 2; grid-row: 1 / span 4; }
+  .chamber__src { grid-column: 1 / -1; }
+}
