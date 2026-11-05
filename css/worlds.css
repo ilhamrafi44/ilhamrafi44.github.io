@@ -1,0 +1,322 @@
+/* ═══════════════════════════════════════════════════════════
+   Per-world layout. Worlds 3-6 live underground, so every text
+   surface here is a dark panel: the dirt and stone behind them are
+   mid-tones and no muted colour reaches AA on a mid-tone.
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── WORLD 3 · the chambers ───────────────────────────────
+   Facts you can look at, not paragraphs you have to read: a diagram of the
+   thing, the real screens where they exist, and the specs as chips. */
+.chambers { display: grid; gap: clamp(22px, 4vw, 40px); margin-top: clamp(18px, 3.4vw, 30px); }
+
+.chamber {
+  min-width: 0;   /* without this the diagram's min-width inflates the card */
+  background: #141019;
+  background: color-mix(in srgb, var(--ink) 90%, transparent);
+  border: var(--bw) solid var(--ink);
+  box-shadow: var(--shadow);
+  padding: clamp(14px, 2.8vw, 26px);
+}
+.chamber__k {
+  display: inline-block; margin: 0 0 9px; padding: 6px 9px;
+  background: var(--torch); color: var(--ink);
+  font: 400 var(--t-pixel-xs)/1.4 var(--f-pixel); letter-spacing: .05em;
+}
+.chamber__h {
+  font: 400 var(--t-h3)/1.08 var(--f-display);
+  letter-spacing: -.015em; color: var(--cream); margin-bottom: .35em;
+}
+.chamber__one {
+  margin: 0 0 clamp(16px, 2.6vw, 24px); max-width: 68ch;
+  font-size: clamp(13px, 1.9vw, 15px); line-height: 1.55; color: var(--muted-on-ink);
+}
+
+/* ── the diagrams ───────────────────────────────────────
+   Built from boxes, not from a fixed-width SVG. An 860px drawing on a
+   390px phone is a clipped drawing; this one turns into a column instead.
+   The arrows are pseudo-elements, so they rotate with the direction. */
+.chamber__viz {
+  max-width: 100%; min-width: 0;
+  margin: 0 0 clamp(14px, 2.4vw, 22px);
+  padding: clamp(12px, 2.2vw, 20px);
+  background: rgba(0,0,0,.26);
+  border: 2px solid rgba(255,246,229,.14);
+}
+
+.flow {
+  display: flex; flex-wrap: wrap; align-items: stretch; gap: 0;
+  list-style: none; margin: 0; padding: 0;
+}
+.flow__n {
+  flex: 1 1 auto; min-width: 0;
+  display: grid; place-items: center; text-align: center;
+  padding: 13px 12px;
+  border: 2.5px solid var(--cream);
+  background: rgba(255,246,229,.05);
+  font: 700 clamp(11px, 1.5vw, 13px)/1.25 var(--f-body);
+  letter-spacing: .06em; color: var(--cream);
+  transition: background .22s var(--snap), color .22s var(--snap), border-color .22s var(--snap);
+}
+.flow__n.is-on { background: var(--gold); border-color: var(--gold); color: var(--ink); }
+.flow__n--out { border-color: var(--torch); }
+.flow__n--out.is-on { background: var(--torch); border-color: var(--torch); }
+.flow__n--bad { border-color: #FF5C7A; }
+.flow__n--bad.is-on { background: #FF5C7A; border-color: #FF5C7A; color: var(--ink); }
+
+/* the connector carries its own label and its own arrowhead */
+.flow__l {
+  flex: 0 0 auto; position: relative;
+  display: grid; place-items: center; align-self: center;
+  min-width: 64px; padding: 0 8px;
+}
+.flow__l i {
+  font: 700 9px/1.3 var(--f-body); letter-spacing: .1em;
+  text-transform: uppercase; color: var(--muted-on-ink);
+  font-style: normal; text-align: center; padding-bottom: 13px;
+}
+.flow__l::before {
+  content: ''; position: absolute; left: 4px; right: 14px; top: 50%;
+  border-top: 2.5px solid rgba(255,246,229,.4);
+}
+.flow__l::after {
+  content: ''; position: absolute; right: 2px; top: 50%;
+  width: 0; height: 0; transform: translateY(-50%);
+  border-left: 9px solid var(--ore-cyan);
+  border-top: 6px solid transparent; border-bottom: 6px solid transparent;
+}
+
+.flow--out { gap: 8px; margin-top: 10px; }
+.flow--out .flow__n { flex: 1 1 190px; }
+
+.flow__back, .flow__split {
+  margin: 12px 0 0; font: 700 clamp(10px, 1.4vw, 11.5px)/1.5 var(--f-body);
+  letter-spacing: .05em; color: var(--torch);
+}
+.flow__back b { color: var(--gold); }
+.flow__split { color: var(--muted-on-ink); }
+
+/* ── phones: the flow becomes a column ── */
+@media (max-width: 760px) {
+  .flow { flex-direction: column; }
+  .flow__n { width: 100%; padding: 12px 10px; }
+  .flow__l { width: 100%; min-width: 0; min-height: 40px; padding: 2px 0; }
+  .flow__l i { padding: 0 0 0 22px; text-align: left; }
+  .flow__l::before {
+    left: 50%; right: auto; top: 2px; bottom: 12px;
+    border-top: 0; border-left: 2.5px solid rgba(255,246,229,.4);
+  }
+  .flow__l::after {
+    left: 50%; right: auto; bottom: 0; top: auto;
+    transform: translateX(-50%);
+    border-left: 6px solid transparent; border-right: 6px solid transparent;
+    border-top: 9px solid var(--ore-cyan); border-bottom: 0;
+  }
+  .flow--out { gap: 7px; }
+}
+
+/* ── the real screens ── */
+/* Two up, not three: a 1440px dashboard squeezed into a 380px tile reads as
+   "some admin panel". At half width the headings are actually legible. */
+.shelf {
+  display: grid; gap: 9px; margin: 0 0 clamp(14px, 2.4vw, 22px);
+  grid-template-columns: 1fr;
+}
+@media (min-width: 760px) { .shelf { grid-template-columns: 1fr 1fr; } }
+.shelf figure { margin: 0; overflow: hidden; border: 2px solid var(--ink); background: var(--cave-stone); }
+.shelf img { width: 100%; aspect-ratio: 12 / 5; object-fit: cover; object-position: top left; display: block; }
+
+/* ── the specs ── */
+.specs { display: flex; flex-wrap: wrap; gap: 5px; margin: 0 0 clamp(13px, 2.2vw, 20px); }
+.specs li {
+  font: 600 11px/1 var(--f-body); letter-spacing: .02em;
+  padding: 7px 9px; color: var(--cream);
+  background: rgba(255,246,229,.07); border: 2px solid rgba(255,246,229,.2);
+}
+
+.chamber__src {
+  margin: 0; padding-top: 12px;
+  border-top: 2px solid rgba(255,246,229,.16);
+  font: 700 11px/1.4 var(--f-body); letter-spacing: .04em;
+  color: var(--muted-on-ink);
+}
+.chamber__src a { color: var(--ore-cyan); }
+
+/* ── WORLD 4 · the mines ──────────────────────────────────
+   Every project, with an honest status on each. A tile with no public URL
+   is labelled, not hidden; a tile with no screenshot gets the sealed ore
+   block, so a missing image reads as unexcavated rock rather than a hole. */
+.mines {
+  display: grid; gap: 9px; margin-top: clamp(16px, 3vw, 26px);
+  grid-template-columns: repeat(auto-fill, minmax(232px, 1fr));
+}
+.ore-tile {
+  display: flex; flex-direction: column;
+  background: #141019;  /* fallback: color-mix is 2023+ */
+  background: color-mix(in srgb, var(--ink) 88%, transparent);
+  border: var(--bw) solid var(--ink);
+  box-shadow: var(--shadow-sm);
+  text-decoration: none; overflow: hidden;
+}
+.ore-tile__img, .ore-tile .ore-block {
+  width: 100%; aspect-ratio: 16 / 9; object-fit: cover; object-position: top center;
+  border: 0; border-bottom: var(--bw) solid var(--ink);
+}
+.ore-tile__b { display: flex; flex-direction: column; flex: 1; padding: 9px 10px; }
+.ore-tile__n {
+  display: block; font: 700 13px/1.25 var(--f-body); color: var(--cream); margin-bottom: 3px;
+}
+.ore-tile__d {
+  display: block; font-size: 11.5px; line-height: 1.45; color: var(--muted-on-ink); margin-bottom: 7px;
+}
+.ore-tile__s {
+  margin-top: auto; align-self: flex-start;   /* badges line up across a row */
+  padding: 4px 6px;
+  font: 400 var(--t-pixel-xs)/1.3 var(--f-pixel); letter-spacing: .04em;
+  border: 2px solid currentColor;
+}
+[data-status="live"]     .ore-tile__s { color: #8FE39B; }
+[data-status="source"]   .ore-tile__s { color: var(--ore-cyan); }
+[data-status="app"]      .ore-tile__s { color: var(--ore-mag); }
+[data-status="private"]  .ore-tile__s { color: var(--gold); }
+[data-status="archived"] .ore-tile__s { color: #C2BBAE; }
+[data-status="social"]   .ore-tile__s { color: #F0B8D8; }
+
+/* unlinked tiles must not pretend to be clickable */
+div.ore-tile { cursor: default; }
+
+@media (prefers-reduced-motion: no-preference) {
+  a.ore-tile { transition: transform .1s var(--snap), box-shadow .1s var(--snap); }
+}
+a.ore-tile:hover { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
+a.ore-tile:hover .ore-tile__n { color: var(--gold); }
+
+.mines__note {
+  margin: clamp(14px, 2.6vw, 22px) 0 0; max-width: 62ch;
+  font-size: 12.5px; line-height: 1.6; color: var(--muted-on-ink);
+  border-left: 4px solid var(--torch); padding-left: 13px;
+}
+
+/* ── WORLD 5 · the strata ─────────────────────────────────
+   Deeper is older, like rock. One continuous seam down the left for
+   employment, side veins branching right for the contract work that ran
+   at the same time. The split is drawn on CONCURRENCY, not on whether the
+   CV tagged a role "(Contract)" — by that reading only two entries would
+   remain on the seam and the section would collapse. */
+.strata { margin-top: clamp(18px, 3.4vw, 30px); position: relative; }
+.strata::before {
+  content: ''; position: absolute; left: 7px; top: 10px; bottom: 10px; width: 5px;
+  background: linear-gradient(180deg, var(--gold), var(--torch) 55%, var(--stone));
+  border: 2px solid var(--ink); border-radius: 1px;
+}
+
+.seam { position: relative; padding: 0 0 clamp(18px, 3vw, 28px) clamp(30px, 4.5vw, 44px); }
+.seam::before {
+  content: ''; position: absolute; left: 0; top: 4px;
+  width: 19px; height: 19px; transform: rotate(45deg);
+  background: var(--gold); border: var(--bw) solid var(--ink);
+}
+.seam:last-child { padding-bottom: 0; }
+
+.seam__d {
+  margin: 0 0 5px;
+  font: 400 var(--t-pixel-xs)/1.5 var(--f-pixel); letter-spacing: .04em;
+  color: var(--gold);
+}
+.seam__r { font: 400 clamp(17px, 2.3vw, 23px)/1.14 var(--f-display); color: var(--cream); margin-bottom: 3px; }
+.seam__o { margin: 0 0 5px; font: 600 12.5px/1.4 var(--f-body); color: var(--ore-cyan); }
+.seam__n { margin: 0; font-size: 12.5px; line-height: 1.55; color: var(--muted-on-ink); max-width: 58ch; }
+
+/* ── the concurrent work ── */
+.veins__h {
+  margin: 12px 0 7px;
+  font: 400 var(--t-pixel-xs)/1.5 var(--f-pixel); letter-spacing: .05em;
+  color: var(--torch);
+}
+.veins { display: grid; gap: 7px; }
+.vein {
+  position: relative; padding: 9px 11px;
+  background: #141019;  /* fallback: color-mix is 2023+ */
+  background: color-mix(in srgb, var(--ink) 80%, transparent);
+  border: 2px solid rgba(255,246,229,.2);
+  border-left: 4px solid var(--torch);
+  max-width: 560px;
+}
+.vein__d { margin: 0 0 3px; font: 700 9.5px/1.3 var(--f-body); letter-spacing: .07em; color: var(--torch); }
+.vein__o { margin: 0 0 2px; font: 600 12px/1.35 var(--f-body); color: var(--cream); }
+.vein__n { margin: 0; font-size: 11.5px; line-height: 1.45; color: var(--muted-on-ink); }
+
+/* ── education and talks ── */
+.twoup {
+  display: grid; gap: 9px; margin-top: clamp(20px, 3.6vw, 32px);
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+}
+.card {
+  background: #141019;  /* fallback: color-mix is 2023+ */
+  background: color-mix(in srgb, var(--ink) 88%, transparent);
+  border: var(--bw) solid var(--ink); box-shadow: var(--shadow-sm);
+  padding: 13px 14px;
+}
+.card__h {
+  margin: 0 0 9px;
+  font: 400 var(--t-pixel-xs)/1.5 var(--f-pixel); letter-spacing: .05em; color: var(--gold);
+}
+.card__b { margin: 0 0 5px; font-size: 12.5px; line-height: 1.5; color: var(--cream); }
+.card__n { margin: 8px 0 0; font-size: 11.5px; line-height: 1.5; color: var(--muted-on-ink); font-style: italic; }
+
+/* ── WORLD 6 · the core ───────────────────────────────── */
+.post {
+  display: grid; gap: 9px; margin-top: clamp(16px, 3vw, 26px);
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+}
+.post__c {
+  display: flex; flex-direction: column; gap: 4px; min-height: 64px;
+  padding: 12px 13px; text-decoration: none;
+  background: #141019;  /* fallback: color-mix is 2023+ */
+  background: color-mix(in srgb, var(--ink) 88%, transparent);
+  border: var(--bw) solid var(--ink); box-shadow: var(--shadow-sm);
+  border-left: 7px solid var(--ore-cyan);
+}
+.post__c--flat { border-left-color: var(--muted-on-ink); }
+.post__l {
+  font: 400 var(--t-pixel-xs)/1.4 var(--f-pixel); letter-spacing: .04em; color: var(--gold);
+}
+.post__v { font: 600 13px/1.35 var(--f-body); color: var(--cream); word-break: break-word; }
+@media (prefers-reduced-motion: no-preference) {
+  a.post__c { transition: transform .1s var(--snap), box-shadow .1s var(--snap); }
+}
+a.post__c:hover { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
+a.post__c:hover .post__v { color: var(--gold); }
+
+.lastcall {
+  margin-top: clamp(20px, 3.6vw, 32px); padding: clamp(16px, 3vw, 26px);
+  background: var(--cream); color: var(--ink);
+  border: var(--bw) solid var(--ink); box-shadow: var(--shadow);
+}
+.lastcall__h { margin: 0 0 7px; font: 400 clamp(19px, 2.6vw, 30px)/1.05 var(--f-display); }
+.lastcall__b { max-width: 54ch; font-size: 13.5px; line-height: 1.55; color: var(--muted-on-cream); }
+
+/* now a sibling of <main>, so it is a real contentinfo landmark */
+.colophon {
+  max-width: var(--page); margin-inline: auto; padding-inline: var(--gut);
+  margin-top: clamp(24px, 4vw, 40px); padding-top: clamp(14px, 2.6vw, 22px);
+  border-top: var(--bw) solid rgba(255,246,229,.18);
+  font-size: 12px; line-height: 1.6; color: var(--muted-on-ink);
+}
+.colophon p { margin: 0 0 5px; }
+.colophon__c { margin-top: 11px; font: 400 var(--t-pixel-xs)/1.6 var(--f-pixel); color: var(--muted-on-ink); }
+
+/* The three that have a full case study in World 3 are larger and link back
+   up to it — hierarchy, not omission. Everything else stays uniform. */
+.ore-wrap { display: flex; flex-direction: column; gap: 6px; }
+@media (min-width: 620px) { .ore-wrap { grid-column: span 2; } }
+.ore-tile--featured { border-color: var(--gold); box-shadow: 5px 5px 0 var(--ink); flex: 1; }
+/* a doubled-width tile must not become a doubled-height one */
+.ore-tile--featured .ore-tile__img,
+.ore-tile--featured .ore-block { aspect-ratio: auto; height: clamp(150px, 19vw, 210px); }
+.ore-tile--featured .ore-tile__n { font-size: 15px; }
+.ore-tile__story {
+  display: inline-flex; align-items: center; gap: 5px; min-height: 44px; align-self: flex-start;
+  margin-top: 5px; padding: 0 10px; text-decoration: none;
+  font: 700 10px/1 var(--f-body); letter-spacing: .09em; text-transform: uppercase;
+  color: var(--ink); background: var(--gold); border: var(--bw) solid var(--ink);
+}
