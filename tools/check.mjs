@@ -418,8 +418,13 @@ checks.motionsafe = async (ctx) => {
     const page = await ctx.browser.newPage();
     await page.setViewportSize({ width: w, height: h });
     await page.goto(ctx.url, { waitUntil: 'load' });
-    // let the intro finish, then walk the whole page the way a reader would
-    await page.waitForTimeout(1200);
+    // the opening title sequence holds the header intro; measure the settled
+    // page, not a frame mid-sequence
+    await page.waitForFunction(
+      () => document.documentElement.classList.contains('booted') || !document.getElementById('boot'),
+      null, { timeout: 15000 },
+    ).catch(() => {});
+    await page.waitForTimeout(1600);
     await page.evaluate(async () => {
       const step = Math.round(window.innerHeight * 0.7);
       for (let y = 0; y < document.documentElement.scrollHeight; y += step) {
