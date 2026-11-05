@@ -120,6 +120,20 @@ const CONTRAST_PROBE = `() => {
 
 const checks = {};
 
+// The English text lives in index.html (so the page reads without scripts) and
+// in js/i18n.js (so the editions can switch). One of them is generated from the
+// other; this is the guard that they have not drifted apart.
+checks.defaults = async () => {
+  const { execFileSync } = await import('node:child_process');
+  try {
+    execFileSync(process.execPath, [path.join(ROOT, 'tools/sync-defaults.mjs'), '--check'], { encoding: 'utf8', cwd: ROOT });
+    return { pass: true, detail: 'index.html defaults match js/i18n.js' };
+  } catch (e) {
+    const out = `${e.stdout || ''}${e.stderr || ''}`.trim().split('\n').slice(0, 6).join(' | ');
+    return { pass: false, detail: out || 'sync-defaults --check failed' };
+  }
+};
+
 checks.i18n = async () => {
   const I = dictionaries();
   if (!I || !I.en || !I.id) return { pass: false, detail: 'window.I18N.en / .id not found' };
@@ -140,6 +154,13 @@ checks.i18n = async () => {
 
   const unused = en.filter(k => !used.includes(k));
   if (unused.length) problems.push(`dict keys never used in markup: ${unused.join(', ')}`);
+
+  // applyLang assigns textContent, so an entity in a value renders as itself:
+  // "&amp;" shows up on the page as "&amp;", not "&".
+  for (const lang of ['en', 'id']) {
+    const ent = Object.entries(I[lang]).filter(([, v]) => /&(?:amp|lt|gt|quot|nbsp|mdash|ndash|middot|#\d+);/i.test(String(v)));
+    if (ent.length) problems.push(`HTML entities in ${lang} values (they render literally): ${ent.map(e => e[0]).join(', ')}`);
+  }
 
   // duplicate literal keys: JS keeps the last silently
   const src = readFileSync(path.join(ROOT, 'js/i18n.js'), 'utf8');
@@ -301,6 +322,39 @@ checks.reducedmotion = async (ctx) => {
   if (r.animated.length) problems.push(`still animating: ${r.animated.slice(0, 8).join(', ')}`);
   if (r.gsapTweens) problems.push(`${r.gsapTweens} gsap tweens running`);
   return { pass: !problems.length, detail: problems.join(' | ') || 'no animation under reduce' };
+};
+
+// Deeper is older, and a side vein branches off the role it ran alongside.
+// A vein whose dates fall outside its seam is a claim the layout makes
+// visually and the dates do not support.
+checks.strata = async (ctx) => {
+  const page = await ctx.browser.newPage();
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await page.goto(ctx.url, { waitUntil: 'load' });
+  const r = await page.evaluate(() => {
+    const ym = (s) => (s ? Number(s.slice(0, 4)) * 12 + Number(s.slice(5, 7)) : Infinity);
+    const bad = [];
+    const seams = [...document.querySelectorAll('.seam')];
+    for (let i = 1; i < seams.length; i++) {
+      const prev = ym(seams[i - 1].dataset.from), cur = ym(seams[i].dataset.from);
+      if (cur > prev) bad.push(`seam ${i + 1} (${seams[i].dataset.from}) is newer than the one above it (${seams[i - 1].dataset.from})`);
+    }
+    const veins = [...document.querySelectorAll('.vein')];
+    for (const v of veins) {
+      const host = v.closest('.seam');
+      const name = (v.querySelector('.vein__o')?.textContent || '?').trim();
+      if (!host) { bad.push(`"${name}": not attached to any seam`); continue; }
+      const vf = ym(v.dataset.from), hf = ym(host.dataset.from), ht = ym(host.dataset.to);
+      if (!v.dataset.from) { bad.push(`"${name}": no data-from`); continue; }
+      if (vf < hf || vf > ht) {
+        bad.push(`"${name}" (${v.dataset.from}) does not fall inside ${host.dataset.from}..${host.dataset.to || 'now'}`);
+      }
+    }
+    return { seams: seams.length, veins: veins.length, bad };
+  });
+  await page.close();
+  if (!r.seams) return { pass: false, detail: 'no .seam found' };
+  return { pass: !r.bad.length, detail: r.bad.length ? r.bad.slice(0, 5).join(' | ') : `${r.seams} seams in order, ${r.veins} veins inside their host role` };
 };
 
 // Every tile says what it is. A project with no public URL is labelled, not
@@ -507,7 +561,7 @@ checks.console = async (ctx) => {
 
 /* ───────────────────────── runner ───────────────────────── */
 
-const NEEDS_BROWSER = new Set(['overflow', 'contrast', 'nojs', 'reducedmotion', 'storage', 'abovefold', 'tooltip', 'sealedtiles', 'console']);
+const NEEDS_BROWSER = new Set(['overflow', 'contrast', 'nojs', 'reducedmotion', 'storage', 'abovefold', 'tooltip', 'sealedtiles', 'strata', 'console']);
 
 const argv = process.argv.slice(2);
 const only = (argv.find(a => a.startsWith('--only=')) || '').split('=')[1];

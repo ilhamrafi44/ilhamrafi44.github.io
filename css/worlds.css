@@ -128,3 +128,68 @@ a.ore-tile:hover .ore-tile__n { color: var(--gold); }
   font-size: 12.5px; line-height: 1.6; color: var(--muted-on-ink);
   border-left: 4px solid var(--torch); padding-left: 13px;
 }
+
+/* ── WORLD 5 · the strata ─────────────────────────────────
+   Deeper is older, like rock. One continuous seam down the left for
+   employment, side veins branching right for the contract work that ran
+   at the same time. The split is drawn on CONCURRENCY, not on whether the
+   CV tagged a role "(Contract)" — by that reading only two entries would
+   remain on the seam and the section would collapse. */
+.strata { margin-top: clamp(18px, 3.4vw, 30px); position: relative; }
+.strata::before {
+  content: ''; position: absolute; left: 7px; top: 10px; bottom: 10px; width: 5px;
+  background: linear-gradient(180deg, var(--gold), var(--torch) 55%, var(--stone));
+  border: 2px solid var(--ink); border-radius: 1px;
+}
+
+.seam { position: relative; padding: 0 0 clamp(18px, 3vw, 28px) clamp(30px, 4.5vw, 44px); }
+.seam::before {
+  content: ''; position: absolute; left: 0; top: 4px;
+  width: 19px; height: 19px; transform: rotate(45deg);
+  background: var(--gold); border: var(--bw) solid var(--ink);
+}
+.seam:last-child { padding-bottom: 0; }
+
+.seam__d {
+  margin: 0 0 5px;
+  font: 400 var(--t-pixel-xs)/1.5 var(--f-pixel); letter-spacing: .04em;
+  color: var(--gold);
+}
+.seam__r { font: 400 clamp(17px, 2.3vw, 23px)/1.14 var(--f-display); color: var(--cream); margin-bottom: 3px; }
+.seam__o { margin: 0 0 5px; font: 600 12.5px/1.4 var(--f-body); color: var(--ore-cyan); }
+.seam__n { margin: 0; font-size: 12.5px; line-height: 1.55; color: var(--muted-on-ink); max-width: 58ch; }
+
+/* ── the concurrent work ── */
+.veins__h {
+  margin: 12px 0 7px;
+  font: 400 var(--t-pixel-xs)/1.5 var(--f-pixel); letter-spacing: .05em;
+  color: var(--torch);
+}
+.veins { display: grid; gap: 7px; }
+.vein {
+  position: relative; padding: 9px 11px;
+  background: color-mix(in srgb, var(--ink) 80%, transparent);
+  border: 2px solid rgba(255,246,229,.2);
+  border-left: 4px solid var(--torch);
+  max-width: 560px;
+}
+.vein__d { margin: 0 0 3px; font: 700 9.5px/1.3 var(--f-body); letter-spacing: .07em; color: var(--torch); }
+.vein__o { margin: 0 0 2px; font: 600 12px/1.35 var(--f-body); color: var(--cream); }
+.vein__n { margin: 0; font-size: 11.5px; line-height: 1.45; color: var(--muted-on-ink); }
+
+/* ── education and talks ── */
+.twoup {
+  display: grid; gap: 9px; margin-top: clamp(20px, 3.6vw, 32px);
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+}
+.card {
+  background: color-mix(in srgb, var(--ink) 88%, transparent);
+  border: var(--bw) solid var(--ink); box-shadow: var(--shadow-sm);
+  padding: 13px 14px;
+}
+.card__h {
+  margin: 0 0 9px;
+  font: 400 var(--t-pixel-xs)/1.5 var(--f-pixel); letter-spacing: .05em; color: var(--gold);
+}
+.card__b { margin: 0 0 5px; font-size: 12.5px; line-height: 1.5; color: var(--cream); }
+.card__n { margin: 8px 0 0; font-size: 11.5px; line-height: 1.5; color: var(--muted-on-ink); font-style: italic; }
