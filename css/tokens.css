@@ -31,6 +31,7 @@
 
   /* ── muted text, one per ground. Never swapped by theme. ── */
   --muted-on-cream:#57534A;
+  --label-on-cream:#5E5868;   /* 6.4:1 on --cream; the pixel labels live here */
   --muted-on-ink:#B9B2A4;
 
   /* Text sitting DIRECTLY on the sky. Safe to flip with the theme precisely

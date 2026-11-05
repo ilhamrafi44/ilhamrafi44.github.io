@@ -1,1 +1,147 @@
-/* panels.css — filled in a later task of the rebuild plan. */
+/* ═══════════════════════════════════════════════════════════
+   Panels: the character sheet, buttons, and the hard-shadow form
+   language. Nothing here is rounded and nothing here is blurred.
+
+   The sheet is cream with ink text in BOTH themes. It carries the six
+   facts a recruiter reads, so it is the one surface that never changes
+   contrast when the world turns to night.
+   ═══════════════════════════════════════════════════════════ */
+
+.world--first { padding-top: clamp(62px, 9vw, 96px); }
+
+.sheet {
+  background: var(--cream);
+  color: var(--ink);
+  border: var(--bw) solid var(--ink);
+  box-shadow: var(--shadow);
+  max-width: 680px;
+  margin-inline: 0;   /* align with the world label, not centred on its own */
+}
+
+.sheet__bar {
+  display: flex; justify-content: space-between; gap: 10px; margin: 0;
+  padding: 7px 10px;
+  background: var(--ink); color: var(--gold);
+  font: 400 var(--t-pixel-xs)/1.4 var(--f-pixel); letter-spacing: .04em;
+}
+.sheet__save { color: var(--ore-cyan); }
+
+.sheet__in { display: flex; gap: clamp(10px, 2.4vw, 16px); padding: clamp(10px, 2.4vw, 15px); }
+
+.sheet__pic { width: clamp(84px, 27vw, 158px); flex: none; }
+.sheet__pic img { width: 100%; border: var(--bw) solid var(--ink); }
+.sheet__lv {
+  margin: 6px 0 0; padding: 5px 3px; text-align: center;
+  background: var(--ink); color: var(--gold);
+  font: 400 var(--t-pixel-xs)/1.9 var(--f-pixel);
+}
+.sheet__lv b { display: block; font-weight: 400; }
+.sheet__lv span { color: var(--cream); }
+
+.sheet__body { flex: 1; min-width: 0; }
+
+.sheet__name {
+  font: 400 var(--t-name)/1.02 var(--f-display);
+  letter-spacing: -.025em;
+  margin-bottom: .3em;
+}
+.sheet__role {
+  display: inline-block; margin: 0 0 7px;
+  background: var(--ink); color: var(--gold);
+  padding: 5px 8px;
+  font: 700 clamp(9px, 2.1vw, 11px)/1 var(--f-body);
+  letter-spacing: .1em; text-transform: uppercase;
+}
+
+/* Explicit, not muted. Ilham chose the loud version knowing it is public. */
+.sheet__open {
+  display: flex; align-items: center; gap: 7px; margin: 0 0 9px;
+  font: 700 clamp(9px, 2.1vw, 11px)/1 var(--f-body);
+  letter-spacing: .1em; text-transform: uppercase;
+  color: #0C5E2E;
+}
+.blip {
+  width: 9px; height: 9px; flex: none;
+  background: #16A34A; border: 2px solid var(--ink);
+}
+
+/* ── the four stat rows ── */
+.stats { border-top: 2px solid rgba(20,16,25,.15); }
+.stat {
+  display: grid; grid-template-columns: 40px 1fr; gap: 9px; align-items: baseline;
+  padding: 6px 0; border-bottom: 1px dashed rgba(20,16,25,.18);
+}
+.stat:last-child { border-bottom: 0; }
+.stat dt {
+  font: 400 var(--t-pixel-xs)/1.4 var(--f-pixel);
+  color: var(--label-on-cream); letter-spacing: .02em;
+}
+.stat dd { margin: 0; font-size: clamp(11.5px, 2.5vw, 13.5px); line-height: 1.38; }
+.stat dd b { font-weight: 600; }
+.stat dd i {
+  display: block; font-style: normal; margin-top: 1px;
+  font: 700 clamp(9px, 1.9vw, 10px)/1.3 var(--f-body);
+  letter-spacing: .05em; color: var(--muted-on-cream);
+}
+.stat--now dd b { color: #0C5E2E; }
+
+/* ── equipped ── */
+.sheet__kit { padding: 0 clamp(10px, 2.4vw, 15px) clamp(9px, 2vw, 12px); }
+.sheet__kith {
+  margin: 0 0 6px; font: 400 var(--t-pixel-xs)/1.4 var(--f-pixel); color: var(--label-on-cream);
+}
+.kit { display: flex; flex-wrap: wrap; gap: 4px; }
+.kit li {
+  font: 600 clamp(9.5px, 2vw, 11px)/1 var(--f-body);
+  padding: 5px 7px;
+  background: rgba(20,16,25,.055);
+  border: 2px solid rgba(20,16,25,.22);
+  color: #2C2733;
+}
+.kit__more { background: var(--gold); border-color: var(--ink); color: var(--ink); }
+
+/* ── buttons ── */
+.sheet__cta {
+  display: flex; flex-wrap: wrap; gap: 7px; margin: 0;
+  padding: 0 clamp(10px, 2.4vw, 15px) clamp(11px, 2.4vw, 15px);
+}
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 44px; padding: 0 clamp(11px, 2.6vw, 16px);
+  border: var(--bw) solid var(--ink);
+  background: var(--cream); color: var(--ink);
+  box-shadow: var(--shadow-sm);
+  font: 700 clamp(10px, 2.2vw, 12px)/1 var(--f-body);
+  letter-spacing: .08em; text-transform: uppercase; text-decoration: none;
+}
+.btn--gold { background: var(--gold); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .btn { transition: transform .11s var(--snap), box-shadow .11s var(--snap); }
+}
+.btn:hover { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
+.btn:active { transform: translate(3px, 3px); box-shadow: none; }
+
+.sheet__sub { margin-top: clamp(14px, 3vw, 22px); }
+
+/* ── small screens ───────────────────────────────────────
+   All nine facts must clear the fold on a 320x568 viewport, so the sheet
+   tightens rather than letting the CV button fall below it. The world label
+   goes first: the HUD already says "WORLD 1 · SURFACE" two centimetres above
+   it, so on a small screen it is the one element paying rent twice. */
+@media (max-width: 400px), (max-height: 620px) {
+  #world1 > .world__label { display: none; }
+  .world--first { padding-top: 60px; }
+  .sheet__in { gap: 9px; padding: 9px; }
+  .sheet__pic { width: 76px; }
+  .sheet__lv { margin-top: 4px; padding: 4px 2px; }
+  .sheet__name { font-size: 20px; margin-bottom: .22em; }
+  .sheet__role { margin-bottom: 5px; padding: 4px 6px; }
+  .sheet__open { margin-bottom: 6px; }
+  .stat { padding: 4px 0; grid-template-columns: 34px 1fr; gap: 7px; }
+  .stat dd { font-size: 12px; line-height: 1.3; }
+  .sheet__kit { padding: 0 9px 7px; }
+  .kit li { padding: 4px 5px; font-size: 9.5px; }
+  .sheet__cta { padding: 0 9px 9px; gap: 6px; }
+  .btn { padding: 0 10px; font-size: 10px; }
+}

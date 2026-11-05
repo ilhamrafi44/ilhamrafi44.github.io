@@ -56,10 +56,66 @@
 
 <main class="page">
 
-  <section class="world world--surface" id="world1">
+  <section class="world world--surface world--first" id="world1">
     <p class="world__label"><span data-i18n="w1.label">WORLD 1</span> &middot; <span data-i18n="w1.h">Surface</span></p>
-    <h1 class="world__h sr">Muhammad Ilham Rafiannandha — Senior Full Stack Engineer</h1>
-    <p class="world__deck" data-i18n="w1.deck">Everything a recruiter needs in seven seconds, on one sheet.</p>
+
+    <article class="sheet">
+      <p class="sheet__bar">
+        <span data-i18n="sheet.title">CHARACTER SHEET</span>
+        <span class="sheet__save" data-i18n="sheet.save">SAVE 01</span>
+      </p>
+
+      <div class="sheet__in">
+        <div class="sheet__pic">
+          <picture>
+            <source type="image/webp" srcset="assets/ilham-sm.webp 520w, assets/ilham.webp 1040w" sizes="(max-width:720px) 33vw, 190px">
+            <img src="assets/ilham.jpg" srcset="assets/ilham-sm.jpg 520w, assets/ilham.jpg 1040w" sizes="(max-width:720px) 33vw, 190px"
+                 width="1040" height="1300" alt="Muhammad Ilham Rafiannandha" fetchpriority="high">
+          </picture>
+          <p class="sheet__lv"><b>LV. 6</b><span data-i18n="sheet.lv">YEARS</span></p>
+        </div>
+
+        <div class="sheet__body">
+          <h1 class="sheet__name" data-fact="name">Muhammad Ilham<br>Rafiannandha</h1>
+          <p class="sheet__role" data-fact="role" data-i18n="sheet.role">Senior Full Stack Engineer</p>
+          <p class="sheet__open" data-fact="open"><span class="blip" aria-hidden="true"></span><span data-i18n="sheet.open">OPEN TO WORK</span></p>
+
+          <dl class="stats">
+            <div class="stat stat--now" data-fact="now">
+              <dt data-i18n="sheet.now">NOW</dt>
+              <dd><b>PT Surya Bestari Lestari</b> &middot; SBLNET<i data-i18n="date.now">Dec 2025 &rarr;</i></dd>
+            </div>
+            <div class="stat" data-fact="prev1">
+              <dt data-i18n="sheet.prev">PREV</dt>
+              <dd><b>PT Cashlez Worldwide Indonesia</b><i data-i18n="date.cashlez">Mar&ndash;Dec 2025</i></dd>
+            </div>
+            <div class="stat" data-fact="prev2">
+              <dt data-i18n="sheet.prev">PREV</dt>
+              <dd><b>PT Cyber Lab Indonesia</b> &middot; <span data-i18n="sheet.lead">Team Lead</span><i data-i18n="date.cyberlab">Jun 2023&ndash;Feb 2025</i></dd>
+            </div>
+            <div class="stat" data-fact="edu">
+              <dt data-i18n="sheet.edu">EDU</dt>
+              <dd><b>Universitas Darma Persada</b> &middot; S.S.<i data-i18n="date.edu">2018&ndash;2023</i></dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+
+      <div class="sheet__kit" data-fact="stack">
+        <p class="sheet__kith" data-i18n="sheet.equipped">EQUIPPED</p>
+        <ul class="kit">
+          <li>Java / Spring</li><li>Next.js</li><li>React</li><li>PostgreSQL</li>
+          <li>Go</li><li>Docker</li><li>MikroTik</li><li class="kit__more">+12</li>
+        </ul>
+      </div>
+
+      <p class="sheet__cta" data-fact="cv">
+        <a class="btn btn--gold" href="#world4"><span data-i18n="sheet.cta1">See the work</span></a>
+        <a class="btn" href="assets/Muhammad-Ilham-Rafiannandha-CV.pdf" download><span data-i18n="sheet.cta2">Download CV</span></a>
+      </p>
+    </article>
+
+    <p class="world__deck sheet__sub" data-i18n="w1.deck">Everything a recruiter needs in seven seconds, on one sheet.</p>
   </section>
 
   <section class="world world--surface" id="world2">

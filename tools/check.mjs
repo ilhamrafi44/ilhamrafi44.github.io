@@ -276,6 +276,49 @@ checks.reducedmotion = async (ctx) => {
   return { pass: !problems.length, detail: problems.join(' | ') || 'no animation under reduce' };
 };
 
+// The seven-second test. A recruiter reads six things and leaves; if any of
+// them needs a scroll, the page has failed before it started. The Indonesian
+// edition is the one that breaks first — its strings run longer.
+const FACTS = ['name', 'role', 'open', 'now', 'prev1', 'prev2', 'edu', 'stack', 'cv'];
+
+checks.abovefold = async (ctx) => {
+  const page = await ctx.browser.newPage();
+  const bad = [];
+  await page.goto(ctx.url, { waitUntil: 'load' });
+  const themeNames = await themes(page);
+  for (const [w, h] of [[320, 568], [390, 844], [1440, 900]]) {
+    for (const lang of ['en', 'id']) {
+      for (const theme of themeNames) {
+        await page.setViewportSize({ width: w, height: h });
+        await page.goto(ctx.url, { waitUntil: 'load' });
+        await setLang(page, lang);
+        await setTheme(page, theme);
+        const r = await page.evaluate((facts) => {
+          const found = {}, missing = [];
+          for (const f of facts) {
+            const el = document.querySelector(`[data-fact="${f}"]`);
+            if (!el) { missing.push(f); continue; }
+            const b = el.getBoundingClientRect();
+            found[f] = Math.round(b.bottom);
+          }
+          return { found, missing, vh: window.innerHeight };
+        }, FACTS);
+        if (r.missing.length) { bad.push(`${lang}/${theme}/${w}x${h} missing: ${r.missing.join(',')}`); continue; }
+        for (const [f, bottom] of Object.entries(r.found)) {
+          if (bottom > r.vh) bad.push(`${lang}/${theme}/${w}x${h} "${f}" ${bottom - r.vh}px below the fold`);
+        }
+      }
+    }
+  }
+  await page.close();
+  const uniq = [...new Set(bad)];
+  return {
+    pass: !uniq.length,
+    detail: uniq.length ? uniq.slice(0, 6).join(' | ') + (uniq.length > 6 ? ` | +${uniq.length - 6}` : '')
+                        : `${FACTS.length} facts above the fold at 3 sizes x 2 editions x ${themeNames.length} themes`,
+  };
+};
+
 // Private windows, blocked cookies and some enterprise policies make every
 // localStorage access throw. The language and theme controls must still work
 // for the session; they just forget.
@@ -338,7 +381,7 @@ checks.console = async (ctx) => {
 
 /* ───────────────────────── runner ───────────────────────── */
 
-const NEEDS_BROWSER = new Set(['overflow', 'contrast', 'nojs', 'reducedmotion', 'storage', 'console']);
+const NEEDS_BROWSER = new Set(['overflow', 'contrast', 'nojs', 'reducedmotion', 'storage', 'abovefold', 'console']);
 
 const argv = process.argv.slice(2);
 const only = (argv.find(a => a.startsWith('--only=')) || '').split('=')[1];
