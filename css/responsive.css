@@ -1,1 +1,83 @@
-/* responsive.css — filled in a later task of the rebuild plan. */
+/* ═══════════════════════════════════════════════════════════
+   Two designed layouts, not one that survives.
+
+   Phone is not the desktop page with things hidden: it is laid out for a
+   thumb and a narrow column, and the only thing it drops is decoration
+   that would sit on top of the words.
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── phone ───────────────────────────────────────────────── */
+@media (max-width: 720px) {
+
+  .hud { font-size: 6px; gap: 7px; padding: 8px 10px; }
+  .hud__l { gap: 9px; }
+  .hud__hp { font-size: 9px; }
+  .ctl { min-width: 40px; min-height: 40px; padding: 0 5px; }
+  .lang__opt, .ctl > span { padding: 5px 6px; }
+
+  .world { padding: clamp(40px, 11vw, 64px) var(--gut); }
+  .world--first { padding-top: 64px; }
+
+  /* The cat walks a shorter path and is smaller, so she reads as a sprite
+     passing over the page rather than as something blocking it. The halo is
+     what keeps her legible when she crosses a paragraph. */
+  .cat--rider { width: 40px; height: 24px; bottom: 5px; filter: drop-shadow(0 0 5px var(--deep)); }
+  .cat--sheet { width: 46px; margin: -8px 0 0 10px; }
+
+  /* Two layers of parallax, not five. More costs more than it gives here. */
+  #world4 .terrain, #world5 .terrain, #world6 .terrain { display: none; }
+
+  .inv__grid { grid-template-columns: repeat(auto-fill, minmax(136px, 1fr)); gap: 6px; }
+  .inv__nm { font-size: 10.5px; }
+  .inv__ico { width: 26px; height: 26px; }
+  /* A tooltip that opens on hover has no hover here: tapping focuses the
+     button, and the panel opens in flow instead of floating over the next row. */
+  .inv__used { position: static; opacity: 1; visibility: visible;
+               display: none; margin-top: 4px; border-top: 0; }
+  .inv__item:focus-within .inv__used { display: block; }
+
+  .kitgrps { grid-template-columns: 1fr; }
+  .mines { grid-template-columns: 1fr 1fr; gap: 7px; }
+  .ore-tile__n { font-size: 12px; }
+  .ore-tile__d { font-size: 10.5px; }
+
+  .seam { padding-left: 26px; padding-bottom: 20px; }
+  .seam::before { width: 15px; height: 15px; }
+  .strata::before { left: 5px; }
+  .vein { padding: 8px 9px; }
+
+  .bugbox { padding-right: clamp(66px, 22vw, 96px); }
+  .cat--taunt { width: 62px; }
+
+  .post { grid-template-columns: 1fr; }
+  .twoup { grid-template-columns: 1fr; }
+}
+
+/* very narrow: one column of tiles reads better than two cramped ones */
+@media (max-width: 420px) {
+  .mines { grid-template-columns: 1fr; }
+  .inv__grid { grid-template-columns: 1fr 1fr; }
+}
+
+/* ── laptop and up ───────────────────────────────────────── */
+@media (min-width: 1024px) {
+  .mines { grid-template-columns: repeat(auto-fill, minmax(258px, 1fr)); }
+  .inv__grid { grid-template-columns: repeat(auto-fill, minmax(168px, 1fr)); }
+  .seam { padding-left: 52px; }
+  .seam::before { width: 21px; height: 21px; }
+}
+
+/* ── pointer-less devices never get a hover-only affordance ── */
+@media (hover: none) {
+  .inv__item:hover .inv__used { opacity: 0; visibility: hidden; }
+  .inv__item:focus-within .inv__used { opacity: 1; visibility: visible; }
+}
+
+/* ── print: the page is not the artefact, the CV is ── */
+@media print {
+  .hud, .terrain, .rider, .cat, .bugbox { display: none !important; }
+  .world { padding: 12px 0; background: #fff !important; color: #000 !important; }
+  .sheet, .chamber, .ore-tile, .card, .kitgrp, .post__c, .lastcall {
+    box-shadow: none !important; break-inside: avoid;
+  }
+}
