@@ -19,6 +19,37 @@
 
   gsap.registerPlugin(ScrollTrigger);
 
+  /* Lazy images grow the page after ScrollTrigger has measured it, which
+     leaves later triggers pointing at stale offsets — they never fire, and
+     a gsap.from() that never fires leaves its target stuck at the offset it
+     was supposed to animate away from. Re-measure once everything has
+     landed, and again whenever an image finishes. */
+  let pending;
+  const remeasure = () => { clearTimeout(pending); pending = setTimeout(() => ScrollTrigger.refresh(), 220); };
+  addEventListener('load', remeasure);
+  for (const img of document.images) {
+    if (!img.complete) img.addEventListener('load', remeasure, { once: true });
+  }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(remeasure);
+
+  /* reveal(targets, from) — set the start state once, then tween TO the
+     resting state on trigger.
+     Not gsap.from(): a from-tween is reverted by ScrollTrigger.refresh(),
+     and lazy images fire refresh long after load, which left tiles frozen
+     at translateY(24) and overlapping their neighbours. A to-tween cannot
+     be undone that way, and if the trigger never fires at all the element
+     is merely un-animated rather than displaced. */
+  const reveal = (targets, from, opts = {}) => {
+    const els = typeof targets === 'string' ? $$(targets) : [].concat(targets).filter(Boolean);
+    if (!els.length) return null;
+    const to = Object.assign({ y: 0, x: 0, opacity: 1, scale: 1, duration: 0.42, ease: 'power2.out' }, opts.to);
+    gsap.set(els, from);
+    return gsap.to(els, Object.assign(to, {
+      stagger: opts.stagger,
+      scrollTrigger: Object.assign({ trigger: opts.trigger || els[0], start: 'top 88%', once: true }, opts.st),
+    }));
+  };
+
   const $  = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 
@@ -65,7 +96,14 @@
   const sheet = $('.sheet');
   if (sheet) {
     const name = $('.sheet__name');
-    const intro = gsap.timeline({ defaults: { ease: 'power3.out' } });
+    // paused until the boot screen hands over, so the header assembles in
+    // front of the visitor rather than behind a loading screen
+    const intro = gsap.timeline({ defaults: { ease: 'power3.out' }, paused: true });
+    const start = () => intro.play();
+    if (document.documentElement.classList.contains('booted')) start();
+    else document.addEventListener('world:ready', start, { once: true });
+    // if boot.js never runs at all, do not hold the header hostage
+    setTimeout(start, 5000);
 
     intro.from('.sheet__bar', { scaleX: 0, transformOrigin: 'left center', duration: 0.4 });
     if (name) {
@@ -178,7 +216,8 @@
       defaults: { ease: 'power2.out' },
     });
 
-    tl.from(nodes, { scale: 0.9, opacity: 0, duration: 0.34, stagger: 0.07, ease: 'back.out(1.7)' })
+    gsap.set(nodes, { scale: 0.9, opacity: 0 });
+    tl.to(nodes, { scale: 1, opacity: 1, duration: 0.34, stagger: 0.07, ease: 'back.out(1.7)' })
       .to(links, { scaleX: 1, duration: 0.3, stagger: 0.07 }, '-=0.45');
     if (notes.length) tl.to(notes, { opacity: 1, duration: 0.3, stagger: 0.08 }, '-=0.2');
 
@@ -204,17 +243,13 @@
 
   /* Section headings deal out by character. */
   $$('.world__h').forEach((h) => {
-    gsap.from(splitChars(h), {
-      yPercent: 100, opacity: 0, duration: 0.4, stagger: 0.02, ease: 'back.out(1.6)',
-      scrollTrigger: { trigger: h, start: 'top 86%', once: true },
-    });
+    reveal(splitChars(h), { yPercent: 100, opacity: 0 },
+      { to: { yPercent: 0, duration: 0.4, ease: 'back.out(1.6)' }, stagger: 0.02, trigger: h, st: { start: 'top 86%' } });
   });
 
   const arrive = (sel, vars = {}) => $$(sel).forEach((el) => {
-    gsap.from(el, Object.assign({
-      y: 20, opacity: 0, duration: 0.42, ease: 'power2.out',
-      scrollTrigger: { trigger: el, start: 'top 88%', once: true },
-    }, vars));
+    const { y = 20, x = 0, xPercent = 0, duration = 0.42 } = vars;
+    reveal(el, { y, x, xPercent, opacity: 0 }, { to: { xPercent: 0, duration } });
   });
 
   arrive('.world__label', { y: 0, xPercent: -14, duration: 0.34 });
@@ -231,20 +266,15 @@
 
   /* The screenshot shelf slides in from the side. */
   $$('.shelf').forEach((shelf) => {
-    gsap.from($$('figure', shelf), {
-      x: 28, opacity: 0, duration: 0.42, stagger: 0.08, ease: 'power3.out',
-      scrollTrigger: { trigger: shelf, start: 'top 88%', once: true },
-    });
+    reveal($$('figure', shelf), { x: 28, opacity: 0 },
+      { to: { duration: 0.42, ease: 'power3.out' }, stagger: 0.08, trigger: shelf });
   });
 
   /* Inventory: a grid wave in, then the mark lifts under the cursor. */
   const grid = $('.inv__grid');
   if (grid) {
-    gsap.from($$('.inv__item', grid), {
-      y: 18, opacity: 0, scale: 0.94, duration: 0.36, ease: 'back.out(1.8)',
-      stagger: { each: 0.028 },
-      scrollTrigger: { trigger: grid, start: 'top 88%', once: true },
-    });
+    reveal($$('.inv__item', grid), { y: 18, opacity: 0, scale: 0.94 },
+      { to: { duration: 0.36, ease: 'back.out(1.8)' }, stagger: { each: 0.028 }, trigger: grid });
     $$('.inv__slot', grid).forEach((slot) => {
       const mark = $('svg', slot);
       if (!mark) return;
@@ -257,20 +287,15 @@
 
   /* Spec chips land one after another. */
   $$('.specs').forEach((list) => {
-    gsap.from($$('li', list), {
-      y: 10, opacity: 0, duration: 0.26, stagger: 0.02, ease: 'back.out(2)',
-      scrollTrigger: { trigger: list, start: 'top 92%', once: true },
-    });
+    reveal($$('li', list), { y: 10, opacity: 0 },
+      { to: { duration: 0.26, ease: 'back.out(2)' }, stagger: 0.02, trigger: list, st: { start: 'top 92%' } });
   });
 
   /* Project tiles rise in a wave; the image pushes in behind them. */
   const mines = $('.mines');
   if (mines) {
-    gsap.from($$('.ore-tile, .ore-wrap', mines), {
-      y: 24, opacity: 0, duration: 0.4, ease: 'power2.out',
-      stagger: { each: 0.03 },
-      scrollTrigger: { trigger: mines, start: 'top 86%', once: true },
-    });
+    reveal($$('.ore-tile', mines), { y: 24, opacity: 0 },
+      { to: { duration: 0.4 }, stagger: { each: 0.03 }, trigger: mines, st: { start: 'top 86%' } });
     $$('.ore-tile', mines).forEach((t) => {
       const img = $('.ore-tile__img, .ore-block', t);
       if (!img) return;
@@ -281,16 +306,11 @@
 
   /* Ore and torches. */
   $$('.ore').forEach((ore) => {
-    gsap.from(ore, {
-      scale: 0, duration: 0.5, ease: 'back.out(2.6)',
-      scrollTrigger: { trigger: ore, start: 'top 94%', once: true },
-    });
+    reveal(ore, { scale: 0 }, { to: { duration: 0.5, ease: 'back.out(2.6)' }, st: { start: 'top 94%' } });
   });
   $$('.torch').forEach((torch) => {
-    gsap.from(torch, {
-      scaleY: 0, transformOrigin: 'bottom center', duration: 0.4, ease: 'power2.out',
-      scrollTrigger: { trigger: torch, start: 'top 95%', once: true },
-    });
+    reveal(torch, { scaleY: 0, transformOrigin: 'bottom center' },
+      { to: { scaleY: 1, duration: 0.4 }, st: { start: 'top 95%' } });
   });
 
   /* Buttons pull toward the cursor, then snap back. */

@@ -307,16 +307,24 @@ a.post__c:hover .post__v { color: var(--gold); }
 
 /* The three that have a full case study in World 3 are larger and link back
    up to it — hierarchy, not omission. Everything else stays uniform. */
-.ore-wrap { display: flex; flex-direction: column; gap: 6px; }
-@media (min-width: 620px) { .ore-wrap { grid-column: span 2; } }
-.ore-tile--featured { border-color: var(--gold); box-shadow: 5px 5px 0 var(--ink); flex: 1; }
+@media (min-width: 620px) { .ore-tile--featured { grid-column: span 2; } }
+.ore-tile--featured { border-color: var(--gold); box-shadow: 5px 5px 0 var(--ink); }
 /* a doubled-width tile must not become a doubled-height one */
 .ore-tile--featured .ore-tile__img,
 .ore-tile--featured .ore-block { aspect-ratio: auto; height: clamp(150px, 19vw, 210px); }
 .ore-tile--featured .ore-tile__n { font-size: 15px; }
+/* Inside the card now. A floating button under a card with a 5px hard
+   shadow collides with it every time, and gold-on-gold with no gap reads
+   as a mistake. */
 .ore-tile__story {
-  display: inline-flex; align-items: center; gap: 5px; min-height: 44px; align-self: flex-start;
-  margin-top: 5px; padding: 0 10px; text-decoration: none;
-  font: 700 10px/1 var(--f-body); letter-spacing: .09em; text-transform: uppercase;
-  color: var(--ink); background: var(--gold); border: var(--bw) solid var(--ink);
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  align-self: flex-start; min-height: 40px; margin-top: 9px; padding: 0 11px;
+  text-decoration: none;
+  font: 700 10px/1.2 var(--f-body); letter-spacing: .08em; text-transform: uppercase;
+  color: var(--ink); background: var(--gold); border: 2px solid var(--ink);
 }
+.ore-tile--featured .ore-tile__n {
+  text-decoration: none; display: inline-block;
+}
+.ore-tile--featured .ore-tile__n:hover { color: var(--gold); }
+.ore-tile--featured .ore-tile__s { margin-top: auto; }

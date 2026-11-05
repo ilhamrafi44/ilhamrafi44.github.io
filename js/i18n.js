@@ -11,6 +11,7 @@ window.I18N = {
   en: {
     "doc.title":"Ilham Rafiannandha — Senior Full Stack Engineer",
     "skip":"Skip to the character sheet",
+    "boot.sub":"GENERATING TERRAIN",
 
     "hud.lang":"Switch language",
     "hud.theme":"Switch between day and night",
@@ -136,6 +137,7 @@ window.I18N = {
   id: {
     "doc.title":"Ilham Rafiannandha — Senior Full Stack Engineer",
     "skip":"Langsung ke lembar karakter",
+    "boot.sub":"MEMBANGUN DUNIA",
 
     "hud.lang":"Ganti bahasa",
     "hud.theme":"Ganti siang atau malam",

@@ -130,6 +130,24 @@
   <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></symbol>
 </defs></svg>
 
+
+<!-- ══ BOOT ══
+     A loading screen that is honest: the bar tracks real asset progress, and
+     it hands straight over to the page's own intro rather than fading into a
+     static shell. Markup only — if JS never runs, CSS keeps it hidden and the
+     page is simply there. -->
+<div class="boot" id="boot" aria-hidden="true">
+  <div class="boot__in">
+    <p class="boot__brand"><span>SBL</span>WORLD</p>
+    <p class="boot__sub" data-i18n="boot.sub">GENERATING TERRAIN</p>
+    <div class="boot__bar"><i id="boot-fill"></i></div>
+    <p class="boot__pct"><span id="boot-pct">0</span>%</p>
+    <ul class="boot__log" id="boot-log"></ul>
+  </div>
+  <svg class="boot__cat cat" aria-hidden="true"><use href="#cat-walk"/></svg>
+  <div class="boot__wipe" id="boot-wipe"></div>
+</div>
+
 <a class="skip" href="#world1" data-i18n="skip">Skip to the character sheet</a>
 
 <!-- ══ HUD ══ -->
@@ -442,6 +460,12 @@
         <div class="chamber__viz">
           <ul class="flow flow--life"><li class="flow__n" data-n="1"><span>PENDING</span></li><li class="flow__l" aria-hidden="true"><i>provisioned</i></li><li class="flow__n" data-n="2"><span>ACTIVE</span></li><li class="flow__l" aria-hidden="true"><i>past due</i></li><li class="flow__n" data-n="3"><span>OVERDUE</span></li><li class="flow__l" aria-hidden="true"><i>grace over</i></li><li class="flow__n" data-n="4"><span>ISOLATED</span></li><li class="flow__l" aria-hidden="true"><i>unpaid</i></li><li class="flow__n" data-n="5"><span>TERMINATED</span></li></ul><p class="flow__back"><span aria-hidden="true">&#8630;</span> payment settled &rarr; reconnected in real time, straight back to <b>ACTIVE</b></p>
         </div>
+          <div class="shelf">
+            <figure><img src="assets/shots/sbl-topology.jpg" width="1440" height="880" loading="lazy" alt=""></figure>
+            <figure><img src="assets/shots/sbl-mikrotik.jpg" width="1440" height="880" loading="lazy" alt=""></figure>
+            <figure><img src="assets/shots/sbl-olt.jpg" width="1440" height="880" loading="lazy" alt=""></figure>
+            <figure><img src="assets/shots/sbl-monitor.jpg" width="1440" height="880" loading="lazy" alt=""></figure>
+          </div>
         <ul class="specs">
             <li>27 modules</li>
             <li>8 PostgreSQL databases</li>
@@ -515,27 +539,23 @@
     <p class="world__deck" data-i18n="w4.deck">Everything shipped. Some of it is behind a client's login, and says so.</p>
 
     <div class="mines">
-        <div class="ore-wrap">
-          <a class="ore-tile ore-tile--featured" data-status="live" href="https://sblnet.id">
+        <div class="ore-tile ore-tile--featured" data-status="live">
           <img class="ore-tile__img" src="assets/shots/sblnet.jpg" width="1020" height="638" loading="lazy" alt="">
           <span class="ore-tile__b">
-            <span class="ore-tile__n">SBL NET</span>
+            <a class="ore-tile__n" href="https://sblnet.id">SBL NET</a>
             <span class="ore-tile__d">Fiber ISP — subscriber platform, billing, provisioning</span>
             <span class="ore-tile__s" data-i18n="st.live">LIVE</span>
+            <a class="ore-tile__story" href="#world3"><span data-i18n="w4.story">Read the full story</span> ↑</a>
           </span>
-        </a>
-          <a class="ore-tile__story" href="#world3"><span data-i18n="w4.story">Read the full story</span> ↑</a>
         </div>
-        <div class="ore-wrap">
-          <a class="ore-tile ore-tile--featured" data-status="live" href="https://domestic.tamansafaribogor.com/">
+        <div class="ore-tile ore-tile--featured" data-status="live">
           <img class="ore-tile__img" src="assets/shots/tamansafari.jpg" width="1020" height="638" loading="lazy" alt="">
           <span class="ore-tile__b">
-            <span class="ore-tile__n">Taman Safari</span>
+            <a class="ore-tile__n" href="https://domestic.tamansafaribogor.com/">Taman Safari</a>
             <span class="ore-tile__d">Domestic ticketing, back office and a gate-checker app</span>
             <span class="ore-tile__s" data-i18n="st.live">LIVE</span>
+            <a class="ore-tile__story" href="#world3"><span data-i18n="w4.story">Read the full story</span> ↑</a>
           </span>
-        </a>
-          <a class="ore-tile__story" href="#world3"><span data-i18n="w4.story">Read the full story</span> ↑</a>
         </div>
         <a class="ore-tile" data-status="live" href="https://www.elteybatours.com">
           <img class="ore-tile__img" src="assets/shots/elteyba.jpg" width="1020" height="638" loading="lazy" alt="">
@@ -649,16 +669,14 @@
             <span class="ore-tile__s" data-i18n="st.source">SOURCE</span>
           </span>
         </a>
-        <div class="ore-wrap">
-          <div class="ore-tile ore-tile--featured" data-status="private">
+        <div class="ore-tile ore-tile--featured" data-status="private">
           <span class="ore-block" aria-hidden="true"></span>
           <span class="ore-tile__b">
             <span class="ore-tile__n">Cashlez Finance Portal</span>
             <span class="ore-tile__d">Two-stage settlement reconciliation, disbursement, deduction</span>
             <span class="ore-tile__s" data-i18n="st.private">CLIENT SYSTEM</span>
+            <a class="ore-tile__story" href="#world3"><span data-i18n="w4.story">Read the full story</span> ↑</a>
           </span>
-        </div>
-          <a class="ore-tile__story" href="#world3"><span data-i18n="w4.story">Read the full story</span> ↑</a>
         </div>
         <div class="ore-tile" data-status="private">
           <span class="ore-block" aria-hidden="true"></span>
@@ -898,5 +916,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js" defer></script>
 <script src="js/motion.js" defer></script>
+<script src="js/boot.js" defer></script>
 </body>
 </html>

@@ -332,6 +332,7 @@ checks.contrast = async (ctx) => {
 const HIDDEN_PROBE = `() => [...new Set([...document.querySelectorAll('body *')]
   .filter(el => {
     const cs = getComputedStyle(el);
+    if (el.closest('[aria-hidden="true"]')) return false;   // decorative chrome
     return (+cs.opacity < 0.05 || cs.visibility === 'hidden' || cs.display === 'none') && el.textContent.trim();
   })
   .map(el => el.tagName.toLowerCase() + '.' + (typeof el.className === 'string' ? el.className.trim().split(/\\s+/).join('.') : '')))]`;
@@ -480,6 +481,7 @@ checks.nogsap = async (ctx) => {
   const r = await page.evaluate(() => {
     const hidden = [...document.querySelectorAll('body *')].filter(el => {
       const cs = getComputedStyle(el);
+      if (el.closest('[aria-hidden="true"]')) return false;   // decorative chrome
       return (+cs.opacity < 0.05 || cs.visibility === 'hidden' || cs.display === 'none')
              && el.textContent.trim()
              && !el.closest('.inv__used') && !el.classList.contains('inv__used') && !el.classList.contains('sr');
@@ -542,7 +544,8 @@ const STATUSES = ['live', 'archived', 'private', 'app', 'source', 'social'];
 
 checks.sealedtiles = async (ctx) => {
   const page = await ctx.browser.newPage();
-  await page.setViewportSize({ width: 1280, height: 900 });
+  // 400px is where the featured card and its button collided
+  await page.setViewportSize({ width: ctx.tileWidth || 1280, height: 900 });
   await page.goto(ctx.url, { waitUntil: 'load' });
   await page.evaluate(async () => {
     for (let y = 0; y < document.documentElement.scrollHeight; y += 500) {
@@ -570,6 +573,26 @@ checks.sealedtiles = async (ctx) => {
       if (['archived', 'private'].includes(st) && link) bad.push(`"${name}": ${st} but still links to ${link.getAttribute('href')}`);
       if (['live', 'source', 'social'].includes(st) && !link) bad.push(`"${name}": ${st} but has no link`);
       if (t.getBoundingClientRect().height < 44) bad.push(`"${name}": under the 44px touch target`);
+
+      // A floating control under a card with a hard shadow collides with it.
+      // Anything inside a tile must stay inside the tile's own box.
+      for (const kid of t.querySelectorAll('.ore-tile__story, .ore-tile__s')) {
+        const k = kid.getBoundingClientRect(), box = t.getBoundingClientRect();
+        if (k.bottom > box.bottom + 1 || k.top < box.top - 1 || k.right > box.right + 1) {
+          bad.push(`"${name}": ${kid.className} breaks out of its tile`);
+        }
+      }
+    }
+
+    // and no two tiles may occupy the same space
+    const all = [...document.querySelectorAll('.mines > *')];
+    for (let i = 0; i < all.length; i++) {
+      for (let j = i + 1; j < all.length; j++) {
+        const a = all[i].getBoundingClientRect(), c = all[j].getBoundingClientRect();
+        if (a.right > c.left + 1 && c.right > a.left + 1 && a.bottom > c.top + 1 && c.bottom > a.top + 1) {
+          bad.push(`tiles ${i} and ${j} overlap`);
+        }
+      }
     }
     const counts = {};
     for (const t of tiles) counts[t.dataset.status] = (counts[t.dataset.status] || 0) + 1;
@@ -840,7 +863,15 @@ if (wantsBrowser) {
 let failed = 0;
 for (const name of names) {
   let r;
-  try { r = await checks[name](ctx); }
+  try {
+    r = await checks[name](ctx);
+    // the tile layout broke at a narrow width, not a wide one
+    if (name === 'sealedtiles' && r.pass) {
+      const narrow = await checks.sealedtiles({ ...ctx, tileWidth: 400 });
+      if (!narrow.pass) r = { pass: false, detail: '@400px ' + narrow.detail };
+      else r.detail += ', and the same at 400px';
+    }
+  }
   catch (e) { r = { pass: false, detail: `threw: ${e.message.split('\n')[0]}` }; }
   if (!r.pass) failed++;
   console.log(`${r.pass ? ' PASS' : ' FAIL'}  ${name.padEnd(14)} ${r.detail}`);
