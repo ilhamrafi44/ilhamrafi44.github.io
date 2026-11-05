@@ -193,3 +193,42 @@ a.ore-tile:hover .ore-tile__n { color: var(--gold); }
 }
 .card__b { margin: 0 0 5px; font-size: 12.5px; line-height: 1.5; color: var(--cream); }
 .card__n { margin: 8px 0 0; font-size: 11.5px; line-height: 1.5; color: var(--muted-on-ink); font-style: italic; }
+
+/* ── WORLD 6 · the core ───────────────────────────────── */
+.post {
+  display: grid; gap: 9px; margin-top: clamp(16px, 3vw, 26px);
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+}
+.post__c {
+  display: flex; flex-direction: column; gap: 4px; min-height: 64px;
+  padding: 12px 13px; text-decoration: none;
+  background: color-mix(in srgb, var(--ink) 88%, transparent);
+  border: var(--bw) solid var(--ink); box-shadow: var(--shadow-sm);
+  border-left: 7px solid var(--ore-cyan);
+}
+.post__c--flat { border-left-color: var(--muted-on-ink); }
+.post__l {
+  font: 400 var(--t-pixel-xs)/1.4 var(--f-pixel); letter-spacing: .04em; color: var(--gold);
+}
+.post__v { font: 600 13px/1.35 var(--f-body); color: var(--cream); word-break: break-word; }
+@media (prefers-reduced-motion: no-preference) {
+  a.post__c { transition: transform .1s var(--snap), box-shadow .1s var(--snap); }
+}
+a.post__c:hover { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
+a.post__c:hover .post__v { color: var(--gold); }
+
+.lastcall {
+  margin-top: clamp(20px, 3.6vw, 32px); padding: clamp(16px, 3vw, 26px);
+  background: var(--cream); color: var(--ink);
+  border: var(--bw) solid var(--ink); box-shadow: var(--shadow);
+}
+.lastcall__h { margin: 0 0 7px; font: 400 clamp(19px, 2.6vw, 30px)/1.05 var(--f-display); }
+.lastcall__b { max-width: 54ch; font-size: 13.5px; line-height: 1.55; color: var(--muted-on-cream); }
+
+.colophon {
+  margin-top: clamp(24px, 4vw, 40px); padding-top: clamp(14px, 2.6vw, 22px);
+  border-top: var(--bw) solid rgba(255,246,229,.18);
+  font-size: 12px; line-height: 1.6; color: var(--muted-on-ink);
+}
+.colophon p { margin: 0 0 5px; }
+.colophon__c { margin-top: 11px; font: 400 var(--t-pixel-xs)/1.6 var(--f-pixel); color: var(--muted-on-ink); }

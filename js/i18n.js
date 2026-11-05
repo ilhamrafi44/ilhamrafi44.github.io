@@ -129,6 +129,17 @@ window.I18N = {
     "w5.h":"Strata",
     "w5.deck":"Eleven years of layers. The deeper you dig, the older it gets.",
 
+    "c.mail":"Electronic mail",
+    "c.li":"Professional network",
+    "c.gh":"Source, where it is public",
+    "c.loc":"Desk",
+    "cv.h":"THE CV, IN PDF",
+    "cv.b":"Everything in this world, flattened into the one format recruiters keep asking for. One column, real text, no tables \u2014 the three things that actually break a parser.",
+    "cv.btn":"Download the CV",
+    "colo.1":"Set in Archivo Black, Press Start 2P and Space Grotesk.",
+    "colo.2":"Written and laid out by hand. No framework, no build step, no bundler.",
+    "colo.3":"There is a cat in this world. Her name is Cimol and she is orange.",
+
     "w6.label":"WORLD 6",
     "w6.h":"Core",
     "w6.deck":"The bottom of the world. Write to him here."
@@ -254,6 +265,17 @@ window.I18N = {
     "w5.label":"WORLD 5",
     "w5.h":"Strata",
     "w5.deck":"Sebelas tahun lapisan. Makin dalam lu gali, makin lawas isinya.",
+
+    "c.mail":"Surat elektronik",
+    "c.li":"Jaringan profesional",
+    "c.gh":"Kode, yang boleh dilihat",
+    "c.loc":"Meja",
+    "cv.h":"CV-NYA, DALAM PDF",
+    "cv.b":"Semua isi dunia ini, dipipihkan jadi satu format yang terus-terusan diminta recruiter. Satu kolom, teks beneran, tanpa tabel \u2014 tiga hal yang sebenarnya bikin parser tersedak.",
+    "cv.btn":"Unduh CV",
+    "colo.1":"Dicetak pakai Archivo Black, Press Start 2P dan Space Grotesk.",
+    "colo.2":"Ditulis dan ditata manual. Tanpa framework, tanpa build step, tanpa bundler.",
+    "colo.3":"Ada kucing di dunia ini. Namanya Cimol dan warnanya oren.",
 
     "w6.label":"WORLD 6",
     "w6.h":"Inti",

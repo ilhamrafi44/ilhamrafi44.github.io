@@ -57,6 +57,9 @@
   $('#theme')?.addEventListener('click', () =>
     applyTheme(document.documentElement.dataset.theme === 'night' ? 'day' : 'night'));
 
+  const yr = $('#yr');
+  if (yr) yr.textContent = new Date().getFullYear();
+
   /* ── HUD world indicator ────────────────────────────────
      Which world you are in, updated on scroll. GSAP drives the richer
      choreography later; this is the part that must work without it. */
