@@ -315,13 +315,61 @@ checks.reducedmotion = async (ctx) => {
     animated: [...new Set([...document.querySelectorAll('body *')]
       .filter(el => getComputedStyle(el).animationName !== 'none')
       .map(el => el.tagName.toLowerCase() + '.' + (typeof el.className === 'string' ? el.className.trim().split(/\s+/)[0] : '') + ':' + getComputedStyle(el).animationName))],
-    gsapTweens: (typeof window.gsap !== 'undefined') ? window.gsap.globalTimeline.getChildren().length : 0,
+    // ScrollTrigger registers an internal zero-duration bookkeeping tween on
+    // load whose target is a function. Only tweens touching the DOM count.
+    gsapTweens: (typeof window.gsap !== 'undefined')
+      ? window.gsap.globalTimeline.getChildren()
+          .filter(t => typeof t.targets === 'function' && t.targets().some(x => x instanceof Element)).length
+      : 0,
   }));
   await context.close();
   const problems = [];
   if (r.animated.length) problems.push(`still animating: ${r.animated.slice(0, 8).join(', ')}`);
   if (r.gsapTweens) problems.push(`${r.gsapTweens} gsap tweens running`);
   return { pass: !problems.length, detail: problems.join(' | ') || 'no animation under reduce' };
+};
+
+// The CDN will be blocked, throttled or down for somebody. When it is, the
+// page must lose its choreography and nothing else: no errors, no hidden
+// content, and the whole world still reachable by scrolling.
+checks.nogsap = async (ctx) => {
+  const context = await ctx.browser.newContext();
+  const page = await context.newPage();
+  const errs = [];
+  page.on('pageerror', e => errs.push(`pageerror: ${String(e).slice(0, 120)}`));
+  page.on('console', m => { if (m.type() === 'error' && !/Failed to load resource/.test(m.text())) errs.push(m.text().slice(0, 120)); });
+  await page.route('**://cdnjs.cloudflare.com/**', r => r.abort());
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await page.goto(ctx.url, { waitUntil: 'load' });
+  await page.evaluate(async () => {
+    for (let y = 0; y < document.documentElement.scrollHeight; y += 700) {
+      window.scrollTo({ top: y, behavior: 'instant' }); await new Promise(r => setTimeout(r, 30));
+    }
+    window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'instant' });
+    await new Promise(r => setTimeout(r, 200));
+  });
+  await page.waitForTimeout(400);
+  const r = await page.evaluate(() => {
+    const hidden = [...document.querySelectorAll('body *')].filter(el => {
+      const cs = getComputedStyle(el);
+      return (+cs.opacity < 0.05 || cs.visibility === 'hidden') && el.textContent.trim()
+             && !el.closest('.inv__used') && !el.classList.contains('inv__used') && !el.classList.contains('sr');
+    }).map(el => el.tagName.toLowerCase() + '.' + (typeof el.className === 'string' ? el.className.trim().split(/\s+/)[0] : ''));
+    const last = document.getElementById('world6');
+    return {
+      hidden: [...new Set(hidden)],
+      gsap: typeof window.gsap,
+      reachedBottom: !!last && last.getBoundingClientRect().top < window.innerHeight,
+      textLen: document.body.innerText.trim().length,
+    };
+  });
+  await context.close();
+  const problems = [];
+  if (r.gsap !== 'undefined') problems.push('gsap still loaded — the block did not take, so this proves nothing');
+  if (errs.length) problems.push(`errors: ${errs.slice(0, 3).join(' | ')}`);
+  if (r.hidden.length) problems.push(`hidden without gsap: ${r.hidden.slice(0, 6).join(', ')}`);
+  if (!r.reachedBottom) problems.push('could not scroll to World 6');
+  return { pass: !problems.length, detail: problems.join(' | ') || `${r.textLen} chars readable, whole world scrollable, no errors` };
 };
 
 // Deeper is older, and a side vein branches off the role it ran alongside.
@@ -368,7 +416,7 @@ checks.sealedtiles = async (ctx) => {
   await page.goto(ctx.url, { waitUntil: 'load' });
   await page.evaluate(async () => {
     for (let y = 0; y < document.documentElement.scrollHeight; y += 500) {
-      window.scrollTo(0, y); await new Promise(r => setTimeout(r, 30));
+      window.scrollTo({ top: y, behavior: 'instant' }); await new Promise(r => setTimeout(r, 30));
     }
     await new Promise(r => setTimeout(r, 400));
   });
@@ -551,7 +599,7 @@ checks.console = async (ctx) => {
   await page.goto(ctx.url, { waitUntil: 'load' });
   await page.evaluate(async () => {
     for (let y = 0; y < document.documentElement.scrollHeight; y += 600) {
-      window.scrollTo(0, y); await new Promise(r => setTimeout(r, 40));
+      window.scrollTo({ top: y, behavior: 'instant' }); await new Promise(r => setTimeout(r, 40));
     }
   });
   await page.waitForTimeout(400);
@@ -561,7 +609,7 @@ checks.console = async (ctx) => {
 
 /* ───────────────────────── runner ───────────────────────── */
 
-const NEEDS_BROWSER = new Set(['overflow', 'contrast', 'nojs', 'reducedmotion', 'storage', 'abovefold', 'tooltip', 'sealedtiles', 'strata', 'console']);
+const NEEDS_BROWSER = new Set(['overflow', 'contrast', 'nojs', 'reducedmotion', 'storage', 'abovefold', 'tooltip', 'sealedtiles', 'strata', 'nogsap', 'console']);
 
 const argv = process.argv.slice(2);
 const only = (argv.find(a => a.startsWith('--only=')) || '').split('=')[1];

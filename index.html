@@ -776,5 +776,12 @@
 
 <script src="js/i18n.js"></script>
 <script src="js/app.js"></script>
+
+<!-- Motion is the only thing that depends on a CDN, and js/motion.js is the
+     only file that touches GSAP. If either request fails the page loses its
+     choreography and nothing else. -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js" defer></script>
+<script src="js/motion.js" defer></script>
 </body>
 </html>
