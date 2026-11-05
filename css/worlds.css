@@ -75,3 +75,56 @@
   .chamber__body { grid-column: 2; grid-row: 1 / span 4; }
   .chamber__src { grid-column: 1 / -1; }
 }
+
+/* ── WORLD 4 · the mines ──────────────────────────────────
+   Every project, with an honest status on each. A tile with no public URL
+   is labelled, not hidden; a tile with no screenshot gets the sealed ore
+   block, so a missing image reads as unexcavated rock rather than a hole. */
+.mines {
+  display: grid; gap: 9px; margin-top: clamp(16px, 3vw, 26px);
+  grid-template-columns: repeat(auto-fill, minmax(232px, 1fr));
+}
+.ore-tile {
+  display: flex; flex-direction: column;
+  background: color-mix(in srgb, var(--ink) 88%, transparent);
+  border: var(--bw) solid var(--ink);
+  box-shadow: var(--shadow-sm);
+  text-decoration: none; overflow: hidden;
+}
+.ore-tile__img, .ore-tile .ore-block {
+  width: 100%; aspect-ratio: 16 / 9; object-fit: cover; object-position: top center;
+  border: 0; border-bottom: var(--bw) solid var(--ink);
+}
+.ore-tile__b { display: flex; flex-direction: column; flex: 1; padding: 9px 10px; }
+.ore-tile__n {
+  display: block; font: 700 13px/1.25 var(--f-body); color: var(--cream); margin-bottom: 3px;
+}
+.ore-tile__d {
+  display: block; font-size: 11.5px; line-height: 1.45; color: var(--muted-on-ink); margin-bottom: 7px;
+}
+.ore-tile__s {
+  margin-top: auto; align-self: flex-start;   /* badges line up across a row */
+  padding: 4px 6px;
+  font: 400 var(--t-pixel-xs)/1.3 var(--f-pixel); letter-spacing: .04em;
+  border: 2px solid currentColor;
+}
+[data-status="live"]     .ore-tile__s { color: #8FE39B; }
+[data-status="source"]   .ore-tile__s { color: var(--ore-cyan); }
+[data-status="app"]      .ore-tile__s { color: var(--ore-mag); }
+[data-status="private"]  .ore-tile__s { color: var(--gold); }
+[data-status="archived"] .ore-tile__s { color: #C2BBAE; }
+
+/* unlinked tiles must not pretend to be clickable */
+div.ore-tile { cursor: default; }
+
+@media (prefers-reduced-motion: no-preference) {
+  a.ore-tile { transition: transform .1s var(--snap), box-shadow .1s var(--snap); }
+}
+a.ore-tile:hover { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
+a.ore-tile:hover .ore-tile__n { color: var(--gold); }
+
+.mines__note {
+  margin: clamp(14px, 2.6vw, 22px) 0 0; max-width: 62ch;
+  font-size: 12.5px; line-height: 1.6; color: var(--muted-on-ink);
+  border-left: 4px solid var(--torch); padding-left: 13px;
+}

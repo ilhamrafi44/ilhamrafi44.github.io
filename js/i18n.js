@@ -87,6 +87,13 @@ window.I18N = {
     "w3.h":"The Dirt",
     "w3.deck":"Three systems, dug out and cut open. The problem, the decision, the part that was hard.",
 
+    "st.live":"LIVE",
+    "st.archived":"ARCHIVED",
+    "st.private":"CLIENT SYSTEM",
+    "st.app":"APP",
+    "st.source":"SOURCE",
+    "w4.note":"Six of these sit behind a client login and two are switched off. They are listed anyway, labelled for what they are, because leaving them out would make the record shorter than the work.",
+
     "w4.label":"WORLD 4",
     "w4.h":"The Mines",
     "w4.deck":"Everything shipped. Some of it is behind a client's login, and says so.",
@@ -178,6 +185,13 @@ window.I18N = {
     "w3.label":"WORLD 3",
     "w3.h":"Lapisan Tanah",
     "w3.deck":"Tiga sistem, digali dan dibelah. Masalahnya, keputusannya, dan bagian yang bikin pusing.",
+
+    "st.live":"JALAN",
+    "st.archived":"ARSIP",
+    "st.private":"SISTEM KLIEN",
+    "st.app":"APLIKASI",
+    "st.source":"SOURCE",
+    "w4.note":"Enam di antaranya ada di balik login klien dan dua sudah dimatikan. Tetap dicantumkan, dengan label apa adanya, soalnya menghapusnya bikin rekam jejaknya lebih pendek dari kerjaannya.",
 
     "w4.label":"WORLD 4",
     "w4.h":"Tambang",

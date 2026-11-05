@@ -303,6 +303,51 @@ checks.reducedmotion = async (ctx) => {
   return { pass: !problems.length, detail: problems.join(' | ') || 'no animation under reduce' };
 };
 
+// Every tile says what it is. A project with no public URL is labelled, not
+// hidden and not linked to a dead end; a project with no screenshot gets the
+// sealed block rather than a broken image or a collapsed card.
+const STATUSES = ['live', 'archived', 'private', 'app', 'source'];
+
+checks.sealedtiles = async (ctx) => {
+  const page = await ctx.browser.newPage();
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await page.goto(ctx.url, { waitUntil: 'load' });
+  await page.evaluate(async () => {
+    for (let y = 0; y < document.documentElement.scrollHeight; y += 500) {
+      window.scrollTo(0, y); await new Promise(r => setTimeout(r, 30));
+    }
+    await new Promise(r => setTimeout(r, 400));
+  });
+  const r = await page.evaluate((statuses) => {
+    const tiles = [...document.querySelectorAll('.ore-tile')];
+    const bad = [];
+    for (const t of tiles) {
+      const name = (t.querySelector('.ore-tile__n')?.textContent || '').trim() || '(unnamed)';
+      const st = t.dataset.status;
+      if (!statuses.includes(st)) { bad.push(`"${name}": status "${st}"`); continue; }
+
+      const img = t.querySelector('img');
+      if (img) {
+        if (img.complete && img.naturalWidth === 0) bad.push(`"${name}": broken image ${img.getAttribute('src')}`);
+      } else if (!t.querySelector('.ore-block')) {
+        bad.push(`"${name}": no screenshot and no sealed block`);
+      }
+
+      const link = t.matches('a[href]') ? t : t.querySelector('a[href]');
+      if (['archived', 'private'].includes(st) && link) bad.push(`"${name}": ${st} but still links to ${link.getAttribute('href')}`);
+      if (['live', 'source'].includes(st) && !link) bad.push(`"${name}": ${st} but has no link`);
+      if (t.getBoundingClientRect().height < 44) bad.push(`"${name}": under the 44px touch target`);
+    }
+    const counts = {};
+    for (const t of tiles) counts[t.dataset.status] = (counts[t.dataset.status] || 0) + 1;
+    return { count: tiles.length, bad, counts };
+  }, STATUSES);
+  await page.close();
+  if (!r.count) return { pass: false, detail: 'no .ore-tile found' };
+  const summary = Object.entries(r.counts).map(([k, v]) => `${v} ${k}`).join(', ');
+  return { pass: !r.bad.length, detail: r.bad.length ? r.bad.slice(0, 6).join(' | ') : `${r.count} tiles (${summary})` };
+};
+
 // A made-up number on a portfolio becomes a question in an interview that
 // cannot be answered. Every digit in a war story must trace to the CV.
 // {{ANGKA: ...}} is the escape hatch: a visible placeholder, not a claim.
@@ -462,7 +507,7 @@ checks.console = async (ctx) => {
 
 /* ───────────────────────── runner ───────────────────────── */
 
-const NEEDS_BROWSER = new Set(['overflow', 'contrast', 'nojs', 'reducedmotion', 'storage', 'abovefold', 'tooltip', 'console']);
+const NEEDS_BROWSER = new Set(['overflow', 'contrast', 'nojs', 'reducedmotion', 'storage', 'abovefold', 'tooltip', 'sealedtiles', 'console']);
 
 const argv = process.argv.slice(2);
 const only = (argv.find(a => a.startsWith('--only=')) || '').split('=')[1];
