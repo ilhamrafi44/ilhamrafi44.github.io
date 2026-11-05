@@ -109,3 +109,111 @@
 .world--surface { color: var(--on-sky); }
 .world--surface .world__deck { color: var(--muted-on-sky); }
 .world--surface .world__label { background: var(--ink); color: var(--gold); }
+
+/* ═══════════════════════════════════════════════════════════
+   Terrain.
+
+   The stacked world backgrounds ARE the cross-section — they stay opaque
+   so the contrast check has a truthful ground to measure against. What
+   floats over them is decoration: sun, clouds, torches, ore. Task 12
+   parallaxes these; the ground itself never moves, so no amount of
+   motion can change what the text is read against.
+   ═══════════════════════════════════════════════════════════ */
+
+.world { position: relative; overflow: hidden; isolation: isolate; }
+.world > *:not(.terrain) { position: relative; z-index: 2; }
+
+.terrain {
+  position: absolute; inset: 0; z-index: 1;
+  pointer-events: none; display: block;
+}
+.terrain > i { position: absolute; display: block; }
+
+/* ── sky furniture ── */
+.sun {
+  right: clamp(18px, 7vw, 92px); top: clamp(58px, 9vw, 104px);
+  width: clamp(30px, 5vw, 52px); aspect-ratio: 1;
+  background: var(--gold); border: var(--bw) solid var(--ink);
+  box-shadow: 0 0 36px 13px rgba(255,199,0,.4);
+}
+:root[data-theme="night"] .sun {
+  background: #E8E4D4;
+  box-shadow: 0 0 30px 10px rgba(232,228,212,.26);
+  clip-path: polygon(0 0,100% 0,100% 100%,0 100%,0 0,62% 0,62% 100%,0 100%);
+}
+
+.cloud {
+  background: #fff; border: var(--bw) solid var(--ink);
+  opacity: .96;
+}
+:root[data-theme="night"] .cloud { background: #44536B; opacity: .7; }
+.cloud { border-radius: 2px; }
+.cloud::before {
+  content: ''; position: absolute; background: inherit;
+  border: var(--bw) solid var(--ink); border-radius: 3px;
+  /* sit the lump so its own bottom border lands under the body's top border */
+  clip-path: inset(0 0 var(--bw) 0);
+}
+.cloud--a { left: 5%;  top: clamp(74px, 11vw, 132px); width: 62px; height: 17px; }
+.cloud--a::before { width: 34px; height: 21px; top: -21px; left: 12px; }
+.cloud--b { right: 26%; top: clamp(126px, 17vw, 206px); width: 44px; height: 14px; }
+.cloud--b::before { width: 25px; height: 18px; top: -18px; left: 10px; }
+.cloud--c { left: 8%;  top: clamp(40px, 6vw, 76px); width: 50px; height: 15px; }
+.cloud--c::before { width: 28px; height: 19px; top: -19px; left: 11px; }
+
+/* ── the grass line: where the sky stops and the digging starts ── */
+#world3::before {
+  content: ''; position: absolute; inset: 0 0 auto 0; z-index: 3;
+  height: 20px; background: var(--grass);
+  border-bottom: 4px solid var(--ink);
+  box-shadow: inset 0 5px 0 var(--grass-lit);
+}
+/* a little soil hanging off the underside of the turf */
+#world3::after {
+  content: ''; position: absolute; inset: 20px 0 auto 0; z-index: 3; height: 14px;
+  background:
+    linear-gradient(90deg, var(--grass) 0 14px, transparent 14px) 0 0/46px 14px repeat-x,
+    linear-gradient(90deg, transparent 0 26px, var(--grass) 26px 34px, transparent 34px) 0 0/46px 7px repeat-x;
+}
+
+/* ── torches: the underground light source ── */
+.torch { width: 8px; height: 22px; background: var(--dirt-dk); border: 2px solid var(--ink); }
+.torch::after {
+  content: ''; position: absolute; top: -15px; left: -6px;
+  width: 19px; aspect-ratio: 1; border-radius: 50%;
+  background: radial-gradient(circle, #FFE066, var(--torch) 54%, transparent 72%);
+  opacity: var(--torch-glow);
+}
+.torch--a { left: 4%;  top: 16%; }
+.torch--b { right: 6%; top: 24%; }
+.torch--c { left: 7%;  top: 20%; }
+
+/* ── ore: buried colour ── */
+.ore {
+  width: 13px; aspect-ratio: 1; transform: rotate(45deg);
+  background: var(--ore-cyan); border: 2px solid var(--ink);
+  box-shadow: 0 0 10px var(--ore-cyan);
+}
+.ore--b, .ore--d, .ore--f { background: var(--ore-mag); box-shadow: 0 0 10px var(--ore-mag); }
+.ore--a { left: 7%;   bottom: 22%; }
+.ore--b { left: 12%;  bottom: 14%; }
+.ore--c { right: 11%; bottom: 30%; }
+.ore--d { right: 17%; bottom: 20%; }
+.ore--e { left: 5%;   bottom: 26%; }
+.ore--f { right: 9%;  bottom: 16%; }
+
+/* ── night dims the whole underground a little further ── */
+.world:not(.world--surface) .terrain::after {
+  content: ''; position: absolute; inset: 0; background: var(--ambient);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .torch::after { animation: flick .42s steps(2, end) infinite; }
+  .ore { animation: glint 3.4s ease-in-out infinite; }
+  .ore--b { animation-delay: .7s; } .ore--c { animation-delay: 1.3s; }
+  .ore--d { animation-delay: 2s; }  .ore--e { animation-delay: .4s; }
+  .ore--f { animation-delay: 1.7s; }
+}
+@keyframes flick { 0%, 100% { opacity: var(--torch-glow); transform: scale(1); }
+                   50% { opacity: calc(var(--torch-glow) * .72); transform: scale(.86); } }
+@keyframes glint { 0%, 100% { filter: brightness(1); } 50% { filter: brightness(1.45); } }
