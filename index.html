@@ -1,428 +1,98 @@
 <!doctype html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="day">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>The Bonsky Times — Muhammad Ilham Rafiannandha</title>
-<meta name="description" content="Muhammad Ilham Rafiannandha (Bonsky) — Senior Full Stack Engineer in Jakarta. ISP platforms, fintech, mobile. Published as a newspaper, because a navigation bar is not a design.">
-<meta name="theme-color" content="#FFE600">
-<meta property="og:title" content="The Bonsky Times">
-<meta property="og:description" content="All the code that's fit to ship.">
-<meta property="og:type" content="website">
+<title>Ilham Rafiannandha — Senior Full Stack Engineer</title>
+<meta name="description" content="Muhammad Ilham Rafiannandha — Senior Full Stack Engineer in Jakarta. ISP billing and provisioning, payment reconciliation, double-entry accounting. Six years of systems where being wrong costs money.">
+<meta name="theme-color" content="#4A90E2">
+<meta property="og:title" content="Ilham Rafiannandha — Senior Full Stack Engineer">
+<meta property="og:description" content="Billing engines, double-entry ledgers, and the routers that decide whether you buffer tonight.">
+<meta property="og:type" content="profile">
 <meta property="og:url" content="https://ilhamrafi44.github.io/">
-<meta property="og:image" content="https://ilhamrafi44.github.io/assets/bonsky.jpg">
+<meta property="og:image" content="https://ilhamrafi44.github.io/assets/ilham.jpg">
+<meta name="twitter:card" content="summary">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Serif+Display:ital@0;1&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/base.css">
-<link rel="stylesheet" href="css/cover.css">
-<link rel="stylesheet" href="css/paper.css">
-<link rel="stylesheet" href="css/contents.css">
-<link rel="stylesheet" href="css/sections.css">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Press+Start+2P&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/world.css">
+<link rel="stylesheet" href="css/panels.css">
+<link rel="stylesheet" href="css/worlds.css">
+<link rel="stylesheet" href="css/responsive.css">
 </head>
 <body>
-<!-- ══ cat + icon sprite ══ -->
-<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
- <defs>
-  <symbol id="cat-sit" viewBox="0 0 150 156">
-   <g class="c-tail"><path d="M92 140c36 0 46-36 30-64" fill="none" stroke="var(--ink)" stroke-width="17" stroke-linecap="round"/><path d="M92 140c36 0 46-36 30-64" fill="none" stroke="var(--cat)" stroke-width="10" stroke-linecap="round"/></g>
-   <path d="M32 44 26 4l34 24z" fill="var(--cat)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round"/>
-   <path d="M88 44 94 4 60 28z" fill="var(--cat)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round"/>
-   <path d="M36 38 33 15l19 13z" fill="var(--cat-ear)"/><path d="M84 38 87 15 68 28z" fill="var(--cat-ear)"/>
-   <path d="M24 150c0-48 14-64 36-64s36 16 36 64z" fill="var(--cat)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round"/>
-   <rect x="30" y="136" width="24" height="15" rx="7" fill="var(--cat)" stroke="var(--ink)" stroke-width="3"/>
-   <rect x="66" y="136" width="24" height="15" rx="7" fill="var(--cat)" stroke="var(--ink)" stroke-width="3"/>
-   <circle cx="60" cy="62" r="34" fill="var(--cat)" stroke="var(--ink)" stroke-width="3"/>
-   <path d="M52 32v9M60 30v10M68 32v9" stroke="var(--ink)" stroke-width="3" stroke-linecap="round"/>
-   <ellipse class="c-eye" cx="48" cy="62" rx="5" ry="7" fill="var(--ink)"/>
-   <ellipse class="c-eye" cx="72" cy="62" rx="5" ry="7" fill="var(--ink)"/>
-   <path d="M56 72h8l-4 6z" fill="var(--ink)"/>
-   <path d="M46 74 32 78M46 80 33 86M74 74 88 78M74 80 87 86" stroke="var(--ink)" stroke-width="2.4" stroke-linecap="round"/>
-  </symbol>
-  <symbol id="cat-sleep" viewBox="0 0 230 116">
-   <path d="M214 84c-6 32-64 36-98 20" fill="none" stroke="var(--ink)" stroke-width="15" stroke-linecap="round"/>
-   <path d="M214 84c-6 32-64 36-98 20" fill="none" stroke="var(--cat)" stroke-width="9" stroke-linecap="round"/>
-   <ellipse cx="126" cy="68" rx="94" ry="37" fill="var(--cat)" stroke="var(--ink)" stroke-width="3"/>
-   <path d="M28 60 20 26l32 14z" fill="var(--cat)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round"/>
-   <path d="M76 48 88 20l6 32z" fill="var(--cat)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round"/>
-   <circle cx="56" cy="72" r="35" fill="var(--cat)" stroke="var(--ink)" stroke-width="3"/>
-   <path d="M38 68q9 9 18 0M64 68q9 9 18 0" fill="none" stroke="var(--ink)" stroke-width="3.2" stroke-linecap="round"/>
-   <path d="M50 84h12l-6 8z" fill="var(--ink)"/>
-   <path d="M132 42v9M150 40v10M168 43v9" stroke="var(--ink)" stroke-width="3" stroke-linecap="round"/>
-  </symbol>
-  <symbol id="cat-walk" viewBox="0 0 160 92">
-   <g class="c-swish"><path d="M20 44C-2 38-6 14 8 2" fill="none" stroke="var(--ink)" stroke-width="16" stroke-linecap="round"/><path d="M20 44C-2 38-6 14 8 2" fill="none" stroke="var(--cat)" stroke-width="9" stroke-linecap="round"/></g>
-   <rect class="c-legb" x="34" y="40" width="11" height="38" rx="5" fill="var(--cat)" stroke="var(--ink)" stroke-width="3"/>
-   <rect class="c-legf" x="86" y="40" width="11" height="38" rx="5" fill="var(--cat)" stroke="var(--ink)" stroke-width="3"/>
-   <ellipse cx="66" cy="32" rx="46" ry="25" fill="var(--cat)" stroke="var(--ink)" stroke-width="3"/>
-   <rect class="c-legf" x="50" y="40" width="11" height="38" rx="5" fill="var(--cat)" stroke="var(--ink)" stroke-width="3"/>
-   <rect class="c-legb" x="100" y="40" width="11" height="38" rx="5" fill="var(--cat)" stroke="var(--ink)" stroke-width="3"/>
-   <path d="M100 16 96-8l22 14z" fill="var(--cat)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round"/>
-   <path d="M134 16 140-6l-22 14z" fill="var(--cat)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round"/>
-   <circle cx="118" cy="28" r="25" fill="var(--cat)" stroke="var(--ink)" stroke-width="3"/>
-   <ellipse class="c-eye" cx="110" cy="26" rx="3.8" ry="5" fill="var(--ink)"/>
-   <ellipse class="c-eye" cx="126" cy="26" rx="3.8" ry="5" fill="var(--ink)"/>
-   <path d="M114 34h8l-4 5z" fill="var(--ink)"/>
-  </symbol>
-  <symbol id="cat-face" viewBox="0 0 76 72">
-   <path d="M14 26 9 2l24 15z" fill="var(--cat)" stroke="var(--ink)" stroke-width="2.6" stroke-linejoin="round"/>
-   <path d="M62 26 67 2 43 17z" fill="var(--cat)" stroke="var(--ink)" stroke-width="2.6" stroke-linejoin="round"/>
-   <path d="M17 22 15 9l13 8z" fill="var(--cat-ear)"/><path d="M59 22 61 9l-13 8z" fill="var(--cat-ear)"/>
-   <circle cx="38" cy="42" r="27" fill="var(--cat)" stroke="var(--ink)" stroke-width="2.6"/>
-   <path d="M31 18v7M38 16v8M45 18v7" stroke="var(--ink)" stroke-width="2.6" stroke-linecap="round"/>
-   <ellipse class="c-eye" cx="29" cy="42" rx="4" ry="5.4" fill="var(--ink)"/>
-   <ellipse class="c-eye" cx="47" cy="42" rx="4" ry="5.4" fill="var(--ink)"/>
-   <path d="M34 50h8l-4 5z" fill="var(--ink)"/>
-   <path d="M26 52 15 55M26 57 16 62M50 52 61 55M50 57 60 62" stroke="var(--ink)" stroke-width="2.2" stroke-linecap="round"/>
-  </symbol>
-  <symbol id="paw" viewBox="-16 -12 32 24">
-   <ellipse cx="0" cy="4" rx="7" ry="5.6"/><circle cx="-6.4" cy="-4.2" r="2.5"/><circle cx="-2.2" cy="-6.6" r="2.5"/><circle cx="2.2" cy="-6.6" r="2.5"/><circle cx="6.4" cy="-4.2" r="2.5"/>
-  </symbol>
-  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="2" y="4.5" width="20" height="15" rx="1.5"/><path d="m2.8 5.6 9.2 7.6 9.2-7.6"/></symbol>
-  <symbol id="i-github" viewBox="0 0 24 24"><path d="M9 19.4c-4.5 1.3-4.5-2.4-6.3-2.9m12.6 5.3v-3.6c0-1 .1-1.5-.5-2 2.8-.3 5.4-1.4 5.4-6a4.7 4.7 0 0 0-1.3-3.2 4.3 4.3 0 0 0-.1-3.3s-1.1-.3-3.5 1.3a12 12 0 0 0-6.2 0C6.7 3.4 5.6 3.7 5.6 3.7a4.3 4.3 0 0 0-.1 3.3 4.7 4.7 0 0 0-1.3 3.3c0 4.5 2.6 5.6 5.4 5.9-.4.4-.5.9-.5 1.5v3.5"/></symbol>
-  <symbol id="i-linkedin" viewBox="0 0 24 24"><rect x="2.5" y="2.5" width="19" height="19" rx="2"/><path d="M7 10.5v7M7 7v.01M11.5 17.5v-4a2.5 2.5 0 0 1 5 0v4"/></symbol>
-  <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12m0 0 4.5-4.5M12 15l-4.5-4.5M3.5 17v2.5a1.5 1.5 0 0 0 1.5 1.5h14a1.5 1.5 0 0 0 1.5-1.5V17"/></symbol>
-  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h15m0 0-6-6m6 6-6 6"/></symbol>
-  <symbol id="i-external" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4 11 13M17 14v5a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 3 19V8a1.5 1.5 0 0 1 1.5-1.5H10"/></symbol>
-  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s7-6.3 7-11a7 7 0 1 0-14 0c0 4.7 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></symbol>
-  <symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="2.5" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M8.5 21h7"/></symbol>
-  <symbol id="i-cap" viewBox="0 0 24 24"><path d="M12 3 2 8l10 5 10-5-10-5z"/><path d="M6 10.5V16c0 1.7 2.7 3 6 3s6-1.3 6-3v-5.5"/></symbol>
-  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c2.6 2.6 4 6 4 9.5s-1.4 6.9-4 9.5c-2.6-2.6-4-6-4-9.5s1.4-6.9 4-9.5z"/></symbol>
-  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></symbol>
+
+<!-- ══ sprite sheet: cat poses and icons (filled in Task 11) ══ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
   <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.5"/><path d="M12 1.5v3M12 19.5v3M22.5 12h-3M4.5 12h-3M19.4 4.6l-2.1 2.1M6.7 17.3l-2.1 2.1M19.4 19.4l-2.1-2.1M6.7 6.7 4.6 4.6"/></symbol>
-  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></symbol>
-  <symbol id="i-close" viewBox="0 0 24 24"><path d="M5 5l14 14M19 5 5 19"/></symbol>
- </defs>
-</svg>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></symbol>
+</defs></svg>
 
-<a class="skip" href="#front" data-i18n="skip">Skip to the front page</a>
+<a class="skip" href="#world1" data-i18n="skip">Skip to the character sheet</a>
 
-<div class="edge" aria-hidden="true"><div class="edge__fill"></div><svg class="edge__cat"><use href="#cat-walk"/></svg></div>
-
-
-<!-- ═══ THE COVER ═══ -->
-<section class="cover">
-  <div class="cover__top">
-    <span class="cover__issue" data-i18n="folio.vol">VOL. VI · No. 44</span>
-    <span class="cover__tools">
-      <button class="lang" id="lang" type="button" aria-label="Switch language / Ganti bahasa">
-        <span class="lang__opt is-on" data-lang="en">ENG</span><span class="lang__opt" data-lang="id">IND</span>
-      </button>
-      <button class="iconbtn" id="theme" type="button" aria-label="Toggle theme">
-        <svg class="ic ic--sun"><use href="#i-sun"/></svg><svg class="ic ic--moon"><use href="#i-moon"/></svg>
-      </button>
-    </span>
+<!-- ══ HUD ══ -->
+<div class="hud">
+  <div class="hud__l">
+    <span class="hud__name">ILHAM</span>
+    <span class="hud__hp" aria-hidden="true">&#9829;&#9829;&#9829;&#9829;&#9829;</span>
+    <span class="hud__world" id="hud-world">WORLD 1 &middot; SURFACE</span>
   </div>
-
-  <h1 class="cover__logo" data-i18n="mast">THE BONSKY TIMES</h1>
-
-  <img class="cover__photo" src="assets/bonsky-cover.jpg" width="855" height="1100"
-       alt="Muhammad Ilham Rafiannandha" fetchpriority="high">
-  <span class="cover__dots" aria-hidden="true"></span>
-
-  <div class="cover__type">
-    <h2 class="cover__head" data-i18n="cov.head">The Quiet Half Of The Internet</h2>
-    <p class="cover__sub" data-i18n="cov.sub">Billing engines, double-entry ledgers, and the routers that decide whether you buffer tonight.</p>
-    <p class="cover__who"><b data-i18n="cov.name">MUHAMMAD ILHAM RAFIANNANDHA</b><span data-i18n="cov.role">SENIOR FULL STACK ENGINEER · JAKARTA</span></p>
-  </div>
-
-  <span class="cline cline--1" data-i18n="cov.l1">27 MODULES · 8 DATABASES · ONE DEPLOYABLE</span>
-  <span class="cline cline--2" data-i18n="cov.l2">WORKS ON MY MACHINE</span>
-  <span class="cline cline--3" data-i18n="cov.l3">KNOWN BUGS: NaN — see Corrections, p.1</span>
-  <span class="cline cline--4" data-i18n="cov.l4">PLUS: A CAT NAMED CIMOL</span>
-  <span class="burst"><i data-i18n="cov.badge">15 SITES LIVE</i></span>
-  <svg class="cover__cat cat"><use href="#cat-sit"/></svg>
-
-  <div class="cover__foot">
-    <span class="barcode" aria-hidden="true"></span>
-    <span class="cover__price" data-i18n="cov.price">Rp 0</span>
-    <a class="cover__scroll" href="#front"><span data-i18n="cov.scroll">OPEN THE PAPER</span> <svg class="ic"><use href="#i-arrow"/></svg></a>
-  </div>
-</section>
-
-<div class="paper">
-
-<!-- ═══ folio ═══ -->
-<div class="folio">
-  <span class="folio__l" data-i18n="folio.vol">VOL. VI · No. 44</span>
-  <span class="folio__c"><span id="dateline">JAKARTA</span></span>
-  <span class="folio__r" data-i18n="folio.price">FREE · ALWAYS WAS</span>
-</div>
-
-<!-- ═══ masthead ═══ -->
-<header class="mast mast--run">
-  <div class="rule rule--fat"></div>
-  <div class="mast__sub">
-    <span class="mast__wing" data-i18n="folio.city">JAKARTA EDITION</span>
-    <h2 class="mast__name" data-i18n="mast">THE BONSKY TIMES</h2>
-    <em data-i18n="mast.tag">All the code that's fit to ship</em>
-  </div>
-  <div class="rule rule--fat"></div>
-</header>
-
-<!-- ═══ ticker ═══ -->
-<div class="ticker" aria-hidden="true">
-  <div class="ticker__track">
-    <span class="ticker__set" data-i18n="ticker">SENIOR FULL STACK ENGINEER ★ JAKARTA · UTC+7 ★ 6+ YEARS IN PRODUCTION ★</span>
-    <span class="ticker__set" data-i18n="ticker">SENIOR FULL STACK ENGINEER ★ JAKARTA · UTC+7 ★ 6+ YEARS IN PRODUCTION ★</span>
+  <div class="hud__r">
+    <button class="ctl lang" id="lang" type="button" data-i18n-aria="hud.lang" aria-label="Switch language">
+      <span class="lang__opt is-on" data-lang="en">EN</span><span class="lang__opt" data-lang="id">ID</span>
+    </button>
+    <button class="ctl" id="theme" type="button" data-i18n-aria="hud.theme" aria-label="Switch between day and night">
+      <span><svg class="ic ic--day"><use href="#i-sun"/></svg><svg class="ic ic--night"><use href="#i-moon"/></svg></span>
+    </button>
   </div>
 </div>
 
-<!-- ═══ front page ═══ -->
-<main id="front" class="front">
-  <article class="lead" data-rv="1">
-    <p class="kicker" data-i18n="fp.kicker">PROFILE · PAGE ONE</p>
-    <h2 class="lead__head" data-i18n="fp.head">The Man Who Puts Money In Integers</h2>
-    <p class="deck" data-i18n="fp.deck">Six years building systems where being wrong is expensive.</p>
-    <p class="byline" data-i18n="fp.byline">BY THE DESK OF ILHAM RAFIANNANDHA</p>
-    <div class="rule"></div>
+<!-- ══ terrain (Task 5) ══ -->
+<div class="terrain" aria-hidden="true"></div>
 
-    <figure class="cut">
-      <div class="cut__frame">
-        <img src="assets/bonsky.jpg" srcset="assets/bonsky-sm.jpg 412w, assets/bonsky.jpg 737w" sizes="(max-width:760px) 86vw, 330px" width="737" height="1000" alt="Muhammad Ilham Rafiannandha" fetchpriority="high">
-        <span class="cut__halftone" aria-hidden="true"></span>
-      </div>
-      <figcaption data-i18n="fp.caption">THE SUBJECT, photographed mid-gesture.</figcaption>
-      <svg class="cut__cat cat"><use href="#cat-sit"/></svg>
-    </figure>
+<main class="page">
 
-    <div class="cols">
-      <p class="drop" data-i18n="fp.p1">Muhammad Ilham Rafiannandha — known to everyone who has ever worked with him as Bonsky — builds the unglamorous half of the internet.</p>
-      <p data-i18n="fp.p2">It is not work that photographs well.</p>
-      <p data-i18n="fp.p3">He is, at time of printing, Senior Full Stack Engineer at an Indonesian fibre ISP.</p>
-      <p class="kick-end" data-i18n="fp.p4">His degree is in English Literature.</p>
-    </div>
-  </article>
+  <section class="world world--surface" id="world1">
+    <p class="world__label"><span data-i18n="w1.label">WORLD 1</span> &middot; <span data-i18n="w1.h">Surface</span></p>
+    <h1 class="world__h sr">Muhammad Ilham Rafiannandha — Senior Full Stack Engineer</h1>
+    <p class="world__deck" data-i18n="w1.deck">Everything a recruiter needs in seven seconds, on one sheet.</p>
+  </section>
 
-  <aside class="rail" data-rv="1">
-    <div class="box box--index">
-      <h3 class="box__h" data-i18n="idx.h">INSIDE TODAY</h3>
-      <ol class="index">
-        <li><a href="#front"><span data-i18n="idx.1">Who He Is</span><i>1</i></a></li>
-        <li><a href="#secB"><span data-i18n="idx.2">The Arsenal</span><i>3</i></a></li>
-        <li><a href="#secC"><span data-i18n="idx.3">War Stories</span><i>4</i></a></li>
-        <li><a href="#secD"><span data-i18n="idx.4">Shipped &amp; Live</span><i>6</i></a></li>
-        <li><a href="#secE"><span data-i18n="idx.5">Chronology</span><i>7</i></a></li>
-        <li><a href="#secF"><span data-i18n="idx.6">Write To Us</span><i>8</i></a></li>
-      </ol>
-      <p class="box__note" data-i18n="idx.note">No navigation bar. This is a newspaper.</p>
-    </div>
+  <section class="world world--surface" id="world2">
+    <p class="world__label"><span data-i18n="w2.label">WORLD 2</span></p>
+    <h2 class="world__h" data-i18n="w2.h">Workshop</h2>
+    <p class="world__deck" data-i18n="w2.deck">The arsenal, arranged by the part of the stack currently on fire.</p>
+  </section>
 
-    <div class="box box--num">
-      <h3 class="box__h" data-i18n="num.h">BY THE NUMBERS</h3>
-      <dl class="num">
-        <div><dt data-count="6" data-suffix="+">6+</dt><dd data-i18n="num.years">years in production</dd></div>
-        <div><dt data-count="11">11</dt><dd data-i18n="num.clients">companies &amp; clients</dd></div>
-        <div><dt data-count="25" data-suffix="+">25+</dt><dd data-i18n="num.products">products shipped</dd></div>
-        <div><dt class="num--nan">NaN</dt><dd data-i18n="num.bugs">known bugs</dd></div>
-        <div class="num__cat"><dt><svg class="cat"><use href="#cat-face"/></svg></dt><dd data-i18n="num.cat">cat, orange, Cimol</dd></div>
-      </dl>
-    </div>
+  <section class="world" id="world3">
+    <p class="world__label"><span data-i18n="w3.label">WORLD 3</span></p>
+    <h2 class="world__h" data-i18n="w3.h">The Dirt</h2>
+    <p class="world__deck" data-i18n="w3.deck">Three systems, dug out and cut open.</p>
+  </section>
 
-    <div class="box box--wx">
-      <h3 class="box__h" data-i18n="wx.h">WEATHER</h3>
-      <p data-i18n="wx.body">JAKARTA — 31°C, humid.</p>
-    </div>
+  <section class="world" id="world4">
+    <p class="world__label"><span data-i18n="w4.label">WORLD 4</span></p>
+    <h2 class="world__h" data-i18n="w4.h">The Mines</h2>
+    <p class="world__deck" data-i18n="w4.deck">Everything shipped.</p>
+  </section>
 
-    <div class="box box--corr">
-      <h3 class="box__h" data-i18n="corr.h">CORRECTIONS</h3>
-      <p data-i18n-html="corr.body">An earlier edition reported <b>0</b> known bugs.</p>
-    </div>
-  </aside>
+  <section class="world" id="world5">
+    <p class="world__label"><span data-i18n="w5.label">WORLD 5</span></p>
+    <h2 class="world__h" data-i18n="w5.h">Strata</h2>
+    <p class="world__deck" data-i18n="w5.deck">Eleven years of layers.</p>
+  </section>
+
+  <section class="world" id="world6">
+    <p class="world__label"><span data-i18n="w6.label">WORLD 6</span></p>
+    <h2 class="world__h" data-i18n="w6.h">Core</h2>
+    <p class="world__deck" data-i18n="w6.deck">The bottom of the world.</p>
+  </section>
+
 </main>
-
-
-<!-- ═══ section A — contents ═══ -->
-<section class="sect" id="secA" data-rv="1">
-  <div class="sect__bar"><span data-i18n="secA.label">SECTION A</span><b data-i18n="secA.h">CONTENTS</b><span>2</span></div>
-  <p class="deck deck--wide" data-i18n="secA.deck">Fifteen things that are running right now, and the pages they are on.</p>
-  <div class="toc">
-    <ol class="rubrics">
-      <li class="rubrics__h" data-i18n="cont.rub">SECTIONS</li>
-      <li><a href="#front"><b>1</b><span data-i18n="idx.1">Who He Is</span></a></li>
-      <li><a href="#secB"><b>3</b><span data-i18n="idx.2">The Arsenal</span></a></li>
-      <li><a href="#secC"><b>4</b><span data-i18n="idx.3">War Stories</span></a></li>
-      <li><a href="#secD"><b>6</b><span data-i18n="idx.4">Shipped &amp; Live</span></a></li>
-      <li><a href="#secE"><b>7</b><span data-i18n="idx.5">Chronology</span></a></li>
-      <li><a href="#secF"><b>8</b><span data-i18n="idx.6">Write To Us</span></a></li>
-      <li class="rubrics__note" data-i18n="idx.note">No navigation bar. This is a newspaper.</li>
-    </ol>
-
-    <a class="tfeat tfeat--lead" href="#secC">
-      <figure><img src="assets/shots/sblnet.jpg" width="680" height="425" loading="lazy" alt=""><figcaption data-i18n="cap.sbl">SBLNET — the subscriber platform, live</figcaption></figure>
-      <p class="tfeat__k"><span data-i18n="cont.lead">THE LEAD</span><b>4</b></p>
-      <h3 data-i18n="w1.h">Twenty-Seven Modules, Eight Databases, One Deployable</h3>
-      <p class="tfeat__d" data-i18n="w1.d">An ISP's entire subscriber lifecycle.</p>
-    </a>
-
-    <div class="tpair">
-      <a class="tfeat" href="#secC"><figure><img src="assets/shots/tamansafari.jpg" width="680" height="425" loading="lazy" alt=""></figure><p class="tfeat__k"><span data-i18n="w6.k">TOURISM</span><b>5</b></p><h4 data-i18n="w6.h">Built For A Queue, Not For A Demo</h4></a>
-      <a class="tfeat" href="#secC"><figure><img src="assets/shots/elteyba.jpg" width="680" height="425" loading="lazy" alt=""></figure><p class="tfeat__k"><span data-i18n="w8.k">TRAVEL</span><b>5</b></p><h4 data-i18n="w8.h">Logistics, Wearing A Religious Hat</h4></a>
-    </div>
-
-    <div class="tcol">
-      <p class="tcol__h" data-i18n="cont.also">ALSO INSIDE</p>
-      <a class="tfeat" href="#secC"><figure><img src="assets/shots/itoya.jpg" width="680" height="425" loading="lazy" alt=""></figure><p class="tfeat__k"><span data-i18n="w2.k">OPERATIONS</span><b>4</b></p><h4 data-i18n="w2.h">The Booth Freezes At Midnight</h4></a>
-      <a class="tfeat" href="#secC"><figure><img src="assets/shots/arkalearn.jpg" width="680" height="425" loading="lazy" alt=""></figure><p class="tfeat__k"><span data-i18n="w5.k">EDUCATION &amp; LABOUR</span><b>5</b></p><h4 data-i18n="w5.h">Teaching Japanese, Then Finding The Job</h4></a>
-      <a class="tfeat" href="#secC"><figure><img src="assets/shots/dpupr.jpg" width="680" height="425" loading="lazy" alt=""></figure><p class="tfeat__k"><span data-i18n="w7.k">GOVERNMENT</span><b>5</b></p><h4 data-i18n="w7.h">A Portal With No Plugins To Audit</h4></a>
-      <svg class="tcol__cat cat"><use href="#cat-sleep"/></svg>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ section B — technology ═══ -->
-<section class="sect" id="secB">
-  <div class="sect__bar"><span data-i18n="secB.label">SECTION B</span><b data-i18n="secB.h">TECHNOLOGY</b><span>3</span></div>
-  <p class="deck deck--wide" data-i18n="secB.deck">What he reaches for, arranged by the part of the stack that is currently on fire.</p>
-  <div class="kit" data-rv="1">
-    <div class="kit__row"><h4>BACKEND</h4><p>Java 17+ · Spring Boot · Spring Modulith · Spring Security · Laravel · NestJS · Node.js · Go / Fiber · PHP</p></div>
-    <div class="kit__row"><h4>FRONTEND</h4><p>Next.js · React · Vue 3 + Pinia · TypeScript · JavaScript · Tailwind · SvelteKit</p></div>
-    <div class="kit__row"><h4>MOBILE</h4><p>React Native · Flutter · Dart · Kotlin Multiplatform · Android</p></div>
-    <div class="kit__row"><h4>DATA</h4><p>PostgreSQL · MySQL · Redis · TimescaleDB · Firebase · Multi-datasource ACID</p></div>
-    <div class="kit__row"><h4>INFRA</h4><p>Docker · Jenkins · Nginx · GitHub Actions · Git · Grafana · Linux / VPS</p></div>
-    <div class="kit__row"><h4>NETWORK</h4><p>MikroTik RouterOS · FreeRADIUS / AAA · PPPoE · RADIUS Accounting · CoA Disconnect · OLT &amp; NOC</p></div>
-    <div class="kit__row"><h4>PAYMENTS</h4><p>Duitku · BRI Fixed VA · Midtrans · QRIS · Double-Entry GL · Reconciliation</p></div>
-    <div class="kit__row"><h4>SYSTEMS</h4><p>C++ · Rust · Python · WebSocket · Express</p></div>
-    <svg class="kit__cat cat"><use href="#cat-sleep"/></svg>
-  </div>
-</section>
-
-<!-- ═══ section C — war stories ═══ -->
-<section class="sect" id="secC">
-  <div class="sect__bar"><span data-i18n="secC.label">SECTION C</span><b data-i18n="secC.h">WAR STORIES</b><span>4</span></div>
-  <p class="deck deck--wide" data-i18n="secC.deck">Most of this work lives in private client repositories.</p>
-
-  <article class="story story--lead" data-rv="1">
-    <p class="kicker" data-i18n="w1.k">LEAD FEATURE</p>
-    <h3 class="story__h" data-i18n="w1.h">Twenty-Seven Modules, Eight Databases, One Deployable</h3>
-    <p class="deck" data-i18n="w1.d">An ISP's entire subscriber lifecycle.</p>
-    <div class="rule rule--thin"></div>
-    <figure class="story__fig story__fig--lead"><img src="assets/shots/sblnet.jpg" width="680" height="425" loading="lazy" alt=""><figcaption data-i18n="cap.sbl">—</figcaption></figure>
-    <div class="cols cols--3">
-      <p data-i18n="w1.b">A modular monolith on Spring Modulith.</p>
-    </div>
-    <p class="story__more"><a href="https://github.com/ilhamrafi44/isp-platform-architecture"><span data-i18n="w1.cs">Read the full case study</span> <svg class="ic"><use href="#i-arrow"/></svg></a><em>PT Surya Bestari Lestari · SBLNET · <a href="https://sblnet.id">sblnet.id</a></em></p>
-  </article>
-
-  <div class="quote" data-rv="1">
-    <p>“Floats and money are a horror film.”</p>
-    <svg class="quote__cat cat"><use href="#cat-sit"/></svg>
-  </div>
-
-  <div class="stories" data-rv="1">
-    <article class="story"><p class="kicker" data-i18n="w2.k">OPERATIONS</p><h3 class="story__h" data-i18n="w2.h">The Booth Freezes At Midnight</h3><p class="deck" data-i18n="w2.d">Itoya Self Photo Studio.</p><figure class="story__fig"><img src="assets/shots/itoya.jpg" width="680" height="425" loading="lazy" alt=""><figcaption data-i18n="cap.itoya">—</figcaption></figure><p data-i18n="w2.b">Customers book a booth online.</p><p class="story__src">Itoya · <a href="https://itoya.my.id">itoya.my.id</a></p></article>
-    <article class="story"><p class="kicker" data-i18n="w3.k">FINANCE</p><h3 class="story__h" data-i18n="w3.h">Proving Every Rupiah Moved</h3><p class="deck" data-i18n="w3.d">One job, and this is it.</p><p data-i18n="w3.b">Two-stage reconciliation.</p><p class="story__src">PT Cashlez Worldwide Indonesia</p></article>
-    <article class="story"><p class="kicker" data-i18n="w4.k">HUMAN RESOURCES</p><h3 class="story__h" data-i18n="w4.h">So People Stop Clocking In For Each Other</h3><p class="deck" data-i18n="w4.d">CoffeeLabs.</p><figure class="story__fig"><img src="assets/shots/colabshris.jpg" width="680" height="425" loading="lazy" alt=""><figcaption data-i18n="cap.hris">—</figcaption></figure><p data-i18n="w4.b">Attendance with GPS geofencing.</p><p class="story__src">PT Cyber Lab Indonesia · <a href="https://app.coffeelabs.co.id/">HRIS</a> · <a href="https://admin.coffeelabs.co.id/">back office</a></p></article>
-    <article class="story"><p class="kicker" data-i18n="w5.k">EDUCATION &amp; LABOUR</p><h3 class="story__h" data-i18n="w5.h">Teaching Japanese, Then Finding The Job</h3><p class="deck" data-i18n="w5.d">ArkaLearn and Spectro.</p><figure class="story__fig"><img src="assets/shots/arkalearn.jpg" width="680" height="425" loading="lazy" alt=""><figcaption data-i18n="cap.arka">—</figcaption></figure><p data-i18n="w5.b">A two-sided marketplace.</p><p class="story__src">PT Arka Spektrum Solutindo · <a href="https://www.arkalearn.com/en">arkalearn.com</a></p></article>
-    <article class="story"><p class="kicker" data-i18n="w6.k">TOURISM</p><h3 class="story__h" data-i18n="w6.h">Built For A Queue, Not For A Demo</h3><p class="deck" data-i18n="w6.d">Taman Safari Bogor.</p><figure class="story__fig"><img src="assets/shots/tamansafari.jpg" width="680" height="425" loading="lazy" alt=""><figcaption data-i18n="cap.ts">—</figcaption></figure><p data-i18n="w6.b">QR and barcode scanning.</p><p class="story__src">GlobalTix Teknologi Indonesia · <a href="https://domestic.tamansafaribogor.com/">domestic.tamansafaribogor.com</a></p></article>
-    <article class="story"><p class="kicker" data-i18n="w7.k">GOVERNMENT</p><h3 class="story__h" data-i18n="w7.h">A Portal With No Plugins To Audit</h3><p class="deck" data-i18n="w7.d">DPUPR Musi Banyuasin.</p><figure class="story__fig"><img src="assets/shots/dpupr.jpg" width="680" height="425" loading="lazy" alt=""><figcaption data-i18n="cap.dpupr">—</figcaption></figure><p data-i18n="w7.b">The easy version is a theme.</p><p class="story__src">INFRALOK · <a href="https://dpupr.mubakab.go.id/">dpupr.mubakab.go.id</a></p></article>
-    <article class="story"><p class="kicker" data-i18n="w8.k">TRAVEL</p><h3 class="story__h" data-i18n="w8.h">Logistics, Wearing A Religious Hat</h3><p class="deck" data-i18n="w8.d">Elteyba Tours and SmartHajj.</p><figure class="story__fig"><img src="assets/shots/elteyba.jpg" width="680" height="425" loading="lazy" alt=""><figcaption data-i18n="cap.elt">—</figcaption></figure><p data-i18n="w8.b">Passports, visas, seat quotas.</p><p class="story__src">Elteyba · <a href="https://www.elteybatours.com">elteybatours.com</a></p></article>
-  </div>
-</section>
-
-<!-- ═══ section D — shipped & classifieds ═══ -->
-<section class="sect" id="secD">
-  <div class="sect__bar"><span data-i18n="secD.label">SECTION D</span><b data-i18n="secD.h">SHIPPED &amp; LIVE</b><span>6</span></div>
-  <p class="deck deck--wide" data-i18n="secD.deck">Every address below was checked before this edition went to press.</p>
-  <div class="listing" data-rv="1">
-    <a href="https://sblnet.id"><b>SBL NET</b><span>Fiber ISP — subscriber platform, billing, provisioning</span><i>sblnet.id</i></a>
-    <a href="https://bigproperty.online"><b>BIG PROPERTY</b><span>Apartment and room booking platform</span><i>bigproperty.online</i></a>
-    <a href="https://propertywhitebox.com"><b>WHITE BOX</b><span>Daily and transit apartment rental</span><i>propertywhitebox.com</i></a>
-    <a href="https://itoya.my.id"><b>ITOYA</b><span>Self-photo studio booking + remote management</span><i>itoya.my.id</i></a>
-    <a href="https://dpupr.mubakab.go.id/"><b>DPUPR MUBA</b><span>Government agency portal on a custom CMS</span><i>dpupr.mubakab.go.id</i></a>
-    <a href="https://www.coffeelabs.co.id/"><b>COFFEELABS</b><span>Company site</span><i>coffeelabs.co.id</i></a>
-    <a href="https://app.coffeelabs.co.id/"><b>COFFEELABS HRIS</b><span>Attendance, GPS geofence, face recognition</span><i>app.coffeelabs.co.id</i></a>
-    <a href="https://admin.coffeelabs.co.id/"><b>COFFEELABS ADMIN</b><span>Back office console</span><i>admin.coffeelabs.co.id</i></a>
-    <a href="https://www.elteybatours.com"><b>ELTEYBA TOURS</b><span>Umrah &amp; Hajj agency platform</span><i>elteybatours.com</i></a>
-    <a href="https://elteybago.eilhamzah.com/login"><b>ELTEYBA GO</b><span>Jamaah portal</span><i>elteybago</i></a>
-    <a href="https://domestic.tamansafaribogor.com/"><b>TAMAN SAFARI</b><span>Domestic ticketing + back office</span><i>domestic.tamansafaribogor.com</i></a>
-    <a href="https://www.arkalearn.com/en"><b>ARKALEARN</b><span>Japanese-language EdTech feeding a job portal</span><i>arkalearn.com</i></a>
-    <a href="https://gudangdusbandung.com/"><b>GUDANG DUS</b><span>B2B custom packaging catalogue</span><i>gudangdusbandung.com</i></a>
-    <a href="https://taibacoco.co.id"><b>TAIBA COCOCHA</b><span>Trilingual site (EN/ID/AR) + sales CRM</span><i>taibacoco.co.id</i></a>
-    <a href="https://www.aerocam.co.id/"><b>AEROCAM</b><span>Drone training centre — the 2021 build was his</span><i>aerocam.co.id</i></a>
-    <a href="https://www.instagram.com/hasanain.center/"><b>HASANAIN CENTER</b><span>Company profile + registration system</span><i>instagram</i></a>
-  </div>
-
-  <div class="classifieds" data-rv="1">
-    <h3 class="classifieds__h" data-i18n="ads.h">CLASSIFIED</h3>
-    <div class="ads">
-      <div class="ad"><h4 data-i18n="ad1.h">WANTED</h4><p data-i18n="ad1.b">Someone brave enough to tell me a refactor is too large.</p></div>
-      <div class="ad"><h4 data-i18n="ad2.h">FOR SALE</h4><p data-i18n="ad2.b">One Windows virtual machine, unopened.</p></div>
-      <div class="ad"><h4 data-i18n="ad3.h">LOST</h4><p data-i18n="ad3.b">Four hours. Last seen near a rounding error.</p><svg class="ad__cat cat"><use href="#cat-walk"/></svg></div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ section E — chronology ═══ -->
-<section class="sect" id="secE">
-  <div class="sect__bar"><span data-i18n="secE.label">SECTION E</span><b data-i18n="secE.h">CHRONOLOGY</b><span>7</span></div>
-  <p class="deck deck--wide" data-i18n="secE.deck">Eleven employers and clients, in reverse order, as is traditional.</p>
-  <ol class="chron" data-rv="1">
-    <li><span class="chron__d">DEC 2025 — <b data-i18n="t.now">PRESENT</b></span><span class="chron__r">Senior Full Stack Engineer</span><span class="chron__o">PT Surya Bestari Lestari · SBLNET</span></li>
-    <li><span class="chron__d">MAR 2025 — DEC 2025</span><span class="chron__r" data-i18n="t.fsd">Full Stack Developer</span><span class="chron__o">PT Cashlez Worldwide Indonesia</span></li>
-    <li><span class="chron__d">JUN 2023 — FEB 2025</span><span class="chron__r" data-i18n="t.lead">Full Stack Developer · Team Lead</span><span class="chron__o">PT Cyber Lab Indonesia · CoffeeLabs</span></li>
-    <li><span class="chron__d">JUL 2024 — AUG 2024</span><span class="chron__r" data-i18n="t.fsd">Full Stack Developer</span><span class="chron__o">ProSpark Pte Ltd · Singapore</span></li>
-    <li><span class="chron__d">NOV 2023 — JAN 2024</span><span class="chron__r" data-i18n="t.fsd">Full Stack Developer</span><span class="chron__o">Taman Safari Indonesia · Bogor</span></li>
-    <li><span class="chron__d">SEP 2023 — DEC 2023</span><span class="chron__r" data-i18n="t.fsd">Full Stack Developer</span><span class="chron__o">PT Arka Spektrum Solutindo</span></li>
-    <li><span class="chron__d">JUN 2023 — AUG 2023</span><span class="chron__r" data-i18n="t.mob">Mobile Developer</span><span class="chron__o">Nghbr INC · New York City</span></li>
-    <li><span class="chron__d">NOV 2022 — MAY 2023</span><span class="chron__r" data-i18n="t.fse">Full Stack Engineer</span><span class="chron__o">Remedi Indonesia</span></li>
-    <li><span class="chron__d">APR 2021 — NOV 2022</span><span class="chron__r" data-i18n="t.fsd">Full Stack Developer</span><span class="chron__o">PT Elteyba Medina Fauzana</span></li>
-    <li><span class="chron__d">FEB 2020 — APR 2021</span><span class="chron__r" data-i18n="t.web">Full Stack Web Developer</span><span class="chron__o">PT Taiba Cococha Indonesia</span></li>
-    <li><span class="chron__d">MAR 2017 — SEP 2017</span><span class="chron__r" data-i18n="t.intern">Full Stack Web Developer · Internship</span><span class="chron__o">TVRI</span></li>
-  </ol>
-
-  <div class="twoup" data-rv="1">
-    <div class="box box--rec">
-      <h3 class="box__h"><svg class="ic"><use href="#i-mic"/></svg><span data-i18n="talk.h">ON THE RECORD</span></h3>
-      <p><b>2022</b> · <span data-i18n="talk.1">Speaker — HMIK Talk, Pertamina University</span></p>
-      <p><b>2022</b> · <span data-i18n="talk.2">Main speaker — Permikomnas Jakarta</span></p>
-      <p class="box__note" data-i18n="talk.note">Two universities handed him a microphone in 2022.</p>
-    </div>
-    <div class="box box--edu">
-      <h3 class="box__h"><svg class="ic"><use href="#i-cap"/></svg><span data-i18n="edu.h">EDUCATION</span></h3>
-      <p><b data-i18n="edu.1">Universitas Darma Persada, Jakarta</b></p>
-      <p data-i18n="edu.2">Bachelor of English Literature — GPA 3.60 / 4.00 · 2018–2023</p>
-      <p class="box__note" data-i18n="edu.note">Not a computer science degree.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ CV house ad ═══ -->
-<section class="housead">
-  <div class="housead__in">
-    <p class="kicker kicker--inv">ADVERTISEMENT</p>
-    <h3 class="housead__h" data-i18n="cv.h">THE CV, IN PDF</h3>
-    <p class="housead__b" data-i18n="cv.b">Everything in this edition, compressed into the one format recruiters keep asking for.</p>
-    <a class="btn" href="assets/Muhammad-Ilham-Rafiannandha-CV.pdf" download><svg class="ic"><use href="#i-download"/></svg><span data-i18n="cv.btn">Download the CV</span></a>
-  </div>
-  <svg class="housead__cat cat"><use href="#cat-sit"/></svg>
-</section>
-
-<!-- ═══ section F — write to us ═══ -->
-<section class="sect" id="secF">
-  <div class="sect__bar"><span data-i18n="secF.label">SECTION F</span><b data-i18n="secF.h">WRITE TO US</b><span>8</span></div>
-  <p class="deck deck--wide" data-i18n="secF.deck">A system that has to balance to the cent, stay up at 3am, or ship to both stores.</p>
-  <div class="post" data-rv="1">
-    <a class="post__c post__c--a" href="mailto:ilhamrafi44@gmail.com"><svg class="ic"><use href="#i-mail"/></svg><b data-i18n="c.mail">Electronic mail</b><span>ilhamrafi44@gmail.com</span></a>
-    <a class="post__c post__c--b" href="https://www.linkedin.com/in/ilhamrafi44/"><svg class="ic"><use href="#i-linkedin"/></svg><b data-i18n="c.li">Professional network</b><span>in/ilhamrafi44</span></a>
-    <a class="post__c post__c--c" href="https://github.com/ilhamrafi44"><svg class="ic"><use href="#i-github"/></svg><b data-i18n="c.gh">Source, such as it is public</b><span>@ilhamrafi44</span></a>
-    <div class="post__c post__c--d"><svg class="ic"><use href="#i-pin"/></svg><b data-i18n="c.loc">Desk location</b><span>Jakarta, Indonesia · UTC+7</span></div>
-  </div>
-</section>
-
-<!-- ═══ colophon ═══ -->
-<footer class="colophon">
-  <div class="rule rule--fat"></div>
-  <svg class="colophon__cat cat"><use href="#cat-sleep"/></svg>
-  <p class="colophon__mast" data-i18n="mast">THE BONSKY TIMES</p>
-  <p data-i18n="colo.1">Set in Archivo Black, DM Serif Display, Newsreader and JetBrains Mono. Printed nowhere.</p>
-  <p data-i18n="colo.2">Written and typeset by hand. No template, no framework, no build step.</p>
-  <p data-i18n="colo.3">There are cats throughout this edition. Her name is Cimol.</p>
-  <p class="colophon__c">© <span id="yr">2026</span> Muhammad Ilham Rafiannandha</p>
-</footer>
-
-</div><!-- /.paper -->
 
 <script src="js/i18n.js"></script>
 <script src="js/app.js"></script>

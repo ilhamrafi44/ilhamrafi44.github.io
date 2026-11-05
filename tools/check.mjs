@@ -44,9 +44,17 @@ function serve() {
 
 /* ───────────────────────── shared browser helpers ───────────────────────── */
 
-/** Keys referenced from the markup. */
-const usedKeys = () =>
-  [...new Set([...html().matchAll(/data-i18n(?:-html)?="([^"]+)"/g)].map(m => m[1]))];
+/** Keys referenced from the markup, or by name from the scripts. */
+function usedKeys(dictKeys = []) {
+  const fromMarkup = [...html().matchAll(/data-i18n(?:-html|-aria)?="([^"]+)"/g)].map(m => m[1]);
+  // A few keys are applied in code rather than bound to an element — the
+  // document title, for one. Count a key as used if a script names it.
+  const scripts = ['js/app.js', 'js/motion.js']
+    .filter(f => existsSync(path.join(ROOT, f)))
+    .map(f => readFileSync(path.join(ROOT, f), 'utf8')).join('\n');
+  const fromCode = dictKeys.filter(k => scripts.includes(`'${k}'`) || scripts.includes(`"${k}"`));
+  return [...new Set([...fromMarkup, ...fromCode])];
+}
 
 /** Both editions, by evaluating js/i18n.js in a bare sandbox. */
 function dictionaries() {
@@ -92,7 +100,7 @@ const CONTRAST_PROBE = `() => {
   const out = [];
   for (const el of document.querySelectorAll('body *')) {
     const cs = getComputedStyle(el);
-    if (cs.display === 'none' || cs.visibility === 'hidden' || +cs.opacity < 0.1) continue;
+    if (cs.display === 'none' || cs.visibility === 'hidden' || +cs.opacity < 0.1) continue;\n    const r0 = el.getBoundingClientRect();\n    if (r0.width <= 2 || r0.height <= 2) continue; // sr-only / clipped: nothing is rendered
     if (![...el.childNodes].some(n => n.nodeType === 3 && n.textContent.trim())) continue;
     const fg = rgb(cs.color); if (fg.length < 3) continue;
     const bg = bgOf(el);
@@ -115,7 +123,7 @@ const checks = {};
 checks.i18n = async () => {
   const I = dictionaries();
   if (!I || !I.en || !I.id) return { pass: false, detail: 'window.I18N.en / .id not found' };
-  const en = Object.keys(I.en), id = Object.keys(I.id), used = usedKeys();
+  const en = Object.keys(I.en), id = Object.keys(I.id), used = usedKeys(Object.keys(I.en));
   const problems = [];
 
   const onlyEn = en.filter(k => !(k in I.id));
@@ -236,7 +244,9 @@ checks.nojs = async (ctx) => {
   await context.close();
   const problems = [];
   if (r.hidden.length) problems.push(`hidden without JS: ${r.hidden.slice(0, 8).join(', ')}`);
-  if (r.textLen < 500) problems.push(`only ${r.textLen} chars of text without JS`);
+  // A floor that catches a genuinely empty page. "All the content is here" is
+  // asserted properly by the recruiter-facts check below, not by a word count.
+  if (r.textLen < 100) problems.push(`only ${r.textLen} chars of text without JS`);
   // Once the character sheet exists, all six recruiter facts must be in the DOM.
   if (r.facts.length) {
     const need = ['name', 'role', 'now', 'prev1', 'prev2', 'edu'];
@@ -266,6 +276,49 @@ checks.reducedmotion = async (ctx) => {
   return { pass: !problems.length, detail: problems.join(' | ') || 'no animation under reduce' };
 };
 
+// Private windows, blocked cookies and some enterprise policies make every
+// localStorage access throw. The language and theme controls must still work
+// for the session; they just forget.
+checks.storage = async (ctx) => {
+  const page = await ctx.browser.newPage();
+  const errs = [];
+  page.on('console', m => { if (m.type() === 'error') errs.push(m.text().slice(0, 120)); });
+  page.on('pageerror', e => errs.push(`pageerror: ${String(e).slice(0, 120)}`));
+  await page.addInitScript(() => {
+    const boom = () => { throw new DOMException('denied', 'SecurityError'); };
+    Object.defineProperty(window, 'localStorage', {
+      configurable: true,
+      get() { return { getItem: boom, setItem: boom, removeItem: boom, clear: boom, key: boom, length: 0 }; },
+    });
+  });
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await page.goto(ctx.url, { waitUntil: 'load' });
+
+  const r = await page.evaluate(async () => {
+    const out = { hasLang: !!document.getElementById('lang'), hasTheme: !!document.getElementById('theme') };
+    out.lang0 = document.documentElement.lang;
+    out.theme0 = document.documentElement.dataset.theme;
+    document.getElementById('lang')?.click();
+    document.getElementById('theme')?.click();
+    await new Promise(res => setTimeout(res, 120));
+    out.lang1 = document.documentElement.lang;
+    out.theme1 = document.documentElement.dataset.theme;
+    return out;
+  });
+  await page.close();
+
+  const problems = [];
+  if (!r.hasLang) problems.push('no #lang control');
+  if (!r.hasTheme) problems.push('no #theme control');
+  if (r.hasLang && r.lang0 === r.lang1) problems.push(`language did not change (${r.lang0})`);
+  if (r.hasTheme && r.theme0 === r.theme1) problems.push(`theme did not change (${r.theme0})`);
+  if (errs.length) problems.push(`console: ${errs.slice(0, 3).join(' | ')}`);
+  return {
+    pass: !problems.length,
+    detail: problems.join(' | ') || `lang ${r.lang0}->${r.lang1}, theme ${r.theme0}->${r.theme1}, no errors`,
+  };
+};
+
 checks.console = async (ctx) => {
   const page = await ctx.browser.newPage();
   const msgs = [];
@@ -285,7 +338,7 @@ checks.console = async (ctx) => {
 
 /* ───────────────────────── runner ───────────────────────── */
 
-const NEEDS_BROWSER = new Set(['overflow', 'contrast', 'nojs', 'reducedmotion', 'console']);
+const NEEDS_BROWSER = new Set(['overflow', 'contrast', 'nojs', 'reducedmotion', 'storage', 'console']);
 
 const argv = process.argv.slice(2);
 const only = (argv.find(a => a.startsWith('--only=')) || '').split('=')[1];

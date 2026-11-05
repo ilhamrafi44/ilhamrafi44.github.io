@@ -1,0 +1,111 @@
+/* ═══════════════════════════════════════════════════════════
+   The world: HUD, the page shell, and (from Task 5) the terrain.
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── HUD ─────────────────────────────────────────────────
+   Fixed across the top. Pixel type, short strings only. */
+.hud {
+  position: fixed; inset: 0 0 auto 0; z-index: 200;
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  padding: 9px clamp(10px, 2.4vw, 18px);
+  background: color-mix(in srgb, var(--ink) 92%, transparent);
+  border-bottom: var(--bw) solid var(--ink);
+  font: 400 var(--t-pixel-sm)/1 var(--f-pixel);
+  color: var(--cream);
+}
+.hud__l { display: flex; align-items: center; gap: clamp(8px, 2vw, 15px); min-width: 0; }
+.hud__name { color: var(--gold); }
+.hud__hp { font-family: var(--f-body); font-size: 11px; color: #FF5C7A; letter-spacing: 1px; }
+.hud__world { color: var(--ore-cyan); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.hud__r { display: flex; align-items: center; gap: 5px; flex: none; }
+
+/* Controls are ≥44px tall for touch; the visible chrome is smaller. */
+.ctl {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 44px; min-height: 44px; padding: 0 9px;
+  font: 700 10px/1 var(--f-body); letter-spacing: .1em; text-transform: uppercase;
+  color: var(--cream);
+}
+.ctl > span {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 6px 8px; border: 2px solid currentColor;
+}
+.lang { gap: 0; padding: 0; }
+.lang__opt {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 6px 7px; border: 2px solid var(--cream); border-right-width: 1px;
+}
+.lang__opt + .lang__opt { border-left-width: 1px; border-right-width: 2px; }
+.lang__opt.is-on { background: var(--gold); color: var(--ink); border-color: var(--gold); }
+
+.ic { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 2;
+      stroke-linecap: round; stroke-linejoin: round; }
+
+/* the theme button shows the state you'd switch TO */
+.ic--night { display: none; }
+:root[data-theme="night"] .ic--day { display: none; }
+:root[data-theme="night"] .ic--night { display: inline; }
+
+/* ── page shell ───────────────────────────────────────── */
+.page {
+  position: relative; z-index: 10;
+  max-width: var(--page); margin: 0 auto;
+  padding: 0 var(--gut);
+}
+
+.world {
+  position: relative;
+  padding: clamp(54px, 9vw, 104px) 0;
+  scroll-margin-top: 70px;
+}
+.world:first-of-type { padding-top: clamp(76px, 11vw, 128px); }
+
+/* Section heading: pixel label over a display title. */
+.world__label {
+  display: inline-block; margin-bottom: 11px;
+  font: 400 var(--t-pixel-sm)/1.5 var(--f-pixel);
+  letter-spacing: .06em;
+  color: var(--ink); background: var(--gold);
+  padding: 7px 9px; border: var(--bw) solid var(--ink);
+}
+.world__h {
+  font: 400 var(--t-h2)/1.02 var(--f-display);
+  letter-spacing: -.015em;
+  margin-bottom: .32em;
+}
+.world__deck {
+  font-size: var(--t-lead); max-width: 56ch;
+  color: var(--muted-on-ink);
+}
+
+/* Worlds 1-2 sit on the sky; 3-6 are underground. Each world carries the
+   ground it is read against, so contrast is answerable at every step.
+   Task 5 turns these flat fills into the parallax terrain. */
+.world { background-color: var(--deep); }
+
+/* background-color is the colour text is actually read against; the gradient
+   and the speckle ride on top as background-image. Keeping both in sync is
+   what makes the contrast check meaningful rather than decorative. */
+.world--surface {
+  background-color: var(--sky-hi);
+  background-image: linear-gradient(180deg, var(--sky-hi), var(--sky-lo));
+}
+#world3 { background-color: var(--cave-dirt); }
+#world4 { background-color: var(--cave-deep); }
+#world5 { background-color: var(--cave-stone); }
+#world6 { background-color: var(--deep); }
+
+/* the material, visible but never bright enough to fight the text */
+#world3, #world4, #world5 {
+  background-image: radial-gradient(rgba(255,246,229,.055) 1.6px, transparent 1.8px);
+  background-size: 11px 11px;
+}
+
+/* The page shell is the content column; the ground must span the viewport. */
+.page { max-width: none; padding: 0; }
+.world > * { max-width: var(--page); margin-inline: auto; }
+.world { padding-inline: var(--gut); }
+
+.world--surface { color: var(--on-sky); }
+.world--surface .world__deck { color: var(--muted-on-sky); }
+.world--surface .world__label { background: var(--ink); color: var(--gold); }
