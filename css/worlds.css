@@ -4,78 +4,94 @@
    mid-tones and no muted colour reaches AA on a mid-tone.
    ═══════════════════════════════════════════════════════════ */
 
-/* ── WORLD 3 · the chambers ───────────────────────────── */
-.chambers { display: grid; gap: clamp(18px, 3.4vw, 30px); margin-top: clamp(18px, 3.4vw, 30px); }
+/* ── WORLD 3 · the chambers ───────────────────────────────
+   Facts you can look at, not paragraphs you have to read: a diagram of the
+   thing, the real screens where they exist, and the specs as chips. */
+.chambers { display: grid; gap: clamp(22px, 4vw, 40px); margin-top: clamp(18px, 3.4vw, 30px); }
 
 .chamber {
-  background: #141019;  /* fallback: color-mix is 2023+ */
-  background: color-mix(in srgb, var(--ink) 86%, transparent);
+  min-width: 0;   /* without this the diagram's min-width inflates the card */
+  background: #141019;
+  background: color-mix(in srgb, var(--ink) 90%, transparent);
   border: var(--bw) solid var(--ink);
   box-shadow: var(--shadow);
-  padding: clamp(13px, 2.6vw, 22px);
-  max-width: 880px;
+  padding: clamp(14px, 2.8vw, 26px);
 }
 .chamber__k {
-  display: inline-block; margin: 0 0 9px; padding: 6px 8px;
+  display: inline-block; margin: 0 0 9px; padding: 6px 9px;
   background: var(--torch); color: var(--ink);
   font: 400 var(--t-pixel-xs)/1.4 var(--f-pixel); letter-spacing: .05em;
 }
 .chamber__h {
-  font: 400 var(--t-h3)/1.1 var(--f-display);
-  letter-spacing: -.015em; color: var(--cream);
-  margin-bottom: clamp(11px, 2vw, 16px);
+  font: 400 var(--t-h3)/1.08 var(--f-display);
+  letter-spacing: -.015em; color: var(--cream); margin-bottom: .35em;
+}
+.chamber__one {
+  margin: 0 0 clamp(16px, 2.6vw, 24px); max-width: 68ch;
+  font-size: clamp(13px, 1.9vw, 15px); line-height: 1.55; color: var(--muted-on-ink);
 }
 
-.chamber__fig { margin: 0 0 clamp(12px, 2.2vw, 18px); }
-.chamber__fig img { width: 100%; border: var(--bw) solid var(--ink); }
+/* ── the diagrams ── */
+.chamber__viz {
+  max-width: 100%; min-width: 0;
+  margin: 0 0 clamp(14px, 2.4vw, 22px);
+  padding: clamp(10px, 2vw, 18px);
+  background: rgba(0,0,0,.26);
+  border: 2px solid rgba(255,246,229,.14);
+  overflow-x: auto;
+}
+/* The diagram has a floor below which its labels collide; narrower screens
+   scroll it sideways inside its own frame rather than squashing it. */
+.viz { width: 100%; min-width: 620px; height: auto; color: var(--ore-cyan); display: block; }
+@media (max-width: 700px) { .chamber__viz { overflow-x: scroll; -webkit-overflow-scrolling: touch; } }
+.viz .st rect {
+  fill: rgba(255,246,229,.05); stroke: var(--cream); stroke-width: 2.5;
+}
+.viz .st text {
+  fill: var(--cream); font: 700 13px/1 var(--f-body);
+  letter-spacing: .07em; text-anchor: middle; dominant-baseline: middle;
+}
+.viz .st.is-on rect { fill: var(--gold); stroke: var(--gold); }
+.viz .st.is-on text { fill: var(--ink); }
+.viz .st--bad.is-on rect { fill: #FF5C7A; stroke: #FF5C7A; }
+.viz .st--out rect { stroke: var(--torch); }
+.viz .st--out.is-on rect { fill: var(--torch); stroke: var(--torch); }
+.viz text { font-family: var(--f-body); }
+.viz .life__labels text, .viz .gate__labels text {
+  fill: var(--muted-on-ink); font: 700 10px/1 var(--f-body);
+  letter-spacing: .09em; text-anchor: middle; text-transform: uppercase;
+}
+.viz .life__back { fill: var(--torch) !important; }
+.viz .wire { color: rgba(255,246,229,.4); }
+.viz .wire--back { color: var(--torch); }
+.viz circle[class$="__tok"] { fill: var(--gold); stroke: var(--ink); stroke-width: 2.5; }
 
-/* An unexcavated block. A project with no screenshot gets a sealed ore vein
-   rather than an empty frame — the gap becomes part of the world. Reused by
-   World 4, which is why it is defined here, at first use. */
-.chamber__fig--sealed { position: relative; }
-.sealed, .ore-block {
-  display: block; width: 100%; aspect-ratio: 16 / 7;
-  border: var(--bw) solid var(--ink);
-  background-color: var(--cave-stone);
-  background-image:
-    linear-gradient(135deg, rgba(255,246,229,.07) 25%, transparent 25% 50%,
-                    rgba(255,246,229,.07) 50% 75%, transparent 75%),
-    radial-gradient(rgba(91,200,216,.22) 2.5px, transparent 3px);
-  background-size: 22px 22px, 44px 44px;
+/* ── the real screens ── */
+/* Two up, not three: a 1440px dashboard squeezed into a 380px tile reads as
+   "some admin panel". At half width the headings are actually legible. */
+.shelf {
+  display: grid; gap: 9px; margin: 0 0 clamp(14px, 2.4vw, 22px);
+  grid-template-columns: 1fr;
 }
-.chamber__fig--sealed figcaption {
-  position: absolute; left: 11px; bottom: 11px;
-  background: var(--ink); color: var(--ore-cyan);
-  padding: 6px 8px; border: 2px solid var(--ore-cyan);
-  font: 400 var(--t-pixel-xs)/1.4 var(--f-pixel);
-}
+@media (min-width: 760px) { .shelf { grid-template-columns: 1fr 1fr; } }
+.shelf figure { margin: 0; overflow: hidden; border: 2px solid var(--ink); background: var(--cave-stone); }
+.shelf img { width: 100%; aspect-ratio: 12 / 5; object-fit: cover; object-position: top left; display: block; }
 
-.chamber__body { display: grid; gap: clamp(11px, 2vw, 16px); }
-.beat { border-left: 4px solid rgba(255,246,229,.2); padding-left: clamp(10px, 1.8vw, 14px); }
-.beat--hard { border-left-color: var(--torch); }
-.beat__l {
-  margin: 0 0 5px;
-  font: 400 var(--t-pixel-xs)/1.4 var(--f-pixel); letter-spacing: .05em;
-  color: var(--gold);
+/* ── the specs ── */
+.specs { display: flex; flex-wrap: wrap; gap: 5px; margin: 0 0 clamp(13px, 2.2vw, 20px); }
+.specs li {
+  font: 600 11px/1 var(--f-body); letter-spacing: .02em;
+  padding: 7px 9px; color: var(--cream);
+  background: rgba(255,246,229,.07); border: 2px solid rgba(255,246,229,.2);
 }
-.beat p:last-child { margin: 0; color: var(--cream); }
 
 .chamber__src {
-  margin: clamp(12px, 2.2vw, 18px) 0 0; padding-top: 11px;
+  margin: 0; padding-top: 12px;
   border-top: 2px solid rgba(255,246,229,.16);
   font: 700 11px/1.4 var(--f-body); letter-spacing: .04em;
   color: var(--muted-on-ink);
 }
 .chamber__src a { color: var(--ore-cyan); }
-
-@media (min-width: 900px) {
-  .chamber { display: grid; grid-template-columns: 1fr 1fr; gap: 0 clamp(18px, 2.6vw, 28px); align-items: start; }
-  .chamber__k { grid-column: 1; justify-self: start; }
-  .chamber__h { grid-column: 1; }
-  .chamber__fig { grid-column: 1; margin-bottom: 0; }
-  .chamber__body { grid-column: 2; grid-row: 1 / span 4; }
-  .chamber__src { grid-column: 1 / -1; }
-}
 
 /* ── WORLD 4 · the mines ──────────────────────────────────
    Every project, with an honest status on each. A tile with no public URL

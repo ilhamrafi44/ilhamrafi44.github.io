@@ -40,6 +40,7 @@
 
 .sheet__body { flex: 1; min-width: 0; }
 
+.sheet__name { overflow: hidden; }
 .sheet__name {
   font: 400 var(--t-name)/1.02 var(--f-display);
   letter-spacing: -.025em;
@@ -135,7 +136,8 @@
   .sheet__in { gap: 9px; padding: 9px; }
   .sheet__pic { width: 76px; }
   .sheet__lv { margin-top: 4px; padding: 4px 2px; }
-  .sheet__name { font-size: 20px; margin-bottom: .22em; }
+  .sheet__name { overflow: hidden; }
+.sheet__name { font-size: 20px; margin-bottom: .22em; }
   .sheet__role { margin-bottom: 5px; padding: 4px 6px; }
   .sheet__open { margin-bottom: 6px; }
   .stat { padding: 4px 0; grid-template-columns: 34px 1fr; gap: 7px; }
@@ -175,23 +177,23 @@
 }
 .inv__ico {
   display: grid; place-items: center; flex: none;
-  width: 30px; height: 30px;
-  font: 400 var(--t-pixel-xs)/1 var(--f-pixel);
-  color: var(--ink); background: var(--slot, var(--gold));
-  border: 2px solid var(--ink);
+  width: 34px; height: 34px;
+  background: var(--ink); border: 2px solid var(--ink);
+  overflow: hidden;
 }
+.inv__ico svg { width: 19px; height: 19px; fill: var(--brand, var(--gold)); }
 .inv__nm { font: 600 11.5px/1.25 var(--f-body); min-width: 0; }
 
 /* category colours — each one is a light tint, so --ink stays legible on it */
-[data-cat="la"] .inv__ico, .kitgrp[data-cat="la"] { --slot:#FFD9A8; }
-[data-cat="be"] .inv__ico, .kitgrp[data-cat="be"] { --slot:#B6E3A8; }
-[data-cat="fe"] .inv__ico, .kitgrp[data-cat="fe"] { --slot:#A8D8F0; }
-[data-cat="mo"] .inv__ico, .kitgrp[data-cat="mo"] { --slot:#E3C2F5; }
-[data-cat="db"] .inv__ico, .kitgrp[data-cat="db"] { --slot:#F5C2C2; }
-[data-cat="in"] .inv__ico, .kitgrp[data-cat="in"] { --slot:#C9C9D6; }
-[data-cat="pa"] .inv__ico, .kitgrp[data-cat="pa"] { --slot:#FFE59B; }
-[data-cat="nw"] .inv__ico, .kitgrp[data-cat="nw"] { --slot:#A8EDE0; }
-[data-cat="ar"] .inv__ico, .kitgrp[data-cat="ar"] { --slot:#E8D9B8; }
+.kitgrp[data-cat="la"] { --slot:#FFD9A8; }
+.kitgrp[data-cat="be"] { --slot:#B6E3A8; }
+.kitgrp[data-cat="fe"] { --slot:#A8D8F0; }
+.kitgrp[data-cat="mo"] { --slot:#E3C2F5; }
+.kitgrp[data-cat="db"] { --slot:#F5C2C2; }
+.kitgrp[data-cat="in"] { --slot:#C9C9D6; }
+.kitgrp[data-cat="pa"] { --slot:#FFE59B; }
+.kitgrp[data-cat="nw"] { --slot:#A8EDE0; }
+.kitgrp[data-cat="ar"] { --slot:#E8D9B8; }
 
 @media (prefers-reduced-motion: no-preference) {
   .inv__slot { transition: transform .1s var(--snap), box-shadow .1s var(--snap); }
@@ -241,7 +243,8 @@
   .sheet__in { padding: 8px; gap: 8px; }
   .sheet__pic { width: 68px; }
   .sheet__lv { margin-top: 3px; padding: 3px 2px; }
-  .sheet__name { font-size: 17px; margin-bottom: .18em; }
+  .sheet__name { overflow: hidden; }
+.sheet__name { font-size: 17px; margin-bottom: .18em; }
   .sheet__role { margin-bottom: 4px; padding: 3px 5px; font-size: 8.5px; }
   .sheet__open { margin-bottom: 4px; font-size: 8.5px; }
   .stat { padding: 2px 0; }

@@ -78,6 +78,7 @@
   padding: 7px 9px; border: var(--bw) solid var(--ink);
 }
 .world__h {
+  overflow: hidden;
   font: 400 var(--t-h2)/1.02 var(--f-display);
   letter-spacing: -.015em;
   margin-bottom: .32em;
@@ -112,7 +113,7 @@
 
 /* The page shell is the content column; the ground must span the viewport. */
 .page { max-width: none; padding: 0; }
-.world > * { max-width: var(--page); margin-inline: auto; }
+.world > * { max-width: var(--page); margin-inline: auto; min-width: 0; }
 .world { padding-inline: var(--gut); }
 
 .world--surface { color: var(--on-sky); }

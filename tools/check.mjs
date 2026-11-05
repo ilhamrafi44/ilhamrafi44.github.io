@@ -280,6 +280,14 @@ checks.overflow = async (ctx) => {
             if (el.closest('[aria-hidden="true"]')) continue;      // decoration may bleed
             if (el.classList.contains('sr')) continue;             // parked offscreen on purpose
             if (el.classList.contains('skip')) continue;           // skip link parks at -9999px until focused
+            // Content inside a horizontally scrollable frame is reachable by
+            // scrolling that frame; that is not the page spilling.
+            let scrollable = false;
+            for (let a = el.parentElement; a && a !== document.body; a = a.parentElement) {
+              const ox = getComputedStyle(a).overflowX;
+              if (ox === 'auto' || ox === 'scroll') { scrollable = true; break; }
+            }
+            if (scrollable) continue;
             const r = el.getBoundingClientRect();
             if (r.width === 0 || r.height === 0) continue;
             const spill = Math.round(Math.max(r.right - vw, -r.left));
