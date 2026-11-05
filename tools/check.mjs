@@ -228,22 +228,39 @@ checks.contrast = async (ctx) => {
   return { pass: !uniq.length, detail: uniq.length ? uniq.slice(0, 6).join(' | ') + (uniq.length > 6 ? ` | +${uniq.length - 6} more` : '') : `AA met in ${themeNames.length} themes x 2 editions` };
 };
 
+// The question is not "is anything hidden" — a tooltip that opens on hover and
+// an sr-only label are both hidden at rest, with or without scripts. The
+// question is whether anything is hidden ONLY because the scripts did not run.
+// So: take the hidden set twice, with JS and without, and diff them.
+const HIDDEN_PROBE = `() => [...new Set([...document.querySelectorAll('body *')]
+  .filter(el => {
+    const cs = getComputedStyle(el);
+    return (+cs.opacity < 0.05 || cs.visibility === 'hidden' || cs.display === 'none') && el.textContent.trim();
+  })
+  .map(el => el.tagName.toLowerCase() + '.' + (typeof el.className === 'string' ? el.className.trim().split(/\\s+/).join('.') : '')))]`;
+
 checks.nojs = async (ctx) => {
+  const withJs = await ctx.browser.newPage();
+  await withJs.setViewportSize({ width: 1280, height: 900 });
+  await withJs.goto(ctx.url, { waitUntil: 'load' });
+  const hiddenWithJs = new Set(await withJs.evaluate(`(${HIDDEN_PROBE})()`));
+  await withJs.close();
+
   const context = await ctx.browser.newContext({ javaScriptEnabled: false });
   const page = await context.newPage();
   await page.setViewportSize({ width: 1280, height: 900 });
   await page.goto(ctx.url, { waitUntil: 'load' });
-  const r = await page.evaluate(() => {
-    const hidden = [...document.querySelectorAll('body *')].filter(el => {
-      const cs = getComputedStyle(el);
-      return (+cs.opacity < 0.05 || cs.visibility === 'hidden') && el.textContent.trim();
-    }).map(el => el.tagName.toLowerCase() + '.' + (typeof el.className === 'string' ? el.className.trim().split(/\s+/)[0] : ''));
-    const facts = [...document.querySelectorAll('[data-fact]')].map(e => e.dataset.fact);
-    return { hidden: [...new Set(hidden)], facts, textLen: document.body.innerText.trim().length };
-  });
+  const hiddenNoJs = await page.evaluate(`(${HIDDEN_PROBE})()`);
+  const r = await page.evaluate(() => ({
+    facts: [...document.querySelectorAll('[data-fact]')].map(e => e.dataset.fact),
+    textLen: document.body.innerText.trim().length,
+  }));
   await context.close();
+
+  // hidden without scripts but visible with them = content the page withheld
+  const regressed = hiddenNoJs.filter(sel => !hiddenWithJs.has(sel));
   const problems = [];
-  if (r.hidden.length) problems.push(`hidden without JS: ${r.hidden.slice(0, 8).join(', ')}`);
+  if (regressed.length) problems.push(`visible only with JS: ${regressed.slice(0, 8).join(', ')}`);
   // A floor that catches a genuinely empty page. "All the content is here" is
   // asserted properly by the recruiter-facts check below, not by a word count.
   if (r.textLen < 100) problems.push(`only ${r.textLen} chars of text without JS`);
@@ -274,6 +291,32 @@ checks.reducedmotion = async (ctx) => {
   if (r.animated.length) problems.push(`still animating: ${r.animated.slice(0, 8).join(', ')}`);
   if (r.gsapTweens) problems.push(`${r.gsapTweens} gsap tweens running`);
   return { pass: !problems.length, detail: problems.join(' | ') || 'no animation under reduce' };
+};
+
+// Hover-only content fails a keyboard and a touchscreen at the same time.
+// Every inventory slot must say what it is in the DOM, without hovering,
+// and must be reachable by keyboard.
+checks.tooltip = async (ctx) => {
+  const page = await ctx.browser.newPage();
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await page.goto(ctx.url, { waitUntil: 'load' });
+  const r = await page.evaluate(() => {
+    const slots = [...document.querySelectorAll('.inv__slot')];
+    const bad = [];
+    for (const s of slots) {
+      const name = s.querySelector('.inv__nm');
+      const label = (name?.textContent || '').trim();
+      if (!label) { bad.push(`${s.outerHTML.slice(0, 40)}: no .inv__nm text`); continue; }
+      if (name && getComputedStyle(name).display === 'none') bad.push(`"${label}": name hidden by default`);
+      if (s.tagName !== 'BUTTON' && !s.hasAttribute('tabindex')) bad.push(`"${label}": not keyboard reachable`);
+      const box = s.getBoundingClientRect();
+      if (box.height < 44) bad.push(`"${label}": ${Math.round(box.height)}px tall, under the 44px touch target`);
+    }
+    return { count: slots.length, bad };
+  });
+  await page.close();
+  if (!r.count) return { pass: false, detail: 'no .inv__slot found' };
+  return { pass: !r.bad.length, detail: r.bad.length ? r.bad.slice(0, 5).join(' | ') : `${r.count} slots, all named in the DOM and keyboard reachable` };
 };
 
 // The seven-second test. A recruiter reads six things and leaves; if any of
@@ -381,7 +424,7 @@ checks.console = async (ctx) => {
 
 /* ───────────────────────── runner ───────────────────────── */
 
-const NEEDS_BROWSER = new Set(['overflow', 'contrast', 'nojs', 'reducedmotion', 'storage', 'abovefold', 'console']);
+const NEEDS_BROWSER = new Set(['overflow', 'contrast', 'nojs', 'reducedmotion', 'storage', 'abovefold', 'tooltip', 'console']);
 
 const argv = process.argv.slice(2);
 const only = (argv.find(a => a.startsWith('--only=')) || '').split('=')[1];
