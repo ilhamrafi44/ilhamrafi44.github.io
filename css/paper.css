@@ -124,7 +124,9 @@
 .housead__in{flex:1}
 .housead__h{font:400 clamp(26px,4.6vw,46px)/1 var(--f-mast);margin:8px 0 10px}
 .housead__b{max-width:56ch;font-size:16px;color:#D8D3C6}
-[data-theme=dark] .housead__b{color:var(--sub)}
+/* the ad inverts with --ink, so in dark mode it sits on cream: --sub is the
+   wrong muted here, it is the muted FOR a dark ground. */
+[data-theme=dark] .housead__b{color:#57534A}
 .housead__cat{width:104px;height:110px;flex:none}
 .btn{display:inline-flex;align-items:center;gap:9px;padding:13px 20px;text-decoration:none;
   color:#000;background:var(--yellow);border:var(--bw) solid #000;box-shadow:5px 5px 0 var(--paper);
