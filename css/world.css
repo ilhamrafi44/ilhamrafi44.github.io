@@ -217,3 +217,62 @@
 @keyframes flick { 0%, 100% { opacity: var(--torch-glow); transform: scale(1); }
                    50% { opacity: calc(var(--torch-glow) * .72); transform: scale(.86); } }
 @keyframes glint { 0%, 100% { filter: brightness(1); } 50% { filter: brightness(1.45); } }
+
+/* ═══════════════════════════════════════════════════════════
+   Cimol. Orange, four poses, drawn as SVG so she recolours with the
+   theme and stays sharp at any size.
+   ═══════════════════════════════════════════════════════════ */
+.cat { display: block; fill: none; }
+.cat use { pointer-events: none; }
+
+/* walking the ground line; Task 12 drives --walk from scroll progress */
+.rider {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 150;
+  height: 0; pointer-events: none;
+}
+.cat--rider {
+  width: 54px; height: 32px;
+  position: absolute; bottom: 8px; left: 0;
+  transform: translateX(calc(var(--walk, 0) * (100vw - 62px)));
+}
+
+.cat--sheet {
+  width: clamp(52px, 8vw, 78px); aspect-ratio: 150 / 156;
+  margin: -14px 0 0 clamp(8px, 2vw, 22px);
+}
+
+.cat--sleep { width: clamp(72px, 11vw, 108px); aspect-ratio: 230 / 116; margin: 12px 0 6px; opacity: .85; }
+
+/* ── the Duck Hunt payload ──────────────────────────────
+   The dog that pops up and laughs at you is the only thing most people
+   remember about Duck Hunt. Cimol inherits it, on the one joke that
+   earns it. */
+.bugbox {
+  position: relative; margin-top: clamp(20px, 3.6vw, 32px);
+  padding: clamp(14px, 2.6vw, 20px);
+  padding-right: clamp(86px, 15vw, 130px);
+  background: color-mix(in srgb, var(--ink) 88%, transparent);
+  border: var(--bw) solid var(--torch); box-shadow: var(--shadow-sm);
+}
+.bugbox__l { margin: 0 0 4px; font: 400 var(--t-pixel-xs)/1.4 var(--f-pixel); color: var(--torch); }
+.bugbox__n {
+  margin: 0 0 5px; font: 400 clamp(30px, 6vw, 52px)/1 var(--f-display); color: var(--cream);
+}
+.bugbox__b { margin: 0; font-size: 12.5px; line-height: 1.5; color: var(--muted-on-ink); max-width: 44ch; }
+.cat--taunt {
+  position: absolute; right: clamp(8px, 2vw, 18px); bottom: 0;
+  width: clamp(68px, 12vw, 104px); aspect-ratio: 150 / 156;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .cat--sheet .c-tail, .cat--sleep .c-tail { transform-origin: 70% 80%; animation: sway 2.6s ease-in-out infinite; }
+  .cat--taunt .c-paw { transform-origin: 70% 70%; animation: wave .7s ease-in-out infinite; }
+  .cat .c-eye { animation: blink 4.2s steps(1, end) infinite; }
+  .cat--rider .c-legf { animation: step .36s steps(2, end) infinite; }
+  .cat--rider .c-legb { animation: step .36s steps(2, end) infinite reverse; }
+}
+@keyframes sway  { 0%, 100% { transform: rotate(-5deg); } 50% { transform: rotate(7deg); } }
+@keyframes wave  { 0%, 100% { transform: rotate(-12deg); } 50% { transform: rotate(16deg); } }
+@keyframes blink { 0%, 95% { transform: scaleY(1); } 96%, 100% { transform: scaleY(.12); } }
+@keyframes step  { 0% { transform: translateY(0); } 100% { transform: translateY(-4px); } }
+.cat .c-eye { transform-origin: center; }

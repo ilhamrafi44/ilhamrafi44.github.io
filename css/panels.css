@@ -183,15 +183,15 @@
 .inv__nm { font: 600 11.5px/1.25 var(--f-body); min-width: 0; }
 
 /* category colours — each one is a light tint, so --ink stays legible on it */
-[data-cat="la"] .inv__ico, .cat[data-cat="la"] { --slot:#FFD9A8; }
-[data-cat="be"] .inv__ico, .cat[data-cat="be"] { --slot:#B6E3A8; }
-[data-cat="fe"] .inv__ico, .cat[data-cat="fe"] { --slot:#A8D8F0; }
-[data-cat="mo"] .inv__ico, .cat[data-cat="mo"] { --slot:#E3C2F5; }
-[data-cat="db"] .inv__ico, .cat[data-cat="db"] { --slot:#F5C2C2; }
-[data-cat="in"] .inv__ico, .cat[data-cat="in"] { --slot:#C9C9D6; }
-[data-cat="pa"] .inv__ico, .cat[data-cat="pa"] { --slot:#FFE59B; }
-[data-cat="nw"] .inv__ico, .cat[data-cat="nw"] { --slot:#A8EDE0; }
-[data-cat="ar"] .inv__ico, .cat[data-cat="ar"] { --slot:#E8D9B8; }
+[data-cat="la"] .inv__ico, .kitgrp[data-cat="la"] { --slot:#FFD9A8; }
+[data-cat="be"] .inv__ico, .kitgrp[data-cat="be"] { --slot:#B6E3A8; }
+[data-cat="fe"] .inv__ico, .kitgrp[data-cat="fe"] { --slot:#A8D8F0; }
+[data-cat="mo"] .inv__ico, .kitgrp[data-cat="mo"] { --slot:#E3C2F5; }
+[data-cat="db"] .inv__ico, .kitgrp[data-cat="db"] { --slot:#F5C2C2; }
+[data-cat="in"] .inv__ico, .kitgrp[data-cat="in"] { --slot:#C9C9D6; }
+[data-cat="pa"] .inv__ico, .kitgrp[data-cat="pa"] { --slot:#FFE59B; }
+[data-cat="nw"] .inv__ico, .kitgrp[data-cat="nw"] { --slot:#A8EDE0; }
+[data-cat="ar"] .inv__ico, .kitgrp[data-cat="ar"] { --slot:#E8D9B8; }
 
 @media (prefers-reduced-motion: no-preference) {
   .inv__slot { transition: transform .1s var(--snap), box-shadow .1s var(--snap); }
@@ -212,16 +212,16 @@
 
 /* ── the full toolbox, as plain text ── */
 .kitfull { margin: clamp(22px, 4.5vw, 38px) 0 0; }
-.cats { display: grid; gap: 9px; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
-.cat {
+.kitgrps { display: grid; gap: 9px; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+.kitgrp {
   background: var(--cream); color: var(--ink);
   border: var(--bw) solid var(--ink); box-shadow: var(--shadow-sm);
   padding: 10px 11px; border-left-width: 9px;
   border-left-color: var(--slot, var(--gold));
 }
-.cat__h {
+.kitgrp__h {
   margin: 0 0 5px;
   font: 700 10px/1 var(--f-body); letter-spacing: .12em; text-transform: uppercase;
   color: var(--muted-on-cream);
 }
-.cat__p { margin: 0; font-size: 12.5px; line-height: 1.5; }
+.kitgrp__p { margin: 0; font-size: 12.5px; line-height: 1.5; }

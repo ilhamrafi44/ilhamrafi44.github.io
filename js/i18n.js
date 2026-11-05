@@ -140,6 +140,9 @@ window.I18N = {
     "colo.2":"Written and laid out by hand. No framework, no build step, no bundler.",
     "colo.3":"There is a cat in this world. Her name is Cimol and she is orange.",
 
+    "bug.l":"KNOWN BUGS",
+    "bug.b":"An earlier edition reported zero. The correction is ongoing.",
+
     "w6.label":"WORLD 6",
     "w6.h":"Core",
     "w6.deck":"The bottom of the world. Write to him here."
@@ -276,6 +279,9 @@ window.I18N = {
     "colo.1":"Dicetak pakai Archivo Black, Press Start 2P dan Space Grotesk.",
     "colo.2":"Ditulis dan ditata manual. Tanpa framework, tanpa build step, tanpa bundler.",
     "colo.3":"Ada kucing di dunia ini. Namanya Cimol dan warnanya oren.",
+
+    "bug.l":"BUG YANG DIKETAHUI",
+    "bug.b":"Edisi sebelumnya menulis nol. Ralatnya masih berjalan.",
 
     "w6.label":"WORLD 6",
     "w6.h":"Inti",
