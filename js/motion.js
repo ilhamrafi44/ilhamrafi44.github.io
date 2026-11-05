@@ -27,18 +27,31 @@
      already readable; aria-label keeps the whole string for a reader. */
   const splitChars = (el) => {
     if (el.dataset.split) return $$('.ch', el);
-    const text = el.textContent;
+    // Walk the children rather than reading textContent: a <br> contributes
+    // nothing to textContent, so "Ilham<br>Rafiannandha" would collapse into
+    // one word and the line break would be lost.
+    const parts = [];
+    for (const node of el.childNodes) {
+      if (node.nodeType === 3) parts.push({ t: 'text', v: node.textContent });
+      else if (node.nodeName === 'BR') parts.push({ t: 'br' });
+      else parts.push({ t: 'text', v: node.textContent });
+    }
     el.dataset.split = '1';
-    el.setAttribute('aria-label', text.replace(/\s+/g, ' ').trim());
+    el.setAttribute('aria-label',
+      parts.map(p => (p.t === 'br' ? ' ' : p.v)).join('').replace(/\s+/g, ' ').trim());
+
     el.textContent = '';
     const frag = document.createDocumentFragment();
-    for (const c of text) {
-      if (c === '\n') continue;
-      const span = document.createElement('span');
-      span.className = 'ch';
-      span.setAttribute('aria-hidden', 'true');
-      span.textContent = c === ' ' ? ' ' : c;
-      frag.appendChild(span);
+    for (const part of parts) {
+      if (part.t === 'br') { frag.appendChild(document.createElement('br')); continue; }
+      for (const c of part.v) {
+        if (c === '\n') continue;
+        const span = document.createElement('span');
+        span.className = 'ch';
+        span.setAttribute('aria-hidden', 'true');
+        span.textContent = c === ' ' ? '\u00A0' : c;
+        frag.appendChild(span);
+      }
     }
     el.appendChild(frag);
     return $$('.ch', el);
