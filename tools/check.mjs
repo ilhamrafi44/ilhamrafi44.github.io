@@ -405,6 +405,58 @@ checks.reducedmotion = async (ctx) => {
   return { pass: !problems.length, detail: problems.join(' | ') || 'no animation under reduce' };
 };
 
+// Every other check looks at the page with the animation turned OFF: nojs,
+// nogsap and reducedmotion all answer "is it readable when nothing runs".
+// None of them answer the question that actually bit: is it readable when
+// everything DOES run? A gsap.from({opacity:0}) whose trigger never fires
+// leaves content invisible forever, and that is the spec's core anti-goal.
+checks.motionsafe = async (ctx) => {
+  const sizes = [[1280, 900], [390, 844], [320, 568]];
+  const bad = [];
+  for (const [w, h] of sizes) {
+    const page = await ctx.browser.newPage();
+    await page.setViewportSize({ width: w, height: h });
+    await page.goto(ctx.url, { waitUntil: 'load' });
+    // let the intro finish, then walk the whole page the way a reader would
+    await page.waitForTimeout(1200);
+    await page.evaluate(async () => {
+      const step = Math.round(window.innerHeight * 0.7);
+      for (let y = 0; y < document.documentElement.scrollHeight; y += step) {
+        window.scrollTo({ top: y, behavior: 'instant' });
+        await new Promise(r => setTimeout(r, 70));
+      }
+      window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'instant' });
+      await new Promise(r => setTimeout(r, 400));
+      window.scrollTo({ top: 0, behavior: 'instant' });
+      await new Promise(r => setTimeout(r, 400));
+    });
+    const invisible = await page.evaluate(() => {
+      const out = [];
+      for (const el of document.querySelectorAll('body *')) {
+        const txt = (el.textContent || '').trim();
+        if (!txt) continue;
+        if (el.closest('.inv__used') || el.classList.contains('inv__used')) continue;
+        if (el.classList.contains('sr') || el.classList.contains('skip')) continue;
+        if (el.closest('[aria-hidden="true"]')) continue;
+        const cs = getComputedStyle(el);
+        if (cs.display === 'none' || cs.visibility === 'hidden') continue;
+        if (+cs.opacity >= 0.05) continue;
+        const sel = el.tagName.toLowerCase() + '.' + (typeof el.className === 'string' ? el.className.trim().split(/\s+/)[0] : '');
+        out.push(`${sel} "${txt.slice(0, 26)}"`);
+      }
+      return [...new Set(out)];
+    });
+    await page.close();
+    for (const i of invisible) bad.push(`${w}x${h} ${i}`);
+  }
+  const uniq = [...new Set(bad)];
+  return {
+    pass: !uniq.length,
+    detail: uniq.length ? uniq.slice(0, 6).join(' | ') + (uniq.length > 6 ? ` | +${uniq.length - 6}` : '')
+                        : `nothing left invisible after a full scroll at ${sizes.length} sizes`,
+  };
+};
+
 // The CDN will be blocked, throttled or down for somebody. When it is, the
 // page must lose its choreography and nothing else: no errors, no hidden
 // content, and the whole world still reachable by scrolling.
@@ -759,7 +811,7 @@ checks.console = async (ctx) => {
 
 /* ───────────────────────── runner ───────────────────────── */
 
-const NEEDS_BROWSER = new Set(['overflow', 'contrast', 'nojs', 'reducedmotion', 'storage', 'abovefold', 'tooltip', 'sealedtiles', 'strata', 'nogsap', 'console']);
+const NEEDS_BROWSER = new Set(['overflow', 'contrast', 'nojs', 'reducedmotion', 'storage', 'abovefold', 'tooltip', 'sealedtiles', 'strata', 'nogsap', 'motionsafe', 'console']);
 
 const argv = process.argv.slice(2);
 const only = (argv.find(a => a.startsWith('--only=')) || '').split('=')[1];

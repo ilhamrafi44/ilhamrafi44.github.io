@@ -160,54 +160,45 @@
     }, { passive: true });
   }
 
-  /* ═══════════ MACRO: the diagrams draw themselves ═══════════
-     Wires draw, then a token tours the path and lights each state as it
-     lands. The fact, animated — not decoration laid over prose. */
-  const runDiagram = (svg) => {
-    const wires  = $$('.wire', svg);
-    const states = $$('.st', svg);
-    const tok    = svg.querySelector('[class$="__tok"]');
-    const labels = $$('.life__labels text', svg);
+  /* ═══════════ MACRO: the flows run themselves ═══════════
+     Boxes light in order, the connectors draw, and it loops. DOM elements
+     rather than SVG paths, so the same timeline works whether the flow is
+     laid out as a row or as a column. */
+  const runFlow = (viz) => {
+    const nodes = $$('.flow__n', viz);
+    const links = $$('.flow__l', viz);
+    const notes = $$('.flow__back, .flow__split', viz);
+    if (!nodes.length) return;
 
-    for (const w of wires) {
-      const len = w.getTotalLength();
-      w.dataset.len = len;
-      gsap.set(w, { strokeDasharray: len, strokeDashoffset: len });
-    }
-    if (tok) gsap.set(tok, { opacity: 0, scale: 0, transformOrigin: 'center' });
-    if (labels.length) gsap.set(labels, { opacity: 0 });   // only the lifecycle has these
+    gsap.set(links, { scaleX: 0, transformOrigin: 'left center' });
+    if (notes.length) gsap.set(notes, { opacity: 0 });
 
     const tl = gsap.timeline({
-      scrollTrigger: { trigger: svg, start: 'top 80%', once: true },
+      scrollTrigger: { trigger: viz, start: 'top 82%', once: true },
       defaults: { ease: 'power2.out' },
     });
 
-    tl.from(states.map(s => s.querySelector('rect')),
-        { scaleX: 0, transformOrigin: 'left center', duration: 0.32, stagger: 0.06 })
-      .from(states.map(s => s.querySelector('text')),
-        { opacity: 0, duration: 0.22, stagger: 0.06 }, '-=0.46');
+    tl.from(nodes, { scale: 0.9, opacity: 0, duration: 0.34, stagger: 0.07, ease: 'back.out(1.7)' })
+      .to(links, { scaleX: 1, duration: 0.3, stagger: 0.07 }, '-=0.45');
+    if (notes.length) tl.to(notes, { opacity: 1, duration: 0.3, stagger: 0.08 }, '-=0.2');
 
-    wires.forEach((w, i) => tl.to(w, { strokeDashoffset: 0, duration: 0.36 }, 0.46 + i * 0.09));
-    if (labels.length) tl.to(labels, { opacity: 1, duration: 0.28, stagger: 0.05 }, '-=0.28');
+    // then it runs: each box lights in turn, on a loop
+    const run = gsap.timeline({ repeat: -1, repeatDelay: 1.5, paused: true });
+    nodes.forEach((n, i) => {
+      run.add(() => {
+        for (const o of nodes) o.classList.remove('is-on');
+        n.classList.add('is-on');
+      }, i * 0.55);
+    });
+    run.add(() => { for (const o of nodes) o.classList.remove('is-on'); }, nodes.length * 0.55 + 0.4);
+    tl.add(() => run.play());
 
-    if (tok && states.length) {
-      tl.to(tok, { opacity: 1, scale: 1, duration: 0.24, ease: 'back.out(2.4)' });
-      states.forEach((st, i) => {
-        const r = st.querySelector('rect');
-        const cx = +r.getAttribute('x') + +r.getAttribute('width') / 2;
-        const cy = +r.getAttribute('y') - 10;   // above the box, not over its label
-        tl.to(tok, { attr: { cx, cy }, duration: 0.4, ease: 'power1.inOut' }, i === 0 ? '>' : '>+0.16')
-          .add(() => {
-            for (const s of states) s.classList.remove('is-on');
-            st.classList.add('is-on');
-          }, '<+0.28');
-      });
-      tl.add(() => { for (const s of states) s.classList.remove('is-on'); }, '>+0.6')
-        .to(tok, { opacity: 0, duration: 0.3 }, '<')
-        .repeat(-1).repeatDelay(1.8);
-    }
+    ScrollTrigger.create({
+      trigger: viz, start: 'top bottom', end: 'bottom top',
+      onToggle: (self) => (self.isActive ? run.play() : run.pause()),
+    });
   };
-  $$('.viz').forEach(runDiagram);
+  $$('.chamber__viz').forEach(runFlow);
 
   /* ═══════════ MICRO ═══════════ */
 
@@ -355,6 +346,6 @@
     gsap.globalTimeline.clear();
     if (touched.length) gsap.set([...new Set(touched)], { clearProps: 'all' });
     document.documentElement.style.removeProperty('--walk');
-    for (const s of $$('.viz .st')) s.classList.remove('is-on');
+    for (const n of $$('.flow__n')) n.classList.remove('is-on');
   });
 })();

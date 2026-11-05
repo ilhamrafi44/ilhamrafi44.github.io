@@ -238,7 +238,7 @@
    browser chrome takes the rest. All nine facts still have to clear the
    fold there, so the sheet drops its own chrome before it drops content. */
 @media (max-height: 540px) {
-  .world--first { padding-top: 52px; }
+  .world--first { padding-top: 48px; }
   .sheet__bar { display: none; }            /* "CHARACTER SHEET / SAVE 01" is decoration */
   .sheet__in { padding: 8px; gap: 8px; }
   .sheet__pic { width: 68px; }
@@ -247,12 +247,12 @@
 .sheet__name { font-size: 17px; margin-bottom: .18em; }
   .sheet__role { margin-bottom: 4px; padding: 3px 5px; font-size: 8.5px; }
   .sheet__open { margin-bottom: 4px; font-size: 8.5px; }
-  .stat { padding: 2px 0; }
+  .stat { padding: 1px 0; }
   .stat dd { font-size: 11px; line-height: 1.25; }
   .stat dd i { font-size: 8.5px; }
-  .sheet__kit { padding: 0 8px 5px; }
+  .sheet__kit { padding: 0 8px 3px; }
   .sheet__kith { margin-bottom: 4px; }
   .kit { gap: 3px; }
   .kit li { padding: 3px 4px; font-size: 9px; }
-  .sheet__cta { padding: 0 8px 8px; gap: 5px; }
+  .sheet__cta { padding: 0 8px 7px; gap: 5px; }
 }

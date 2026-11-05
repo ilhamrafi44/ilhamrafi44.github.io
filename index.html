@@ -440,29 +440,7 @@
         <h3 class="chamber__h" data-i18n="w3.s1.h">Twenty-seven modules, eight databases, one deployable</h3>
         <p class="chamber__one" data-i18n="w3.s1.one">An ISP is three businesses in one trench coat: a network, a subscription, and a payment processor. The interesting part was keeping them in one system without letting any of them corrupt the others.</p>
         <div class="chamber__viz">
-          <svg class="viz viz--life" viewBox="0 0 860 186" role="img" aria-labelledby="life-t">
-  <title id="life-t">Subscriber lifecycle: pending, active, overdue, isolated, terminated</title>
-  <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-    <path d="M0 0 10 5 0 10z" fill="currentColor"/></marker></defs>
-  <g class="life__wires" fill="none" stroke="currentColor" stroke-width="2.5" marker-end="url(#ar)">
-    <path class="wire" d="M132 62h56"/><path class="wire" d="M300 62h56"/>
-    <path class="wire" d="M468 62h56"/><path class="wire" d="M636 62h56"/>
-    <path class="wire wire--back" d="M580 96c0 48-180 48-240 48-60 0-72-40-72-62" stroke-dasharray="7 6"/>
-  </g>
-  <g class="life__states">
-    <g class="st" data-st="1"><rect x="16" y="36" width="116" height="52"/><text x="74" y="67">PENDING</text></g>
-    <g class="st" data-st="2"><rect x="188" y="36" width="112" height="52"/><text x="244" y="67">ACTIVE</text></g>
-    <g class="st" data-st="3"><rect x="356" y="36" width="112" height="52"/><text x="412" y="67">OVERDUE</text></g>
-    <g class="st" data-st="4"><rect x="524" y="36" width="112" height="52"/><text x="580" y="67">ISOLATED</text></g>
-    <g class="st" data-st="5"><rect x="692" y="36" width="152" height="52"/><text x="768" y="67">TERMINATED</text></g>
-  </g>
-  <g class="life__labels">
-    <text x="160" y="28">provisioned</text><text x="328" y="28">past due</text>
-    <text x="496" y="28">grace over</text><text x="664" y="28">unpaid</text>
-    <text x="400" y="162" class="life__back">payment settled &#8594; reconnected in real time</text>
-  </g>
-  <circle class="life__tok" r="7" cx="74" cy="26"/>
-</svg>
+          <ul class="flow flow--life"><li class="flow__n" data-n="1"><span>PENDING</span></li><li class="flow__l" aria-hidden="true"><i>provisioned</i></li><li class="flow__n" data-n="2"><span>ACTIVE</span></li><li class="flow__l" aria-hidden="true"><i>past due</i></li><li class="flow__n" data-n="3"><span>OVERDUE</span></li><li class="flow__l" aria-hidden="true"><i>grace over</i></li><li class="flow__n" data-n="4"><span>ISOLATED</span></li><li class="flow__l" aria-hidden="true"><i>unpaid</i></li><li class="flow__n" data-n="5"><span>TERMINATED</span></li></ul><p class="flow__back"><span aria-hidden="true">&#8630;</span> payment settled &rarr; reconnected in real time, straight back to <b>ACTIVE</b></p>
         </div>
         <ul class="specs">
             <li>27 modules</li>
@@ -487,26 +465,7 @@
         <h3 class="chamber__h" data-i18n="w3.s2.h">Proving every rupiah actually moved</h3>
         <p class="chamber__one" data-i18n="w3.s2.one">Somebody has to prove that what the gateway thinks happened, what the bank says happened, and what the back office recorded are the same three things.</p>
         <div class="chamber__viz">
-          <svg class="viz viz--recon" viewBox="0 0 860 196" role="img" aria-labelledby="rec-t">
-  <title id="rec-t">Two-stage reconciliation: settlement against bank mutation, then against back office</title>
-  <g class="rec__wires" fill="none" stroke="currentColor" stroke-width="2.5" marker-end="url(#ar)">
-    <path class="wire" d="M214 50h62"/><path class="wire" d="M486 50h62"/>
-    <path class="wire" d="M620 78v22H297v24"/>
-    <path class="wire" d="M620 78v50"/>
-    <path class="wire" d="M620 78v22h49v24"/>
-  </g>
-  <g class="rec__nodes">
-    <g class="st" data-st="1"><rect x="16" y="24" width="198" height="52"/><text x="115" y="55">3RD-PARTY SETTLEMENT</text></g>
-    <g class="st" data-st="2"><rect x="276" y="24" width="210" height="52"/><text x="381" y="55">BANK MUTATION</text></g>
-    <g class="st" data-st="3"><rect x="548" y="24" width="144" height="52"/><text x="620" y="55">BACK OFFICE</text></g>
-  </g>
-  <g class="rec__out">
-    <g class="st st--out" data-st="4"><rect x="400" y="128" width="166" height="46"/><text x="483" y="156">DISPUTE AMOUNT</text></g>
-    <g class="st st--out" data-st="5"><rect x="586" y="128" width="166" height="46"/><text x="669" y="156">MISSING IN BANK</text></g>
-    <g class="st st--out" data-st="6"><rect x="214" y="128" width="166" height="46"/><text x="297" y="156">MISSING IN B.O.</text></g>
-  </g>
-  <circle class="rec__tok" r="7" cx="115" cy="14"/>
-</svg>
+          <ul class="flow flow--recon"><li class="flow__n" data-n="1"><span>3RD-PARTY SETTLEMENT</span></li><li class="flow__l" aria-hidden="true"><i>match against</i></li><li class="flow__n" data-n="2"><span>BANK MUTATION</span></li><li class="flow__l" aria-hidden="true"><i>then against</i></li><li class="flow__n" data-n="3"><span>BACK OFFICE</span></li></ul><p class="flow__split" aria-hidden="true">&#8595; whatever does not line up falls into one of three shapes</p><ul class="flow flow--out"><li class="flow__n flow__n--out" data-n="4"><span>DISPUTE AMOUNT</span></li><li class="flow__n flow__n--out" data-n="5"><span>MISSING IN BANK</span></li><li class="flow__n flow__n--out" data-n="6"><span>MISSING IN B.O.</span></li></ul>
         </div>
           <div class="shelf">
             <figure><img src="assets/shots/cashup-run.jpg" width="1440" height="600" loading="lazy" alt=""></figure>
@@ -530,19 +489,7 @@
         <h3 class="chamber__h" data-i18n="w3.s3.h">Built for a queue, not for a demo</h3>
         <p class="chamber__one" data-i18n="w3.s3.one">A park gate is not a web form. The queue does not wait, and a forged ticket has to be refused while the person holding it is standing there.</p>
         <div class="chamber__viz">
-          <svg class="viz viz--gate" viewBox="0 0 860 150" role="img" aria-labelledby="gate-t">
-  <title id="gate-t">Gate flow: scan, verify, print or reject</title>
-  <g class="gate__wires" fill="none" stroke="currentColor" stroke-width="2.5" marker-end="url(#ar)">
-    <path class="wire" d="M186 54h58"/><path class="wire" d="M420 54h58"/><path class="wire" d="M420 54h30v48h28"/>
-  </g>
-  <g class="gate__nodes">
-    <g class="st" data-st="1"><rect x="16" y="28" width="170" height="52"/><text x="101" y="59">SCAN QR / BARCODE</text></g>
-    <g class="st" data-st="2"><rect x="244" y="28" width="176" height="52"/><text x="332" y="59">VERIFY</text></g>
-    <g class="st" data-st="3"><rect x="478" y="28" width="190" height="52"/><text x="573" y="59">THERMAL PRINT</text></g>
-    <g class="st st--bad" data-st="4"><rect x="478" y="80" width="190" height="46"/><text x="573" y="108">FORGED &#8594; REFUSED</text></g>
-  </g>
-  <circle class="gate__tok" r="7" cx="101" cy="18"/>
-</svg>
+          <ul class="flow flow--gate"><li class="flow__n" data-n="1"><span>SCAN QR / BARCODE</span></li><li class="flow__l" aria-hidden="true"></li><li class="flow__n" data-n="2"><span>VERIFY</span></li><li class="flow__l" aria-hidden="true"></li><li class="flow__n" data-n="3"><span>THERMAL PRINT</span></li></ul><ul class="flow flow--out"><li class="flow__n flow__n--bad" data-n="4"><span>FORGED &rarr; REFUSED AT THE GATE</span></li></ul>
         </div>
           <div class="shelf">
             <figure><img src="assets/shots/tamansafari.jpg" width="1440" height="600" loading="lazy" alt=""></figure>
